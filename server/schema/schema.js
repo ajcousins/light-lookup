@@ -143,6 +143,16 @@ const RootQuery = new GraphQLObjectType({
         return _.filter(products, (o) => o.physical.mounting === args.mounting);
       },
     },
+    colourTemp: {
+      type: new GraphQLList(ProductType),
+      args: { colourTemp: { type: GraphQLInt } },
+      resolve(parent, args) {
+        let productsCopy = [...products];
+        return productsCopy.filter((product) =>
+          product.lamp.colourTemp.some((val) => val === args.colourTemp)
+        );
+      },
+    },
   },
 });
 

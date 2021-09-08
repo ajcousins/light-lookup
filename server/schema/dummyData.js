@@ -107,6 +107,41 @@ const products = [
       wattage: [12.5],
     },
   },
+  {
+    id: "4",
+    manufacturerId: "1",
+    name: "Easy ceiling general lighting",
+    type: "Downlight",
+    url: "https://www.iguzzini.com/easy-ceiling-general-lighting/",
+    physical: {
+      mounting: "Surface",
+      ip: ["40"],
+      bodyColor: ["White", "Black"],
+    },
+    dimensions: {
+      totalLength: 114,
+      totalWidth: 114,
+      totalHeight: 155,
+      diameter: 114,
+      recessDepth: 0,
+    },
+    optical: {
+      diffuse: false,
+      asymmetrical: false,
+      beamAngle: [66],
+      beamAngleAsym: [], // supplied as strings ["32x10", "32x5"]
+      adjustable: [false],
+    },
+    lamp: {
+      manufacturerId: "2",
+      type: ["LED"],
+      colourTemp: [4000],
+      cri: [80, 90],
+    },
+    electrical: {
+      wattage: [12.9, 13.2],
+    },
+  },
 ];
 
 const manufacturers = [
