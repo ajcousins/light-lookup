@@ -31,7 +31,6 @@ const products = [
     length: 62,
     width: 40,
     height: 62,
-    diameter: null,
     recessDepth: 36,
   },
   {

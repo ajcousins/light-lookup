@@ -1,6 +1,8 @@
 const graphql = require("graphql");
 const _ = require("lodash");
 const { products, manufacturers } = require("./dummyData");
+const Product = require("../models/product");
+const Manufacturer = require("../models/manufacturer");
 
 // grab type classes from graphql package
 const {
@@ -25,7 +27,8 @@ const ProductType = new GraphQLObjectType({
     manufacturer: {
       type: ManufacturerType,
       resolve(parent, args) {
-        return _.find(manufacturers, { id: parent.manufacturerId });
+        // return _.find(manufacturers, { id: parent.manufacturerId });
+        return Manufacturer.findById(parent.manufacturerId);
       },
     },
     name: { type: GraphQLString },
@@ -55,7 +58,8 @@ const ManufacturerType = new GraphQLObjectType({
     products: {
       type: new GraphQLList(ProductType),
       resolve(parent, args) {
-        return _.filter(products, { manufacturerId: parent.id });
+        // return _.filter(products, { manufacturerId: parent.id });
+        return Product.find({ manufacturerId: parent.id });
       },
     },
   }),
@@ -68,43 +72,30 @@ const RootQuery = new GraphQLObjectType({
       type: ProductType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return _.find(products, { id: args.id });
+        // return _.find(products, { id: args.id });
+        return Product.findById(args.id);
       },
     },
     manufacturer: {
       type: ManufacturerType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return _.find(manufacturers, { id: args.id });
+        // return _.find(manufacturers, { id: args.id });
+        return Manufacturer.findById(args.id);
       },
     },
     products: {
       type: new GraphQLList(ProductType),
       resolve(parent, args) {
-        return products;
+        // return products;
+        return Product.find({});
       },
     },
     manufacturers: {
       type: new GraphQLList(ManufacturerType),
       resolve(parent, args) {
-        return manufacturers;
-      },
-    },
-    mounting: {
-      type: new GraphQLList(ProductType),
-      args: { mounting: { type: GraphQLString } },
-      resolve(parent, args) {
-        return _.filter(products, (o) => o.physical.mounting === args.mounting);
-      },
-    },
-    colourTemp: {
-      type: new GraphQLList(ProductType),
-      args: { colourTemp: { type: GraphQLInt } },
-      resolve(parent, args) {
-        let productsCopy = [...products];
-        return productsCopy.filter((product) =>
-          product.colourTemp.some((val) => val === args.colourTemp)
-        );
+        // return manufacturers;
+        return Manufacturer.find({});
       },
     },
     multiple: {
@@ -168,7 +159,7 @@ const RootQuery = new GraphQLObjectType({
             return true;
           })
           .filter((product) => {
-            console.log("sizeChecks:", sizeChecks);
+            // filter products by size
             // both length and width must be included together
             if (
               (sizeChecks.includes("maxLength") &&
@@ -207,7 +198,67 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
+const Mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    addManufacturer: {
+      type: ManufacturerType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        country: { type: GraphQLString },
+        website: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        let manufacturer = new Manufacturer({
+          name: args.name,
+          country: args.country,
+          website: args.website,
+        });
+        return manufacturer.save();
+      },
+    },
+    addProduct: {
+      type: ProductType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        manufacturerId: { type: new GraphQLNonNull(GraphQLID) },
+        type: { type: new GraphQLList(GraphQLString) },
+        mounting: { type: new GraphQLList(GraphQLString) },
+        ip: { type: new GraphQLList(GraphQLString) },
+        bodyColour: { type: new GraphQLList(GraphQLString) },
+        length: { type: GraphQLInt },
+        width: { type: GraphQLInt },
+        height: { type: GraphQLInt },
+        diameter: { type: GraphQLInt },
+        recessDepth: { type: GraphQLInt },
+        beamAngles: { type: new GraphQLList(GraphQLInt) },
+        colourTemp: { type: new GraphQLList(GraphQLInt) },
+        cri: { type: new GraphQLList(GraphQLInt) },
+      },
+      resolve(parent, args) {
+        let product = new Product({
+          name: args.name,
+          manufacturerId: args.manufacturerId,
+          type: args.type,
+          mounting: args.mounting,
+          ip: args.ip,
+          bodyColour: args.bodyColour,
+          length: args.length,
+          width: args.width,
+          height: args.height,
+          diamater: args.diameter,
+          recessDepth: args.recessDepth,
+          beamAngles: args.beamAngles,
+          colourTemp: args.colourTemp,
+          cri: args.cri,
+        });
+        return product.save();
+      },
+    },
+  },
+});
+
 module.exports = new GraphQLSchema({
   query: RootQuery,
-  //   mutation: Mutation,
+  mutation: Mutation,
 });
