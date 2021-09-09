@@ -22,71 +22,25 @@ const ProductType = new GraphQLObjectType({
   name: "Product",
   fields: () => ({
     id: { type: GraphQLID },
-    name: { type: GraphQLString },
     manufacturer: {
       type: ManufacturerType,
       resolve(parent, args) {
         return _.find(manufacturers, { id: parent.manufacturerId });
       },
     },
-    physical: {
-      type: new GraphQLObjectType({
-        name: "physical",
-        fields: {
-          mounting: { type: GraphQLString },
-          ip: { type: new GraphQLList(GraphQLString) },
-          bodyColor: { type: new GraphQLList(GraphQLInt) },
-        },
-      }),
-    },
-    dimensions: {
-      type: new GraphQLObjectType({
-        name: "dimensions",
-        fields: {
-          totalLength: { type: GraphQLInt },
-          totalWidth: { type: GraphQLInt },
-          totalHeight: { type: GraphQLInt },
-          diamater: { type: GraphQLInt },
-          recessDepth: { type: GraphQLInt },
-        },
-      }),
-    },
-    optical: {
-      type: new GraphQLObjectType({
-        name: "optical",
-        fields: {
-          diffuse: { type: GraphQLBoolean },
-          asymmetrical: { type: GraphQLBoolean },
-          beamAngle: { type: new GraphQLList(GraphQLInt) },
-          beamAngleAsym: { type: new GraphQLList(GraphQLString) },
-          adjustable: { type: new GraphQLList(GraphQLBoolean) },
-        },
-      }),
-    },
-    lamp: {
-      type: new GraphQLObjectType({
-        name: "lamp",
-        fields: {
-          manufacturer: {
-            type: ManufacturerType,
-            resolve(parent, args) {
-              return _.find(manufacturers, { id: parent.manufacturerId });
-            },
-          },
-          type: { type: new GraphQLList(GraphQLString) },
-          colourTemp: { type: new GraphQLList(GraphQLInt) },
-          cri: { type: new GraphQLList(GraphQLInt) },
-        },
-      }),
-    },
-    electrical: {
-      type: new GraphQLObjectType({
-        name: "electrical",
-        fields: {
-          wattage: { type: new GraphQLList(GraphQLFloat) },
-        },
-      }),
-    },
+    name: { type: GraphQLString },
+    type: { type: GraphQLString },
+    mounting: { type: GraphQLString },
+    ip: { type: new GraphQLList(GraphQLString) },
+    bodyColour: { type: new GraphQLList(GraphQLString) },
+    length: { type: GraphQLInt },
+    width: { type: GraphQLInt },
+    height: { type: GraphQLInt },
+    diamater: { type: GraphQLInt },
+    recessDepth: { type: GraphQLInt },
+    beamAngle: { type: new GraphQLList(GraphQLInt) },
+    colourTemp: { type: new GraphQLList(GraphQLInt) },
+    cri: { type: new GraphQLList(GraphQLInt) },
   }),
 });
 
@@ -149,7 +103,29 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         let productsCopy = [...products];
         return productsCopy.filter((product) =>
-          product.lamp.colourTemp.some((val) => val === args.colourTemp)
+          product.colourTemp.some((val) => val === args.colourTemp)
+        );
+      },
+    },
+    multiple: {
+      type: new GraphQLList(ProductType),
+      args: {
+        colourTemp: { type: GraphQLInt },
+        cri: { type: GraphQLInt },
+        bodyColour: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        // console.log("args:", args);
+        const keys = Object.keys(args);
+        // console.log("keys:", keys);
+        let productsCopy = [...products];
+        return productsCopy.filter(
+          (product) =>
+            keys.every(
+              (key) => product[key].includes(args[key])
+              // return true;
+            )
+          // console.log(`Product ${product.name} passes.`);
         );
       },
     },
