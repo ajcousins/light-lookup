@@ -29,8 +29,8 @@ const ProductType = new GraphQLObjectType({
       },
     },
     name: { type: GraphQLString },
-    type: { type: GraphQLString },
-    mounting: { type: GraphQLString },
+    type: { type: new GraphQLList(GraphQLString) },
+    mounting: { type: new GraphQLList(GraphQLString) },
     ip: { type: new GraphQLList(GraphQLString) },
     bodyColour: { type: new GraphQLList(GraphQLString) },
     length: { type: GraphQLInt },
@@ -38,7 +38,7 @@ const ProductType = new GraphQLObjectType({
     height: { type: GraphQLInt },
     diamater: { type: GraphQLInt },
     recessDepth: { type: GraphQLInt },
-    beamAngle: { type: new GraphQLList(GraphQLInt) },
+    beamAngles: { type: new GraphQLList(GraphQLInt) },
     colourTemp: { type: new GraphQLList(GraphQLInt) },
     cri: { type: new GraphQLList(GraphQLInt) },
   }),
@@ -110,23 +110,98 @@ const RootQuery = new GraphQLObjectType({
     multiple: {
       type: new GraphQLList(ProductType),
       args: {
+        type: { type: GraphQLString },
+        mounting: { type: GraphQLString },
+        ip: { type: GraphQLString },
+        bodyColour: { type: GraphQLString },
         colourTemp: { type: GraphQLInt },
         cri: { type: GraphQLInt },
-        bodyColour: { type: GraphQLString },
+        maxBeamAngle: { type: GraphQLInt },
+        minBeamAngle: { type: GraphQLInt },
+        maxLength: { type: GraphQLInt },
+        maxWidth: { type: GraphQLInt },
+        maxHeight: { type: GraphQLInt },
       },
       resolve(parent, args) {
-        // console.log("args:", args);
-        const keys = Object.keys(args);
-        // console.log("keys:", keys);
+        const keys = [...Object.keys(args)];
+        const beamChecks = [];
+        const sizeChecks = [];
+        const staticChecks = keys.filter((key) => {
+          if (key === "maxBeamAngle" || key === "minBeamAngle") {
+            beamChecks.push(key);
+            return false;
+          } else if (
+            key === "maxLength" ||
+            key === "maxWidth" ||
+            key === "maxHeight"
+          ) {
+            sizeChecks.push(key);
+            return false;
+          } else {
+            return true;
+          }
+        });
         let productsCopy = [...products];
-        return productsCopy.filter(
-          (product) =>
-            keys.every(
-              (key) => product[key].includes(args[key])
-              // return true;
+
+        return productsCopy
+          .filter((product) =>
+            // filter products that meet static checks
+            staticChecks.every((key) => product[key].includes(args[key]))
+          )
+          .filter((product) => {
+            // filter products that meet beam conditions
+            if (
+              beamChecks.includes("maxBeamAngle") &&
+              beamChecks.includes("minBeamAngle")
             )
-          // console.log(`Product ${product.name} passes.`);
-        );
+              return product.beamAngles.some(
+                (beam) => beam <= args.maxBeamAngle && beam >= args.minBeamAngle
+              );
+            else if (beamChecks.includes("maxBeamAngle"))
+              return product.beamAngles.some(
+                (beam) => beam <= args.maxBeamAngle
+              );
+            else if (beamChecks.includes("minBeamAngle"))
+              return product.beamAngles.some(
+                (beam) => beam >= args.minBeamAngle
+              );
+            return true;
+          })
+          .filter((product) => {
+            console.log("sizeChecks:", sizeChecks);
+            // both length and width must be included together
+            if (
+              (sizeChecks.includes("maxLength") &&
+                !sizeChecks.includes("maxWidth")) ||
+              (sizeChecks.includes("maxWidth") &&
+                !sizeChecks.includes("maxLength"))
+            ) {
+              return false;
+            }
+
+            if (
+              sizeChecks.includes("maxLength") &&
+              sizeChecks.includes("maxWidth")
+            ) {
+              if (
+                product.length > args.maxLength ||
+                product.width > args.maxWidth
+              ) {
+                // rotate values
+                if (
+                  product.width > args.maxLength ||
+                  product.length > args.maxWidth
+                )
+                  return false;
+              }
+            }
+
+            if (sizeChecks.includes("maxHeight")) {
+              if (product.height > args.maxHeight) return false;
+            }
+
+            return true;
+          });
       },
     },
   },
