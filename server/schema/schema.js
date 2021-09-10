@@ -17,8 +17,6 @@ const {
   GraphQLBoolean,
 } = graphql;
 
-console.log({ products });
-
 // Define product type
 const ProductType = new GraphQLObjectType({
   name: "Product",
@@ -113,8 +111,6 @@ const RootQuery = new GraphQLObjectType({
         maxHeight: { type: GraphQLInt },
       },
       resolve(parent, args) {
-        console.log("args:", args);
-
         let queryObj = { ...args };
         const keys = [...Object.keys(queryObj)];
 
@@ -148,8 +144,6 @@ const RootQuery = new GraphQLObjectType({
           queryObj.height = { $lte: args.maxHeight };
           delete queryObj["maxHeight"];
         }
-
-        console.log("parsed queryObj:", queryObj);
 
         return Product.find(queryObj);
       },
