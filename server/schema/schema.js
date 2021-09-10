@@ -108,91 +108,50 @@ const RootQuery = new GraphQLObjectType({
         colourTemp: { type: GraphQLInt },
         cri: { type: GraphQLInt },
         maxBeamAngle: { type: GraphQLInt },
-        minBeamAngle: { type: GraphQLInt },
         maxLength: { type: GraphQLInt },
         maxWidth: { type: GraphQLInt },
         maxHeight: { type: GraphQLInt },
       },
       resolve(parent, args) {
-        const keys = [...Object.keys(args)];
-        const beamChecks = [];
-        const sizeChecks = [];
-        const staticChecks = keys.filter((key) => {
-          if (key === "maxBeamAngle" || key === "minBeamAngle") {
-            beamChecks.push(key);
-            return false;
-          } else if (
-            key === "maxLength" ||
-            key === "maxWidth" ||
-            key === "maxHeight"
-          ) {
-            sizeChecks.push(key);
-            return false;
-          } else {
-            return true;
+        console.log("args:", args);
+
+        let queryObj = { ...args };
+        const keys = [...Object.keys(queryObj)];
+
+        // Check if queryObj has beam size checks. If so, remove from object and add to beamChecks array.
+        keys.forEach((key) => {
+          if (key === "maxBeamAngle") {
+            queryObj.beamAngles = { $lte: args.maxBeamAngle };
+            delete queryObj[key];
           }
         });
-        let productsCopy = [...products];
 
-        return productsCopy
-          .filter((product) =>
-            // filter products that meet static checks
-            staticChecks.every((key) => product[key].includes(args[key]))
-          )
-          .filter((product) => {
-            // filter products that meet beam conditions
-            if (
-              beamChecks.includes("maxBeamAngle") &&
-              beamChecks.includes("minBeamAngle")
-            )
-              return product.beamAngles.some(
-                (beam) => beam <= args.maxBeamAngle && beam >= args.minBeamAngle
-              );
-            else if (beamChecks.includes("maxBeamAngle"))
-              return product.beamAngles.some(
-                (beam) => beam <= args.maxBeamAngle
-              );
-            else if (beamChecks.includes("minBeamAngle"))
-              return product.beamAngles.some(
-                (beam) => beam >= args.minBeamAngle
-              );
-            return true;
-          })
-          .filter((product) => {
-            // filter products by size
-            // both length and width must be included together
-            if (
-              (sizeChecks.includes("maxLength") &&
-                !sizeChecks.includes("maxWidth")) ||
-              (sizeChecks.includes("maxWidth") &&
-                !sizeChecks.includes("maxLength"))
-            ) {
-              return false;
-            }
+        // Check if the queryObj has length AND width. If so, length should be the longer of the two.
+        if (keys.includes("maxLength") && keys.includes("maxWidth")) {
+          let a;
+          let b;
+          if (args.maxWidth > args.maxLength) {
+            a = args.maxWidth;
+            b = args.maxLength;
+          } else {
+            a = args.maxLength;
+            b = args.maxWidth;
+          }
+          queryObj.length = { $lte: a };
+          queryObj.width = { $lte: b };
+          delete queryObj["maxLength"];
+          delete queryObj["maxWidth"];
+        }
 
-            if (
-              sizeChecks.includes("maxLength") &&
-              sizeChecks.includes("maxWidth")
-            ) {
-              if (
-                product.length > args.maxLength ||
-                product.width > args.maxWidth
-              ) {
-                // rotate values
-                if (
-                  product.width > args.maxLength ||
-                  product.length > args.maxWidth
-                )
-                  return false;
-              }
-            }
+        // Max height check
+        if (keys.includes("maxHeight")) {
+          queryObj.height = { $lte: args.maxHeight };
+          delete queryObj["maxHeight"];
+        }
 
-            if (sizeChecks.includes("maxHeight")) {
-              if (product.height > args.maxHeight) return false;
-            }
+        console.log("parsed queryObj:", queryObj);
 
-            return true;
-          });
+        return Product.find(queryObj);
       },
     },
   },
