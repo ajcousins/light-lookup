@@ -111,8 +111,26 @@ const RootQuery = new GraphQLObjectType({
         maxHeight: { type: GraphQLInt },
       },
       resolve(parent, args) {
+        console.log(args);
         let queryObj = { ...args };
-        const keys = [...Object.keys(queryObj)];
+        let keys = [...Object.keys(queryObj)];
+
+        // Remove null values
+        keys.forEach((key) => {
+          if (
+            !queryObj[key]
+            // queryObj[key] === null ||
+            // queryObj[key] === 0 ||
+            // queryObj[key] === ""
+          ) {
+            delete queryObj[key];
+          }
+        });
+
+        // Reassign keys after deleting null values
+        keys = [...Object.keys(queryObj)];
+
+        console.log("nulls removed:", queryObj);
 
         // Check if queryObj has beam size checks. If so, remove from object and add to beamChecks array.
         keys.forEach((key) => {
@@ -145,6 +163,7 @@ const RootQuery = new GraphQLObjectType({
           delete queryObj["maxHeight"];
         }
 
+        console.log("queryObj:", queryObj);
         return Product.find(queryObj);
       },
     },
