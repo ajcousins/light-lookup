@@ -38,6 +38,9 @@ export const SEARCH_PRODUCTS = gql`
     ) {
       name
       type
+      manufacturer {
+        name
+      }
     }
   }
 `;

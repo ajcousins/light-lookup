@@ -17,13 +17,33 @@ export default function Query() {
     maxBeamAngle: "",
   });
 
+  const [queryVariables, setQueryVariables] = useState<any>(null);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFormInput({ ...formInput, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+
+    // Update variables object
+    setQueryVariables({
+      variables: {
+        type: formInput.type,
+        mounting: formInput.mounting,
+        ipRating: formInput.ipRating,
+        bodyColour: formInput.bodyColour,
+        maxLength: Number(formInput.maxLength),
+        maxWidth: Number(formInput.maxWidth),
+        maxHeight: Number(formInput.maxHeight),
+        colourTemp: Number(formInput.colourTemp),
+        cri: Number(formInput.cri),
+        maxBeamAngle: Number(formInput.maxBeamAngle),
+      },
+    });
+
     console.log("searchProducts: ", data);
+
     // Reset form
     // setFormInput({
     //   type: "",
@@ -39,20 +59,7 @@ export default function Query() {
     // });
   };
 
-  const { loading, error, data } = useQuery(SEARCH_PRODUCTS, {
-    variables: {
-      type: formInput.type,
-      mounting: formInput.mounting,
-      ipRating: formInput.ipRating,
-      bodyColour: formInput.bodyColour,
-      maxLength: Number(formInput.maxLength),
-      maxWidth: Number(formInput.maxWidth),
-      maxHeight: Number(formInput.maxHeight),
-      colourTemp: Number(formInput.colourTemp),
-      cri: Number(formInput.cri),
-      maxBeamAngle: Number(formInput.maxBeamAngle),
-    },
-  });
+  const { loading, error, data } = useQuery(SEARCH_PRODUCTS, queryVariables);
 
   return (
     <div>
@@ -125,9 +132,19 @@ export default function Query() {
 
         <button className='product-query__search-btn'>Search</button>
       </form>
-      {/* <button className='product-query__search-btn' onClick={test}>
-        Test
-      </button> */}
+
+      {loading ? "Loading..." : null}
+      {data &&
+        data.multiple.map(
+          (product: { name: string; manufacturer: { name: string } }) => {
+            return (
+              <div>
+                <h2>{product.name}</h2>
+                <p>{product.manufacturer.name}</p>
+              </div>
+            );
+          }
+        )}
     </div>
   );
 }
