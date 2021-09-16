@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
-import { PRODUCTS, SEARCH_PRODUCTS } from "../queries/queries";
+import { SEARCH_PRODUCTS } from "../queries/queries";
 import Dashboard from "./Dashboard";
 
 export default function Query() {
@@ -60,7 +60,7 @@ export default function Query() {
     // });
   };
 
-  const { loading, error, data } = useQuery(SEARCH_PRODUCTS, queryVariables);
+  const { loading, data } = useQuery(SEARCH_PRODUCTS, queryVariables);
 
   return (
     <div className='query-body'>
