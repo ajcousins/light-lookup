@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { PRODUCTS, SEARCH_PRODUCTS } from "../queries/queries";
+import Dashboard from "./Dashboard";
 
 export default function Query() {
   //   const { loading, error, data } = useQuery(PRODUCTS);
@@ -62,7 +63,8 @@ export default function Query() {
   const { loading, error, data } = useQuery(SEARCH_PRODUCTS, queryVariables);
 
   return (
-    <div>
+    <div className='query-body'>
+      <Dashboard />
       <form className='product-query' onSubmit={handleSubmit}>
         <label htmlFor='type'>Luminaire Type</label>
         <input
