@@ -62,7 +62,7 @@ export default function LightQuality() {
       </div>
       <div className='panel__tile'>
         <div className='panel__cri-box'>
-          <img src={criImg(cri)} />
+          <img src={criImg(cri)} alt='CRI' />
         </div>
         <Box sx={{ width: 250 }}>
           <p className='label'>Minimum Colour Rendering Index</p>

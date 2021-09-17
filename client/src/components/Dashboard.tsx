@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Panel from "./Panel";
 import { mountingTypes } from "../panel-details/mounting";
 import Button from "@mui/material/Button";

@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import Header from "./components/Header";
 import Query from "./components/Query";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { grey, indigo, orange, yellow } from "@mui/material/colors";
+import { grey, indigo } from "@mui/material/colors";
 
 // apollo client connection
 const client = new ApolloClient({
