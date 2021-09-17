@@ -2,24 +2,16 @@ import React, { useState, useEffect } from "react";
 import Panel from "./Panel";
 import { mountingTypes } from "../panel-details/mounting";
 import Button from "@mui/material/Button";
-// import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
-import {
-  temperatures,
-  // valuetext,
-  // valueLabelFormat,
-} from "../panel-details/colour-temp";
 
 import { bodyColours } from "../panel-details/bodyColour";
+import LightQuality from "./LightQuality";
 
 export default function Dashboard() {
   const [bodyColour, setBodyColour] = useState("");
   const [ipRating, setIpRating] = useState("");
-  const [colourTemp, setColourTemp] = useState(3000);
 
   const handleBodyColourChange = (e: SelectChangeEvent) => {
     setBodyColour(e.target.value as string);
@@ -29,15 +21,10 @@ export default function Dashboard() {
     setIpRating(e.target.value as string);
   };
 
-  const handleColourTempChange = (e: Event, newValue: number | number[]) => {
-    if (typeof newValue === "number") {
-      setColourTemp(newValue);
-    }
-  };
-
-  useEffect(() => {
-    console.log("colourTemp:", colourTemp);
-  }, [colourTemp]);
+  // useEffect(() => {
+  //   console.log("colourTemp:", colourTemp);
+  //   console.log("diffuse:", diffuse);
+  // }, [colourTemp, diffuse]);
 
   return (
     <div className='dashboard'>
@@ -92,24 +79,7 @@ export default function Dashboard() {
         </div>
       </Panel>
       <Panel title='Light Quality' className='full-height'>
-        <div className='panel__tile'>
-          <div className='panel__colour-temp-box' />
-          <Box sx={{ width: 250 }}>
-            <Slider
-              // aria-label='Small Steps'
-              defaultValue={3000}
-              valueLabelFormat={valueLabelFormat}
-              // getAriaValueText={valuetext}
-              step={null}
-              valueLabelDisplay='auto'
-              marks={temperatures}
-              min={1800}
-              max={6500}
-              value={colourTemp}
-              onChange={handleColourTempChange}
-            />
-          </Box>
-        </div>
+        <LightQuality />
       </Panel>
       <Panel title='Dimensions' className='full-height' />
       <Button variant='contained'>Search</Button>
@@ -117,6 +87,6 @@ export default function Dashboard() {
   );
 }
 
-const valueLabelFormat = (value: number) => {
-  return `${value} K`;
-};
+// const valueLabelFormat = (value: number) => {
+//   return `${value} K`;
+// };

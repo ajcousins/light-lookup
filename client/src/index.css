@@ -47,7 +47,6 @@ code {
 .query-body {
   width: 82em;
   margin: auto;
-  background-color: white;
 }
 
 .dashboard {
@@ -60,12 +59,12 @@ code {
   gap: 0.5em;
   width: 82em;
   margin: auto;
-  background-color: white;
   margin-bottom: 3em;
 }
 
 .panel {
   border: 1px solid #9d9d9d;
+  background-color: rgba(24, 24, 24, 0.035);
   padding: 0.5em;
 }
 
@@ -134,6 +133,20 @@ code {
   width: 100%;
 }
 
+.panel__light-quality-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: calc(100% - 1.5em);
+}
+
 .panel__ip-rating-box {
   height: 3.2em;
   width: 3.2em;
@@ -148,6 +161,12 @@ code {
   margin-right: 1em;
 }
 
+.panel__cri-box {
+  height: 3.2em;
+  width: 3.2em;
+  margin-right: 1em;
+}
+
 .panel__tile {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -155,11 +174,12 @@ code {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  cursor: pointer;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
 .panel__tile img {
-  border: 1px solid #9d9d9d;
   -o-object-fit: scale-down;
      object-fit: scale-down;
   height: 3.2em;
