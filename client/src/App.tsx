@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Query from "./components/Query";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { grey, indigo } from "@mui/material/colors";
+// import { Canvas } from "@react-three/fiber";
 
 // apollo client connection
 const client = new ApolloClient({
@@ -24,14 +25,16 @@ const theme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <ApolloProvider client={client}>
-        <div>
-          <Header />
-          <Query />
-        </div>
-      </ApolloProvider>
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={theme}>
+        <ApolloProvider client={client}>
+          <div>
+            <Header />
+            <Query />
+          </div>
+        </ApolloProvider>
+      </ThemeProvider>
+    </>
   );
 }
 

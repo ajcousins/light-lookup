@@ -8,6 +8,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 import { bodyColours } from "../panel-details/bodyColour";
 import LightQuality from "./LightQuality";
+import Dimensions from "./Dimensions";
 
 export default function Dashboard() {
   const [bodyColour, setBodyColour] = useState("");
@@ -81,7 +82,9 @@ export default function Dashboard() {
       <Panel title='Light Quality' className='full-height'>
         <LightQuality />
       </Panel>
-      <Panel title='Dimensions' className='full-height' />
+      <Panel title='Dimensions' className='full-height'>
+        <Dimensions />
+      </Panel>
       <Button variant='contained'>Search</Button>
     </div>
   );

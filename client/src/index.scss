@@ -140,6 +140,18 @@ code {
     margin-right: 1em;
     // margin-bottom: 0.5em;
   }
+  &__dimensions-box {
+    height: 6.4em;
+    width: 6.4em;
+    border: 1px solid $thin-border-grey;
+    margin-right: 1em;
+    // margin-bottom: 0.5em;
+  }
+  &__dimension-tile {
+    display: grid;
+    grid-template-columns: auto 45px;
+    gap: 0.5em;
+  }
   &__tile {
     display: flex;
     align-items: center;

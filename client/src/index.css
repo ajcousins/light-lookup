@@ -167,6 +167,13 @@ code {
   margin-right: 1em;
 }
 
+.panel__dimensions-box {
+  height: 6.4em;
+  width: 6.4em;
+  border: 1px solid #9d9d9d;
+  margin-right: 1em;
+}
+
 .panel__tile {
   display: -webkit-box;
   display: -ms-flexbox;
