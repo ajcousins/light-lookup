@@ -125,6 +125,23 @@ code {
     width: 3.2em;
     border: 1px solid $thin-border-grey;
     margin-bottom: 0.5em;
+
+    & img {
+      position: absolute;
+      height: inherit;
+    }
+  }
+  &__ip-rating-text {
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    // background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    font-size: 0.8rem;
+    font-weight: 700;
   }
   &__colour-temp-box {
     height: 3.2em;
