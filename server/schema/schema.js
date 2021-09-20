@@ -105,7 +105,7 @@ const RootQuery = new GraphQLObjectType({
         bodyColour: { type: GraphQLString },
         colourTemp: { type: GraphQLInt },
         cri: { type: GraphQLInt },
-        maxBeamAngle: { type: GraphQLInt },
+        beamAngle: { type: GraphQLInt },
         maxLength: { type: GraphQLInt },
         maxWidth: { type: GraphQLInt },
         maxHeight: { type: GraphQLInt },
@@ -134,9 +134,22 @@ const RootQuery = new GraphQLObjectType({
 
         // Check if queryObj has beam size checks. If so, remove from object and add to beamChecks array.
         keys.forEach((key) => {
-          if (key === "maxBeamAngle") {
-            queryObj.beamAngles = { $lte: args.maxBeamAngle };
+          if (key === "beamAngle") {
+            queryObj.beamAngles = {
+              $gte: args.beamAngle * 0.9,
+              $lte: args.beamAngle * 1.1,
+            };
             delete queryObj[key];
+          }
+        });
+
+        keys.forEach((key) => {
+          if (key === "cri") {
+            console.log("cri test", "key:", key, "args.cri:", args.cri);
+            delete queryObj[key];
+            queryObj.cri = {
+              $gte: args.cri,
+            };
           }
         });
 

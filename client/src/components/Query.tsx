@@ -15,7 +15,7 @@ export default function Query() {
     maxHeight: "",
     colourTemp: "",
     cri: "",
-    maxBeamAngle: "",
+    beamAngle: "",
   });
 
   const [queryVariables, setQueryVariables] = useState<any>(null);
@@ -39,7 +39,7 @@ export default function Query() {
         maxHeight: Number(formInput.maxHeight),
         colourTemp: Number(formInput.colourTemp),
         cri: Number(formInput.cri),
-        maxBeamAngle: Number(formInput.maxBeamAngle),
+        beamAngle: Number(formInput.beamAngle),
       },
     });
 
@@ -125,11 +125,11 @@ export default function Query() {
         <label htmlFor='cri'>Colour Rendering Index</label>
         <input name='cri' onChange={handleChange} value={formInput.cri}></input>
 
-        <label htmlFor='maxBeamAngle'>Max Beam Angle</label>
+        <label htmlFor='beamAngle'>Beam Angle</label>
         <input
-          name='maxBeamAngle'
+          name='beamAngle'
           onChange={handleChange}
-          value={formInput.maxBeamAngle}
+          value={formInput.beamAngle}
         ></input>
 
         <button className='product-query__search-btn'>Search</button>

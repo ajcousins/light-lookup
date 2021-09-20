@@ -22,7 +22,7 @@ export const SEARCH_PRODUCTS = gql`
     $maxHeight: Int
     $colourTemp: Int
     $cri: Int
-    $maxBeamAngle: Int
+    $beamAngle: Int
   ) {
     multiple(
       type: $type
@@ -34,7 +34,7 @@ export const SEARCH_PRODUCTS = gql`
       maxHeight: $maxHeight
       colourTemp: $colourTemp
       cri: $cri
-      maxBeamAngle: $maxBeamAngle
+      beamAngle: $beamAngle
     ) {
       name
       type
