@@ -3,10 +3,8 @@ $thin-border-grey: #9d9d9d;
 
 body {
   background-color: $background-grey;
-  font-family: 
-  // -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  font-family: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -26,7 +24,6 @@ code {
 }
 
 .header {
-  // background-color: red;
   height: 4em;
   & h1 {
     font-weight: 300;
@@ -38,7 +35,6 @@ code {
     width: 82em;
     height: 100%;
     margin: auto;
-    // background-color: cyan;
     &__end {
       margin-left: auto;
     }
@@ -59,7 +55,6 @@ code {
   gap: 0.5em;
   width: 82em;
   margin: auto;
-  // background-color: white;
   margin-bottom: 3em;
 }
 
@@ -84,12 +79,9 @@ code {
     grid-row-end: 3;
   }
   &__mounting-inner {
-    // background-color: red;
     height: 15em;
     width: 25em;
     margin: 0;
-    // display: flex;
-    // flex-wrap: wrap;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -98,7 +90,6 @@ code {
   &__body-colour-inner {
     display: flex;
     flex-direction: column;
-    // background-color: red;
     width: 100%;
   }
   &__body-colour-box {
@@ -110,14 +101,12 @@ code {
   &__ip-rating-inner {
     display: flex;
     flex-direction: column;
-    // background-color: red;
     width: 100%;
   }
   &__light-quality-inner {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    // background-color: red;
     height: calc(100% - 1.5em);
   }
   &__ip-rating-box {
@@ -131,21 +120,17 @@ code {
     width: 3.2em;
     border: 1px solid $thin-border-grey;
     margin-right: 1em;
-    // margin-bottom: 0.5em;
   }
   &__cri-box {
     height: 3.2em;
     width: 3.2em;
-    // border: 1px solid $thin-border-grey;
     margin-right: 1em;
-    // margin-bottom: 0.5em;
   }
   &__dimensions-box {
     height: 6.4em;
     width: 6.4em;
     border: 1px solid $thin-border-grey;
     margin-right: 1em;
-    // margin-bottom: 0.5em;
   }
   &__dimension-tile {
     display: grid;
@@ -156,9 +141,7 @@ code {
     display: flex;
     align-items: center;
     align-items: flex-start;
-    // cursor: pointer;
     & img {
-      // border: 1px solid $thin-border-grey;
       object-fit: scale-down;
       height: 3.2em;
       margin-right: 0.25em;
