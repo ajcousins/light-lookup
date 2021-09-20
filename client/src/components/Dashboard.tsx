@@ -10,14 +10,10 @@ import { bodyColours } from "../panel-details/bodyColour";
 import LightQuality from "./LightQuality";
 import Dimensions from "./Dimensions";
 import MountingConditions from "./MountingConditions";
+import BodyColour from "./BodyColour";
 
 export default function Dashboard() {
-  const [bodyColour, setBodyColour] = useState("");
   const [ipRating, setIpRating] = useState("");
-
-  const handleBodyColourChange = (e: SelectChangeEvent) => {
-    setBodyColour(e.target.value as string);
-  };
 
   const handleIpRatingChange = (e: SelectChangeEvent) => {
     setIpRating(e.target.value as string);
@@ -29,23 +25,7 @@ export default function Dashboard() {
         <MountingConditions />
       </Panel>
       <Panel title='Body Colour' className='short-upper'>
-        <div className='panel__body-colour-inner'>
-          <div className='panel__body-colour-box' />
-          <FormControl variant='standard'>
-            <Select
-              labelId='body-colour-label'
-              id='body-colour'
-              value={bodyColour}
-              label='Body Colour'
-              onChange={handleBodyColourChange}
-              size='small'
-            >
-              {bodyColours.map((colour) => (
-                <MenuItem value={colour.value}>{colour.output}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
+        <BodyColour />
       </Panel>
       <Panel title='IP Rating' className='short-lower'>
         <div className='panel__ip-rating-inner'>

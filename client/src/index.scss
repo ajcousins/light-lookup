@@ -88,11 +88,7 @@ code {
     gap: 0.5em;
   }
   &__mounting-tile {
-    // background-color: red;
     cursor: pointer;
-    // &:hover {
-    //   background-color: white;
-    // }
   }
   &__body-colour-inner {
     display: flex;
@@ -100,10 +96,18 @@ code {
     width: 100%;
   }
   &__body-colour-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 3.2em;
     width: 3.2em;
     border: 1px solid $thin-border-grey;
     margin-bottom: 0.5em;
+    font-weight: 700;
+    color: white;
+    & img {
+      position: absolute;
+    }
   }
   &__ip-rating-inner {
     display: flex;
@@ -146,7 +150,6 @@ code {
   }
   &__tile {
     display: flex;
-    align-items: center;
     align-items: flex-start;
     & img {
       object-fit: scale-down;

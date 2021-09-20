@@ -69,6 +69,7 @@ export default function MountingConditions() {
         return (
           <div
             className='panel__tile panel__mounting-tile'
+            style={{ display: "flex", alignItems: "center" }}
             onClick={(event: React.MouseEvent<HTMLDivElement>) =>
               handleClick(event, type)
             }
