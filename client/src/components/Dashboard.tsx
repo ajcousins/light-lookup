@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Panel from "./Panel";
-import { mountingTypes } from "../panel-details/mounting";
+
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -9,6 +9,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { bodyColours } from "../panel-details/bodyColour";
 import LightQuality from "./LightQuality";
 import Dimensions from "./Dimensions";
+import MountingConditions from "./MountingConditions";
 
 export default function Dashboard() {
   const [bodyColour, setBodyColour] = useState("");
@@ -22,24 +23,10 @@ export default function Dashboard() {
     setIpRating(e.target.value as string);
   };
 
-  // useEffect(() => {
-  //   console.log("colourTemp:", colourTemp);
-  //   console.log("diffuse:", diffuse);
-  // }, [colourTemp, diffuse]);
-
   return (
     <div className='dashboard'>
       <Panel title='Mounting Condition' className='full-height'>
-        <div className='panel__mounting-inner'>
-          {mountingTypes.map((type) => {
-            return (
-              <div className='panel__tile'>
-                <img src={type.img} alt={type.type} />
-                <p className='label'>{type.type}</p>
-              </div>
-            );
-          })}
-        </div>
+        <MountingConditions />
       </Panel>
       <Panel title='Body Colour' className='short-upper'>
         <div className='panel__body-colour-inner'>
@@ -89,7 +76,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
-// const valueLabelFormat = (value: number) => {
-//   return `${value} K`;
-// };

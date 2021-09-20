@@ -20,7 +20,7 @@ code {
 }
 
 .label {
-  font-size: 0.625rem;
+  font-size: 0.75rem;
 }
 
 .header {
@@ -87,6 +87,13 @@ code {
     grid-template-rows: 1fr 1fr 1fr 1fr;
     gap: 0.5em;
   }
+  &__mounting-tile {
+    // background-color: red;
+    cursor: pointer;
+    // &:hover {
+    //   background-color: white;
+    // }
+  }
   &__body-colour-inner {
     display: flex;
     flex-direction: column;
@@ -145,6 +152,20 @@ code {
       object-fit: scale-down;
       height: 3.2em;
       margin-right: 0.25em;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+      &:hover {
+        opacity: 1;
+      }
+      &.disabled {
+        opacity: 0.2;
+        &:hover {
+          opacity: 0.4;
+        }
+      }
+      &.selected {
+        opacity: 1;
+      }
     }
   }
 }
