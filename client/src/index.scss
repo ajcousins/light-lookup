@@ -138,13 +138,21 @@ code {
     font-size: 0.8rem;
     font-weight: 700;
   }
+  &__icon-status-text {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    font-size: 0.65rem;
+  }
   &__colour-temp-box {
+    position: relative;
     height: 3.2em;
     width: 3.2em;
     border: 1px solid $thin-border-grey;
     margin-right: 1em;
   }
   &__cri-box {
+    position: relative;
     height: 3.2em;
     width: 3.2em;
     margin-right: 1em;
@@ -164,6 +172,11 @@ code {
     display: flex;
     align-items: flex-start;
     & img {
+      object-fit: scale-down;
+      height: 3.2em;
+      margin-right: 0.25em;
+    }
+    & img.icons {
       object-fit: scale-down;
       height: 3.2em;
       margin-right: 0.25em;
@@ -192,7 +205,7 @@ code {
         background-color: $primary;
         margin-right: 0.5em;
         height: 100%;
-        border: none;
+        border: 1px solid transparent;
         border-radius: 0.4em;
         cursor: pointer;
         transition: background-color 0.3s;

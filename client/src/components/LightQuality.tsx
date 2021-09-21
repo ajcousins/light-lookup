@@ -47,6 +47,9 @@ export default function LightQuality() {
       <div className='panel__tile'>
         <div className='panel__colour-temp-box'>
           <CircleBeam colour={hexColour(colourTemp)} />
+          <div className='panel__icon-status-text'>
+            {colourTemp ? `${colourTemp}K` : ""}
+          </div>
         </div>
         <Box sx={{ width: 250 }}>
           <p className='label'>Colour Temperature</p>
@@ -79,6 +82,9 @@ export default function LightQuality() {
           ) : (
             <div style={{ backgroundColor: "#a0a0a0", height: "inherit" }} />
           )}
+          <div className='panel__icon-status-text' style={{ color: "white" }}>
+            {cri ? (cri === 100 ? "100 CRI" : `≥ ${cri} CRI`) : ""}
+          </div>
         </div>
         <Box sx={{ width: 250 }}>
           <p className='label'>Minimum Colour Rendering Index</p>
@@ -107,6 +113,9 @@ export default function LightQuality() {
       <div className='panel__tile'>
         <div className='panel__colour-temp-box'>
           <BeamAngle value={diffuse ? 200 : beamAngle} />
+          <div className='panel__icon-status-text'>
+            {diffuse ? "DIFFUSE" : beamAngle ? `${beamAngle}°` : ""}
+          </div>
         </div>
         <Box sx={{ width: 250 }}>
           <p className='label'>Beam Angle</p>

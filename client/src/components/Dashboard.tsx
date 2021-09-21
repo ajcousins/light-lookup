@@ -38,13 +38,13 @@ export default function Dashboard() {
         <Panel title='Body Colour' className='short-upper'>
           <BodyColour />
         </Panel>
-        <Panel title='IP Rating' className='short-lower'>
+        <Panel title='Minimum IP Rating' className='short-lower'>
           <IpRating />
         </Panel>
         <Panel title='Light Quality' className='full-height'>
           <LightQuality />
         </Panel>
-        <Panel title='Dimensions' className='full-height'>
+        <Panel title='Dimension Constraints' className='full-height'>
           <Dimensions />
         </Panel>
         <LoadingButton

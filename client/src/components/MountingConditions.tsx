@@ -83,9 +83,9 @@ export default function MountingConditions() {
               className={
                 buttonStatus[type.kebab]
                   ? type.kebab === mounting
-                    ? "selected"
-                    : ""
-                  : "disabled"
+                    ? "selected icons"
+                    : "icons"
+                  : "disabled icons"
               }
               src={type.img}
               alt={getFormatted(type.kebab)}
