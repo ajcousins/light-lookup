@@ -7,8 +7,6 @@ import {
   hexColour,
 } from "../panel-details/colour-temp";
 import { cris, criImg, criLabelFormat } from "../panel-details/cri";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import BeamAngle from "../imgs/beam-angle/BeamAngle";
 import { RootState } from "../app/store";
 import { useSelector, useDispatch } from "react-redux";
@@ -64,11 +62,23 @@ export default function LightQuality() {
             onChange={handleColourTempChange}
             size='small'
           />
+          <div className='panel__tile__bottom-bar'>
+            <button
+              className={!colourTemp ? "outline" : ""}
+              onClick={() => dispatch(updateColourTemp(0))}
+            >
+              RESET
+            </button>
+          </div>
         </Box>
       </div>
       <div className='panel__tile'>
         <div className='panel__cri-box'>
-          <img src={criImg(cri)} alt='CRI' />
+          {cri ? (
+            <img src={criImg(cri)} alt='CRI' />
+          ) : (
+            <div style={{ backgroundColor: "#a0a0a0", height: "inherit" }} />
+          )}
         </div>
         <Box sx={{ width: 250 }}>
           <p className='label'>Minimum Colour Rendering Index</p>
@@ -84,6 +94,14 @@ export default function LightQuality() {
             onChange={handleCriChange}
             size='small'
           />
+          <div className='panel__tile__bottom-bar'>
+            <button
+              className={!cri ? "outline" : ""}
+              onClick={() => dispatch(updateCri(0))}
+            >
+              RESET
+            </button>
+          </div>
         </Box>
       </div>
       <div className='panel__tile'>
@@ -104,24 +122,21 @@ export default function LightQuality() {
             size='small'
             disabled={diffuse}
           />
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginTop: "-0.75em",
-            }}
-          >
-            <FormControlLabel
-              control={<Checkbox />}
-              label=''
-              onChange={() => {
+          <div className='panel__tile__bottom-bar'>
+            <button
+              className={!beamAngle ? "outline" : ""}
+              onClick={() => dispatch(updateBeamAngle(0))}
+            >
+              RESET
+            </button>
+            <button
+              onClick={() => {
                 setDiffuse(!diffuse);
               }}
-            />
-
-            <div className='label' style={{ marginLeft: "-2em" }}>
-              Diffuse
-            </div>
+              className={diffuse ? "outline" : ""}
+            >
+              DIFFUSE
+            </button>
           </div>
         </Box>
       </div>
