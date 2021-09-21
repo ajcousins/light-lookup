@@ -8,12 +8,6 @@ import {
   getImgUrl,
 } from "../panel-details/ip-rating";
 
-// interface IState {
-//     ipRating: {
-//       [key: string]: boolean;
-//     };
-//   }
-
 export default function IpRating() {
   const [ipRating, setIpRating] = useState(["0", "0"]);
 

@@ -12,16 +12,24 @@ import linearSystems from "../imgs/mounting-icons/linear-systems.png";
 import areaSystems from "../imgs/mounting-icons/area-systems.png";
 
 export const mountingTypes = [
-  { type: "Ceiling Mounted", img: ceilingMounted },
-  { type: "Ceiling Recessed", img: ceilingRecessed },
-  { type: "Suspended", img: suspended },
-  { type: "Wall Mounted", img: wallMounted },
-  { type: "Wall Recessed", img: wallRecessed },
-  { type: "Track Mounted", img: trackMounted },
-  { type: "Floor / Surface Mounted", img: floorMounted },
-  { type: "Floor Recessed", img: floorRecessed },
-  { type: "Freestanding", img: freestanding },
-  { type: "Node Systems", img: nodeSystems },
-  { type: "Linear Systems", img: linearSystems },
-  { type: "Area Systems", img: areaSystems },
+  { img: ceilingMounted, kebab: "ceiling-mounted" },
+  { img: ceilingRecessed, kebab: "ceiling-recessed" },
+  { img: suspended, kebab: "suspended" },
+  { img: wallMounted, kebab: "wall-mounted" },
+  { img: wallRecessed, kebab: "wall-recessed" },
+  { img: trackMounted, kebab: "track-mounted" },
+  { img: floorMounted, kebab: "floor-mounted" },
+  { img: floorRecessed, kebab: "floor-recessed" },
+  { img: freestanding, kebab: "freestanding" },
+  { img: nodeSystems, kebab: "node-systems" },
+  { img: linearSystems, kebab: "linear-systems" },
+  { img: areaSystems, kebab: "area-systems" },
 ];
+
+export const getFormatted = (kebab: string) => {
+  return kebab
+    .toLowerCase()
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};

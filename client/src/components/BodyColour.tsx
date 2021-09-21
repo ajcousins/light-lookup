@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { bodyColours } from "../panel-details/bodyColour";
 import overlay from "../imgs/body-colour/overlay.svg";
+import { RootState } from "../app/store";
+import { useSelector, useDispatch } from "react-redux";
+import { updateBodyColour } from "../features/query/querySlice";
 
 export default function BodyColour() {
-  const [bodyColour, setBodyColour] = useState("");
+  const bodyColour = useSelector((state: RootState) => state.query.bodyColour);
+  const dispatch = useDispatch();
 
   const handleBodyColourChange = (e: SelectChangeEvent) => {
-    setBodyColour(e.target.value as string);
+    dispatch(updateBodyColour(e.target.value as string));
   };
 
   const getBodyColourHex = (colourString: string) => {

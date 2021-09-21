@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { mountingTypes } from "../panel-details/mounting";
+import { mountingTypes, getFormatted } from "../panel-details/mounting";
+
+import { RootState } from "../app/store";
+import { useSelector, useDispatch } from "react-redux";
+import { updateMounting } from "../features/query/querySlice";
 
 interface IState {
   buttonStatus: {
@@ -9,40 +13,41 @@ interface IState {
 
 export default function MountingConditions() {
   const [buttonStatus, setButtonStatus] = useState<IState["buttonStatus"]>({
-    "Ceiling Mounted": true,
-    "Ceiling Recessed": true,
-    Suspended: true,
-    "Wall Mounted": true,
-    "Wall Recessed": true,
-    "Track Mounted": true,
-    "Floor / Surface Mounted": true,
-    "Floor Recessed": true,
-    Freestanding: true,
-    "Node Systems": true,
-    "Linear Systems": true,
-    "Area Systems": true,
+    "ceiling-mounted": true,
+    "ceiling-recessed": true,
+    suspended: true,
+    "wall-mounted": true,
+    "wall-recessed": true,
+    "track-mounted": true,
+    "floor-mounted": true,
+    "floor-recessed": true,
+    freestanding: true,
+    "node-systems": true,
+    "linear-systems": true,
+    "area-systems": true,
   });
 
-  const [selected, setSelected] = useState("");
+  const mounting = useSelector((state: RootState) => state.query.mounting);
+  const dispatch = useDispatch();
 
   const handleClick = (
     event: React.MouseEvent<HTMLDivElement>,
-    type: { type: string; img: string }
+    type: { img: string; kebab: string }
   ) => {
     // If there is nothing selected...
-    if (!selected) {
-      setSelected(type.type);
+    if (!mounting) {
+      dispatch(updateMounting(type.kebab));
       const keys = Object.keys(buttonStatus);
       const buttonStatusCopy = { ...buttonStatus };
       keys.forEach((key) => {
-        if (type.type !== key) buttonStatusCopy[key] = false;
+        if (type.kebab !== key) buttonStatusCopy[key] = false;
       });
       setButtonStatus(buttonStatusCopy);
     }
 
     // If this tile is already selected...
-    else if (type.type === selected) {
-      setSelected("");
+    else if (type.kebab === mounting) {
+      dispatch(updateMounting(""));
       const keys = Object.keys(buttonStatus);
       const buttonStatusCopy = { ...buttonStatus };
       keys.forEach((key) => (buttonStatusCopy[key] = true));
@@ -50,12 +55,12 @@ export default function MountingConditions() {
     }
 
     // If this tile is not already selected...
-    else if (type.type !== selected) {
-      setSelected(type.type);
+    else if (type.kebab !== mounting) {
+      dispatch(updateMounting(type.kebab));
       const keys = Object.keys(buttonStatus);
       const buttonStatusCopy = { ...buttonStatus };
       keys.forEach((key) => {
-        if (type.type !== key) {
+        if (type.kebab !== key) {
           buttonStatusCopy[key] = false;
         } else buttonStatusCopy[key] = true;
       });
@@ -76,17 +81,17 @@ export default function MountingConditions() {
           >
             <img
               className={
-                buttonStatus[type.type]
-                  ? type.type === selected
+                buttonStatus[type.kebab]
+                  ? type.kebab === mounting
                     ? "selected"
                     : ""
                   : "disabled"
               }
               src={type.img}
-              alt={type.type}
-              id={type.type}
+              alt={getFormatted(type.kebab)}
+              id={getFormatted(type.kebab)}
             />
-            <p className='label'>{type.type}</p>
+            <p className='label'>{getFormatted(type.kebab)}</p>
           </div>
         );
       })}

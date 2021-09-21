@@ -27,7 +27,9 @@ export default function Dashboard() {
       <Panel title='Dimensions' className='full-height'>
         <Dimensions />
       </Panel>
-      <Button variant='contained'>Search</Button>
+      <Button variant='contained' size='large'>
+        Search
+      </Button>
     </div>
   );
 }
