@@ -12,15 +12,19 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import BeamAngle from "../imgs/beam-angle/BeamAngle";
 import { RootState } from "../app/store";
 import { useSelector, useDispatch } from "react-redux";
-import { updateColourTemp } from "../features/query/querySlice";
+import {
+  updateColourTemp,
+  updateCri,
+  updateBeamAngle,
+} from "../features/query/querySlice";
 
 export default function LightQuality() {
   const dispatch = useDispatch();
-  const [cri, setCri] = useState<number>(0);
-  const [beamAngle, setBeamAngle] = useState<number>(0);
   const [diffuse, setDiffuse] = useState(false);
 
   const colourTemp = useSelector((state: RootState) => state.query.colourTemp);
+  const cri = useSelector((state: RootState) => state.query.cri);
+  const beamAngle = useSelector((state: RootState) => state.query.beamAngle);
 
   const handleColourTempChange = (e: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {
@@ -30,13 +34,13 @@ export default function LightQuality() {
 
   const handleCriChange = (e: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {
-      setCri(newValue);
+      dispatch(updateCri(newValue));
     }
   };
 
   const handleBeamAngleChange = (e: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {
-      setBeamAngle(newValue);
+      dispatch(updateBeamAngle(newValue));
     }
   };
   return (
