@@ -10,16 +10,21 @@ import { cris, criImg, criLabelFormat } from "../panel-details/cri";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import BeamAngle from "../imgs/beam-angle/BeamAngle";
+import { RootState } from "../app/store";
+import { useSelector, useDispatch } from "react-redux";
+import { updateColourTemp } from "../features/query/querySlice";
 
 export default function LightQuality() {
-  const [colourTemp, setColourTemp] = useState<number>(0);
+  const dispatch = useDispatch();
   const [cri, setCri] = useState<number>(0);
   const [beamAngle, setBeamAngle] = useState<number>(0);
   const [diffuse, setDiffuse] = useState(false);
 
+  const colourTemp = useSelector((state: RootState) => state.query.colourTemp);
+
   const handleColourTempChange = (e: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {
-      setColourTemp(newValue);
+      dispatch(updateColourTemp(newValue));
     }
   };
 
@@ -44,10 +49,8 @@ export default function LightQuality() {
         <Box sx={{ width: 250 }}>
           <p className='label'>Colour Temperature</p>
           <Slider
-            // aria-label='Small Steps'
             defaultValue={3000}
             valueLabelFormat={valueLabelFormat}
-            // getAriaValueText={valuetext}
             step={null}
             valueLabelDisplay='auto'
             marks={temperatures}
@@ -55,7 +58,6 @@ export default function LightQuality() {
             max={6500}
             value={colourTemp}
             onChange={handleColourTempChange}
-            // color='secondary'
             size='small'
           />
         </Box>
@@ -67,10 +69,8 @@ export default function LightQuality() {
         <Box sx={{ width: 250 }}>
           <p className='label'>Minimum Colour Rendering Index</p>
           <Slider
-            // aria-label='Small Steps'
             defaultValue={80}
             valueLabelFormat={criLabelFormat}
-            // getAriaValueText={valuetext}
             step={null}
             valueLabelDisplay='auto'
             marks={cris}
@@ -78,16 +78,12 @@ export default function LightQuality() {
             max={100}
             value={cri}
             onChange={handleCriChange}
-            // color='secondary'
             size='small'
           />
         </Box>
       </div>
       <div className='panel__tile'>
-        <div
-          className='panel__colour-temp-box'
-          // style={{ backgroundColor: hexColour(colourTemp) }}
-        >
+        <div className='panel__colour-temp-box'>
           <BeamAngle value={diffuse ? 200 : beamAngle} />
         </div>
         <Box sx={{ width: 250 }}>
@@ -96,15 +92,11 @@ export default function LightQuality() {
             aria-label='Default'
             defaultValue={70}
             valueLabelFormat={(val) => `${val}°`}
-            // // getAriaValueText={valuetext}
-            // step={null}
             valueLabelDisplay='auto'
-            // marks={temperatures}
             min={1}
             max={120}
             value={beamAngle}
             onChange={handleBeamAngleChange}
-            // color='secondary'
             size='small'
             disabled={diffuse}
           />
@@ -113,15 +105,11 @@ export default function LightQuality() {
               display: "flex",
               alignItems: "center",
               marginTop: "-0.75em",
-              // justifyContent: "right",
-              // marginRight: 0,
-              // marginLeft: "auto",
             }}
           >
             <FormControlLabel
               control={<Checkbox />}
               label=''
-              // value='check'
               onChange={() => {
                 setDiffuse(!diffuse);
               }}
@@ -131,15 +119,6 @@ export default function LightQuality() {
               Diffuse
             </div>
           </div>
-          {/* <ToggleButton
-                value='check'
-                selected={diffuse}
-                onChange={() => {
-                  setDiffuse(!diffuse);
-                }}
-              >
-                Diffuse
-              </ToggleButton> */}
         </Box>
       </div>
     </div>

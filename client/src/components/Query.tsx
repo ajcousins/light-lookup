@@ -42,8 +42,9 @@ export default function Query() {
         beamAngle: Number(formInput.beamAngle),
       },
     });
+    // console.log("query object:", queryVariables);
 
-    console.log("searchProducts: ", data);
+    // console.log("searchProducts: ", data);
 
     // Reset form
     // setFormInput({
@@ -65,7 +66,7 @@ export default function Query() {
   return (
     <div className='query-body'>
       <Dashboard />
-      <form className='product-query' onSubmit={handleSubmit}>
+      {/* <form className='product-query' onSubmit={handleSubmit}>
         <label htmlFor='type'>Luminaire Type</label>
         <input
           name='type'
@@ -133,9 +134,9 @@ export default function Query() {
         ></input>
 
         <button className='product-query__search-btn'>Search</button>
-      </form>
+      </form> */}
 
-      {loading ? "Loading..." : null}
+      {/* {loading ? "Loading..." : null}
       {data &&
         data.multiple.map(
           (product: { name: string; manufacturer: { name: string } }) => {
@@ -146,7 +147,7 @@ export default function Query() {
               </div>
             );
           }
-        )}
+        )} */}
     </div>
   );
 }
