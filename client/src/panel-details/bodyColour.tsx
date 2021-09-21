@@ -12,3 +12,10 @@ export const bodyColours = [
   { value: "anthracite", output: "Anthracite", hex: "#40484b" },
   { value: "custom", output: "Custom RAL", hex: "#ed3aa9" },
 ];
+
+export const getBodyColourHex = (colourString: string) => {
+  const index = bodyColours.findIndex(
+    (colour) => colour.value === colourString
+  );
+  return bodyColours[index].hex;
+};

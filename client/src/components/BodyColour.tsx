@@ -2,7 +2,7 @@ import React from "react";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { bodyColours } from "../panel-details/bodyColour";
+import { bodyColours, getBodyColourHex } from "../panel-details/bodyColour";
 import overlay from "../imgs/body-colour/overlay.svg";
 import { RootState } from "../app/store";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,13 +14,6 @@ export default function BodyColour() {
 
   const handleBodyColourChange = (e: SelectChangeEvent) => {
     dispatch(updateBodyColour(e.target.value as string));
-  };
-
-  const getBodyColourHex = (colourString: string) => {
-    const index = bodyColours.findIndex(
-      (colour) => colour.value === colourString
-    );
-    return bodyColours[index].hex;
   };
 
   return (
