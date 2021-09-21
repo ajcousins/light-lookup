@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -7,19 +7,24 @@ import {
   moistureRating,
   getImgUrl,
 } from "../panel-details/ip-rating";
+import { RootState } from "../app/store";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateIpParticle,
+  updateIpMoisture,
+} from "../features/query/querySlice";
 
 export default function IpRating() {
-  const [ipRating, setIpRating] = useState(["0", "0"]);
+  const dispatch = useDispatch();
+  const ipParticle = useSelector((state: RootState) => state.query.ipParticle);
+  const ipMoisture = useSelector((state: RootState) => state.query.ipMoisture);
+  // const [exactMatch, setExactMatch] = useState(false);
 
   const handleIpRatingChange = (e: SelectChangeEvent, type: string) => {
-    if (type === "particles") {
-      const ipRatingCopy = [...ipRating];
-      ipRatingCopy[0] = e.target.value as string;
-      setIpRating(ipRatingCopy);
+    if (type === "particle") {
+      dispatch(updateIpParticle(Number(e.target.value)));
     } else if (type === "moisture") {
-      const ipRatingCopy = [...ipRating];
-      ipRatingCopy[1] = e.target.value as string;
-      setIpRating(ipRatingCopy);
+      dispatch(updateIpMoisture(Number(e.target.value)));
     }
   };
 
@@ -27,13 +32,16 @@ export default function IpRating() {
     <div className='panel__ip-rating-inner'>
       <div className='panel__ip-rating-box'>
         <img
-          src={getImgUrl(ipRating[1], moistureRating)}
+          src={getImgUrl(String(ipMoisture), moistureRating)}
           alt='moisture rating'
         />
-        <img src={getImgUrl(ipRating[0], bodyRating)} alt='body rating' />
+        <img
+          src={getImgUrl(String(ipParticle), bodyRating)}
+          alt='body rating'
+        />
         <div className='panel__ip-rating-text'>
-          {ipRating[0]}
-          {ipRating[1]}
+          {ipParticle}
+          {ipMoisture}
         </div>
       </div>
 
@@ -48,10 +56,10 @@ export default function IpRating() {
           <Select
             labelId='ip-rating-label'
             id='ip-rating'
-            value={ipRating[0]}
+            value={String(ipParticle)}
             label='IP Rating'
             onChange={(event: SelectChangeEvent) =>
-              handleIpRatingChange(event, "particles")
+              handleIpRatingChange(event, "particle")
             }
             size='small'
           >
@@ -64,7 +72,7 @@ export default function IpRating() {
           <Select
             labelId='ip-rating-label'
             id='ip-rating'
-            value={ipRating[1]}
+            value={String(ipMoisture)}
             label='IP Rating'
             onChange={(event: SelectChangeEvent) =>
               handleIpRatingChange(event, "moisture")
@@ -77,6 +85,17 @@ export default function IpRating() {
           </Select>
         </FormControl>
       </div>
+      {/* <div
+        className='panel__tile__bottom-bar'
+        style={{ marginTop: "0.5em", marginBottom: "0" }}
+      >
+        <button
+          className={exactMatch ? "outline" : ""}
+          onClick={() => setExactMatch(!exactMatch)}
+        >
+          EXACT MATCH
+        </button>
+      </div> */}
     </div>
   );
 }

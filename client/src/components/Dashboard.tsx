@@ -60,11 +60,23 @@ export default function Dashboard() {
         {error ? "Error loading results" : null}
         {data &&
           data.multiple.map(
-            (product: { name: string; manufacturer: { name: string } }) => {
+            (product: {
+              name: string;
+              ipParticle: [number];
+              ipMoisture: [number];
+              manufacturer: { name: string };
+            }) => {
               return (
                 <div>
                   <h2>{product.name}</h2>
                   <p>{product.manufacturer.name}</p>
+                  <p>
+                    -- IP Particle:
+                    {product.ipParticle}
+                    -- IP Moisture:
+                    {product.ipMoisture}
+                  </p>
+                  <br></br>
                 </div>
               );
             }

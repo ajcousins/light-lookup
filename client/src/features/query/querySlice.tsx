@@ -3,6 +3,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface QueryState {
   mounting: string;
   bodyColour: string;
+  ipParticle: number;
+  ipMoisture: number;
   colourTemp: number;
   cri: number;
   beamAngle: number;
@@ -14,6 +16,8 @@ export interface QueryState {
 const initialState: QueryState = {
   mounting: "",
   bodyColour: "",
+  ipParticle: 0,
+  ipMoisture: 0,
   colourTemp: 0,
   cri: 0,
   beamAngle: 0,
@@ -31,6 +35,12 @@ export const querySlice = createSlice({
     },
     updateBodyColour: (state, action: PayloadAction<string>) => {
       state.bodyColour = action.payload;
+    },
+    updateIpParticle: (state, action: PayloadAction<number>) => {
+      state.ipParticle = action.payload;
+    },
+    updateIpMoisture: (state, action: PayloadAction<number>) => {
+      state.ipMoisture = action.payload;
     },
     updateColourTemp: (state, action: PayloadAction<number>) => {
       state.colourTemp = action.payload;
@@ -56,6 +66,8 @@ export const querySlice = createSlice({
 export const {
   updateMounting,
   updateBodyColour,
+  updateIpParticle,
+  updateIpMoisture,
   updateColourTemp,
   updateCri,
   updateBeamAngle,

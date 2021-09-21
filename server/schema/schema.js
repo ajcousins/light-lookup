@@ -32,7 +32,8 @@ const ProductType = new GraphQLObjectType({
     name: { type: GraphQLString },
     type: { type: new GraphQLList(GraphQLString) },
     mounting: { type: new GraphQLList(GraphQLString) },
-    ip: { type: new GraphQLList(GraphQLString) },
+    ipParticle: { type: new GraphQLList(GraphQLInt) },
+    ipMoisture: { type: new GraphQLList(GraphQLInt) },
     bodyColour: { type: new GraphQLList(GraphQLString) },
     length: { type: GraphQLInt },
     width: { type: GraphQLInt },
@@ -101,7 +102,8 @@ const RootQuery = new GraphQLObjectType({
       args: {
         type: { type: GraphQLString },
         mounting: { type: GraphQLString },
-        ip: { type: GraphQLString },
+        ipParticle: { type: GraphQLInt },
+        ipMoisture: { type: GraphQLInt },
         bodyColour: { type: GraphQLString },
         colourTemp: { type: GraphQLInt },
         cri: { type: GraphQLInt },
@@ -117,12 +119,7 @@ const RootQuery = new GraphQLObjectType({
 
         // Remove null values
         keys.forEach((key) => {
-          if (
-            !queryObj[key]
-            // queryObj[key] === null ||
-            // queryObj[key] === 0 ||
-            // queryObj[key] === ""
-          ) {
+          if (!queryObj[key]) {
             delete queryObj[key];
           }
         });
@@ -209,7 +206,8 @@ const Mutation = new GraphQLObjectType({
         manufacturerId: { type: new GraphQLNonNull(GraphQLID) },
         type: { type: new GraphQLList(GraphQLString) },
         mounting: { type: new GraphQLList(GraphQLString) },
-        ip: { type: new GraphQLList(GraphQLString) },
+        ipParticle: { type: new GraphQLList(GraphQLInt) },
+        ipMoisture: { type: new GraphQLList(GraphQLInt) },
         bodyColour: { type: new GraphQLList(GraphQLString) },
         length: { type: GraphQLInt },
         width: { type: GraphQLInt },
@@ -226,7 +224,8 @@ const Mutation = new GraphQLObjectType({
           manufacturerId: args.manufacturerId,
           type: args.type,
           mounting: args.mounting,
-          ip: args.ip,
+          ipParticle: args.ipParticle,
+          ipMoisture: args.ipMoisture,
           bodyColour: args.bodyColour,
           length: args.length,
           width: args.width,

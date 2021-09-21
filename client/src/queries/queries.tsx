@@ -4,6 +4,8 @@ export const PRODUCTS = gql`
   {
     products {
       name
+      ipParticle
+      ipMoisture
       manufacturer {
         name
       }
@@ -15,7 +17,8 @@ export const SEARCH_PRODUCTS = gql`
   query (
     $type: String
     $mounting: String
-    $ipRating: String
+    $ipParticle: Int
+    $ipMoisture: Int
     $bodyColour: String
     $maxLength: Int
     $maxWidth: Int
@@ -27,7 +30,8 @@ export const SEARCH_PRODUCTS = gql`
     multiple(
       type: $type
       mounting: $mounting
-      ip: $ipRating
+      ipParticle: $ipParticle
+      ipMoisture: $ipMoisture
       bodyColour: $bodyColour
       maxLength: $maxLength
       maxWidth: $maxWidth
@@ -38,6 +42,8 @@ export const SEARCH_PRODUCTS = gql`
     ) {
       name
       type
+      ipParticle
+      ipMoisture
       manufacturer {
         name
       }
