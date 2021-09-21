@@ -1,70 +1,91 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { styled } from "@mui/material/styles";
 import MuiInput from "@mui/material/Input";
-// import DimensionModel from "../imgs/dimensions/DimensionModel";
 import ThreeObj from "./ThreeObj";
+import { RootState } from "../app/store";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateMaxLength,
+  updateMaxWidth,
+  updateMaxHeight,
+} from "../features/query/querySlice";
 
 const Input = styled(MuiInput)`
   width: 42px;
 `;
 
 export default function Dimensions() {
-  const [length, setLength] = useState<
-    number | string | Array<number | string>
-  >(250);
-  const [width, setWidth] = useState<number | string | Array<number | string>>(
-    250
-  );
-  const [height, setHeight] = useState<
-    number | string | Array<number | string>
-  >(250);
+  const dispatch = useDispatch();
+  const length = useSelector((state: RootState) => state.query.maxLength);
+  const width = useSelector((state: RootState) => state.query.maxWidth);
+  const height = useSelector((state: RootState) => state.query.maxHeight);
 
   const handleLengthChange = (
     e: Event | null,
     newValue: number | number[] | null
   ) => {
-    if (typeof newValue === "number") setLength(newValue);
+    if (typeof newValue === "number") dispatch(updateMaxLength(newValue));
   };
 
   const handleWidthChange = (
     e: Event | null,
     newValue: number | number[] | null
   ) => {
-    if (typeof newValue === "number") setWidth(newValue);
+    if (typeof newValue === "number") dispatch(updateMaxWidth(newValue));
   };
 
   const handleHeightChange = (
     e: Event | null,
     newValue: number | number[] | null
   ) => {
-    if (typeof newValue === "number") setHeight(newValue);
+    if (typeof newValue === "number") dispatch(updateMaxHeight(newValue));
   };
 
   const handleLengthInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setLength(event.target.value === "" ? "" : Number(event.target.value));
+    dispatch(updateMaxLength(Number(event.target.value)));
   };
 
   const handleWidthInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setWidth(event.target.value === "" ? "" : Number(event.target.value));
+    dispatch(updateMaxWidth(Number(event.target.value)));
   };
 
   const handleHeightInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setHeight(event.target.value === "" ? "" : Number(event.target.value));
+    dispatch(updateMaxHeight(Number(event.target.value)));
   };
 
-  const handleBlur = () => {
-    if (length < 0) {
-      setLength(0);
-    } else if (length > 100) {
-      setLength(100);
+  const handleBlur = (dimension: number, label: string) => {
+    if (dimension < 0) {
+      switch (label) {
+        case "length":
+          dispatch(updateMaxLength(1));
+          break;
+        case "width":
+          dispatch(updateMaxWidth(1));
+          break;
+        case "height":
+          dispatch(updateMaxHeight(1));
+          break;
+      }
+    } else if (dimension > 100) {
+      switch (label) {
+        case "length":
+          dispatch(updateMaxLength(500));
+          break;
+        case "width":
+          dispatch(updateMaxWidth(500));
+          break;
+        case "height":
+          dispatch(updateMaxHeight(500));
+          break;
+      }
     }
   };
 
@@ -81,15 +102,10 @@ export default function Dimensions() {
               aria-label='Default'
               defaultValue={250}
               valueLabelFormat={(val) => `${val}mm`}
-              // // getAriaValueText={valuetext}
-              // step={null}
               valueLabelDisplay='auto'
-              // marks={temperatures}
               min={1}
               max={500}
-              // value={length}
               onChange={handleLengthChange}
-              // color='secondary'
               size='small'
               name='length'
               value={typeof length === "number" ? length : 0}
@@ -98,7 +114,7 @@ export default function Dimensions() {
               value={length}
               size='small'
               onChange={handleLengthInputChange}
-              onBlur={handleBlur}
+              onBlur={() => handleBlur(length, "length")}
               inputProps={{
                 step: 1,
                 min: 1,
@@ -126,7 +142,6 @@ export default function Dimensions() {
               value={width}
               size='small'
               onChange={handleWidthInputChange}
-              onBlur={handleBlur}
               inputProps={{
                 step: 1,
                 min: 1,
@@ -155,7 +170,6 @@ export default function Dimensions() {
               value={height}
               size='small'
               onChange={handleHeightInputChange}
-              onBlur={handleBlur}
               inputProps={{
                 step: 1,
                 min: 1,

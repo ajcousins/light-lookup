@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import Header from "./components/Header";
-import Query from "./components/Query";
+import Dashboard from "./components/Dashboard";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { grey, indigo } from "@mui/material/colors";
 // import { Canvas } from "@react-three/fiber";
@@ -30,7 +30,7 @@ function App() {
         <ApolloProvider client={client}>
           <div>
             <Header />
-            <Query />
+            <Dashboard />
           </div>
         </ApolloProvider>
       </ThemeProvider>

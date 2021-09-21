@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Panel from "./Panel";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
+import LoadingButton from "@mui/lab/LoadingButton";
 import LightQuality from "./LightQuality";
 import Dimensions from "./Dimensions";
 import MountingConditions from "./MountingConditions";
@@ -15,7 +16,7 @@ export default function Dashboard() {
   const query = useSelector((state: RootState) => state.query);
   const [queryVariables, setQueryVariables] = useState<any>(null);
 
-  const { loading, data } = useQuery(SEARCH_PRODUCTS, queryVariables);
+  const { loading, data, error } = useQuery(SEARCH_PRODUCTS, queryVariables);
 
   const handleSearch = () => {
     console.log("query:", query);
@@ -23,6 +24,10 @@ export default function Dashboard() {
       variables: query,
     });
   };
+
+  useEffect(() => {
+    console.log("error:", error);
+  }, [error]);
 
   return (
     <>
@@ -42,12 +47,17 @@ export default function Dashboard() {
         <Panel title='Dimensions' className='full-height'>
           <Dimensions />
         </Panel>
-        <Button variant='contained' size='large' onClick={handleSearch}>
+        <LoadingButton
+          loading={loading}
+          variant='contained'
+          size='large'
+          onClick={handleSearch}
+        >
           Search
-        </Button>
+        </LoadingButton>
       </div>
       <div className='query-body'>
-        {loading ? "Loading..." : null}
+        {error ? "Error loading results" : null}
         {data &&
           data.multiple.map(
             (product: { name: string; manufacturer: { name: string } }) => {

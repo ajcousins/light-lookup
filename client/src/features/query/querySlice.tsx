@@ -17,9 +17,9 @@ const initialState: QueryState = {
   colourTemp: 0,
   cri: 0,
   beamAngle: 0,
-  maxLength: 0,
-  maxWidth: 0,
-  maxHeight: 0,
+  maxLength: 250,
+  maxWidth: 250,
+  maxHeight: 250,
 };
 
 export const querySlice = createSlice({
