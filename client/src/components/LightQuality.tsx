@@ -15,6 +15,7 @@ import {
   updateCri,
   updateBeamAngle,
 } from "../features/query/querySlice";
+import CircleBeam from "../imgs/colour-temp/ColourTempCirlce";
 
 export default function LightQuality() {
   const dispatch = useDispatch();
@@ -44,10 +45,9 @@ export default function LightQuality() {
   return (
     <div className='panel__light-quality-inner'>
       <div className='panel__tile'>
-        <div
-          className='panel__colour-temp-box'
-          style={{ backgroundColor: hexColour(colourTemp) }}
-        />
+        <div className='panel__colour-temp-box'>
+          <CircleBeam colour={hexColour(colourTemp)} />
+        </div>
         <Box sx={{ width: 250 }}>
           <p className='label'>Colour Temperature</p>
           <Slider
