@@ -142,10 +142,27 @@ const RootQuery = new GraphQLObjectType({
 
         keys.forEach((key) => {
           if (key === "cri") {
-            console.log("cri test", "key:", key, "args.cri:", args.cri);
             delete queryObj[key];
             queryObj.cri = {
               $gte: args.cri,
+            };
+          }
+        });
+
+        keys.forEach((key) => {
+          if (key === "ipParticle") {
+            delete queryObj[key];
+            queryObj.ipParticle = {
+              $gte: args.ipParticle,
+            };
+          }
+        });
+
+        keys.forEach((key) => {
+          if (key === "ipMoisture") {
+            delete queryObj[key];
+            queryObj.ipMoisture = {
+              $gte: args.ipMoisture,
             };
           }
         });
