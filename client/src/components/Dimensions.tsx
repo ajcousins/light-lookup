@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { styled } from "@mui/material/styles";
@@ -12,6 +12,12 @@ import {
   updateMaxHeight,
 } from "../features/query/querySlice";
 
+interface IState {
+  activeFace: {
+    [key: string]: boolean;
+  };
+}
+
 const Input = styled(MuiInput)`
   width: 42px;
 `;
@@ -21,6 +27,12 @@ export default function Dimensions() {
   const length = useSelector((state: RootState) => state.query.maxLength);
   const width = useSelector((state: RootState) => state.query.maxWidth);
   const height = useSelector((state: RootState) => state.query.maxHeight);
+
+  const [activeFace, setActiveFace] = useState<IState["activeFace"]>({
+    length: false,
+    width: false,
+    height: false,
+  });
 
   const handleLengthChange = (
     e: Event | null,
@@ -89,15 +101,35 @@ export default function Dimensions() {
     }
   };
 
+  const handleResize = (face: string, action: string) => {
+    const activeFaceCopy: { [key: string]: boolean } = { ...activeFace };
+    if (action === "down") {
+      activeFaceCopy[face] = true;
+      setActiveFace(activeFaceCopy);
+    } else if (action === "up") {
+      activeFaceCopy[face] = false;
+      setActiveFace(activeFaceCopy);
+    }
+  };
+
   return (
     <div className='panel__light-quality-inner'>
       <div className='panel__tile'>
         <div className='panel__dimensions-box'>
-          <ThreeObj length={length} width={width} height={height} />
+          <ThreeObj
+            length={length}
+            width={width}
+            height={height}
+            activeFace={activeFace}
+          />
         </div>
         <Box sx={{ width: 250 }}>
           <p className='label'>Max Length</p>
-          <div className='panel__dimension-tile'>
+          <div
+            className='panel__dimension-tile'
+            onMouseDown={() => handleResize("length", "down")}
+            onMouseUp={() => handleResize("length", "up")}
+          >
             <Slider
               aria-label='Default'
               defaultValue={250}
@@ -125,7 +157,11 @@ export default function Dimensions() {
             />
           </div>
           <p className='label'>Max Width</p>
-          <div className='panel__dimension-tile'>
+          <div
+            className='panel__dimension-tile'
+            onMouseDown={() => handleResize("width", "down")}
+            onMouseUp={() => handleResize("width", "up")}
+          >
             <Slider
               aria-label='Default'
               defaultValue={250}
@@ -153,7 +189,11 @@ export default function Dimensions() {
           </div>
 
           <p className='label'>Max Height</p>
-          <div className='panel__dimension-tile'>
+          <div
+            className='panel__dimension-tile'
+            onMouseDown={() => handleResize("height", "down")}
+            onMouseUp={() => handleResize("height", "up")}
+          >
             <Slider
               aria-label='Default'
               defaultValue={250}

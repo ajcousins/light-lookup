@@ -5,10 +5,14 @@ export default function ThreeObj({
   length,
   width,
   height,
+  activeFace,
 }: {
   length: string | number | (string | number)[];
   width: string | number | (string | number)[];
   height: string | number | (string | number)[];
+  activeFace: {
+    [key: string]: boolean;
+  };
 }) {
   const [cameraPos, setCameraPos] = useState(400);
 
@@ -54,6 +58,15 @@ export default function ThreeObj({
       }}
     >
       <pointLight position={[1000, 3000, 2000]} intensity={1} />
+      <pointLight
+        position={[
+          activeFace["width"] ? 1000 : 0,
+          activeFace["height"] ? 1000 : 0,
+          activeFace["length"] ? 1000 : 0,
+        ]}
+        intensity={2}
+        color={"#ff0000"}
+      />
       <Box />
       <Dolly />
     </Canvas>
