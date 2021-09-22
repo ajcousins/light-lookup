@@ -134,7 +134,10 @@ export default function LightQuality() {
           <div className='panel__tile__bottom-bar'>
             <button
               className={!beamAngle ? "outline" : ""}
-              onClick={() => dispatch(updateBeamAngle(0))}
+              onClick={() => {
+                dispatch(updateBeamAngle(0));
+                setDiffuse(false);
+              }}
             >
               RESET
             </button>

@@ -1,5 +1,6 @@
 $background-grey: #f3f3f3;
 $thin-border-grey: #9d9d9d;
+$text-grey: #777777;
 $primary: #3f51b5;
 $primary-hover: #303f9f;
 
@@ -50,13 +51,11 @@ code {
   gap: 0.5em;
   width: 82em;
   margin: auto;
-  margin-bottom: 3em;
+  margin-top: 3em;
+  margin-bottom: 2em;
 }
 
 .panel {
-  border: 1px solid $thin-border-grey;
-  background-color: rgba(24, 24, 24, 0.035);
-  padding: 0.5em;
   & h4 {
     font-size: 0.75rem;
     margin-bottom: 0.5em;
@@ -130,7 +129,6 @@ code {
     position: absolute;
     height: inherit;
     width: inherit;
-    // background-color: red;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -198,7 +196,6 @@ code {
     &__bottom-bar {
       display: flex;
       align-items: center;
-      // background-color: red;
       width: 100%;
       height: 1em;
       & button {
@@ -211,7 +208,6 @@ code {
         transition: background-color 0.3s;
         color: white;
         font-size: 0.5rem;
-        // font-weight: 700;
         &:hover {
           background-color: $primary-hover;
         }
@@ -226,12 +222,84 @@ code {
   }
 }
 
-.product-query {
+.search-bar {
+  display: flex;
+  justify-content: center;
+}
+
+.results-body {
+  margin: 3em auto;
+  width: 56em;
+  .error-message {
+    // background-color: red;
+    // margin: auto;
+    text-align: center;
+  }
+}
+
+.product-tile {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  row-gap: 0.5em;
-  width: 30em;
-  &__search-btn {
+  grid-template-columns: 9.25em 2fr 14em;
+  grid-template-rows: 3.5em auto;
+  column-gap: 2em;
+  row-gap: 1em;
+
+  a {
+    font-size: 0.75rem;
+    color: $text-grey;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .link-text {
+    font-size: 0.75rem;
+    color: $text-grey;
+  }
+  .label-text {
+    // margin-top: 0.2em;
+    font-size: 0.7rem;
+    color: $text-grey;
+    font-weight: 700;
+  }
+  .product-info-text {
+    font-size: 0.75rem;
+  }
+  .data {
+    display: grid;
+    grid-template-columns: 9em 1fr;
+    grid-template-rows: repeat(6, auto);
+    align-items: start;
+    row-gap: 0.5em;
+  }
+
+  .manufacturer-data {
+    display: grid;
+    grid-template-columns: 4em 1fr;
+    grid-template-rows: repeat(3, auto);
+    align-items: start;
+    row-gap: 0.5em;
+  }
+
+  & h2 {
+    display: inline-block;
+    font-size: 1.5rem;
+    &.sub-heading {
+      font-weight: 300;
+    }
+  }
+  &__product-img {
+    grid-row-start: 1;
+    grid-row-end: 3;
+  }
+
+  &__heading {
     grid-column-start: 2;
+    grid-column-end: 4;
+  }
+
+  .manufacturer-section {
+    border-left: solid 1pt $thin-border-grey;
+    padding-left: 1em;
   }
 }

@@ -41,11 +41,20 @@ export const SEARCH_PRODUCTS = gql`
       beamAngle: $beamAngle
     ) {
       name
-      type
+      mounting
+      bodyColour
       ipParticle
       ipMoisture
+      colourTemp
+      cri
+      beamAngles
+      length
+      width
+      height
       manufacturer {
         name
+        country
+        website
       }
     }
   }
