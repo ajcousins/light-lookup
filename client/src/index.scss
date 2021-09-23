@@ -27,6 +27,14 @@ code {
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+  color: $light-text-on-dark;
+  :hover {
+    color: $primary-hover;
+  }
+}
+
 .label {
   font-size: 0.75rem;
 }
@@ -39,13 +47,19 @@ code {
     font-size: 2.25rem;
   }
   &__inner {
+    // background-color: red;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     width: 82em;
     height: 100%;
     margin: auto;
-    &__end {
-      margin-left: auto;
+    &__menu {
+      // background-color: cyan;
+      display: flex;
+    }
+    &__item {
+      margin-left: 3em;
     }
   }
 }
