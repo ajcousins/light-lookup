@@ -85,17 +85,6 @@ export default function IpRating() {
           </Select>
         </FormControl>
       </div>
-      {/* <div
-        className='panel__tile__bottom-bar'
-        style={{ marginTop: "0.5em", marginBottom: "0" }}
-      >
-        <button
-          className={exactMatch ? "outline" : ""}
-          onClick={() => setExactMatch(!exactMatch)}
-        >
-          EXACT MATCH
-        </button>
-      </div> */}
     </div>
   );
 }

@@ -80,7 +80,13 @@ export default function LightQuality() {
           {cri ? (
             <img src={criImg(cri)} alt='CRI' />
           ) : (
-            <div style={{ backgroundColor: "#a0a0a0", height: "inherit" }} />
+            <div
+              style={{
+                backgroundColor: "#7c7c7c",
+                height: "inherit",
+                border: "1px solid #9d9d9d",
+              }}
+            />
           )}
           <div className='panel__icon-status-text' style={{ color: "white" }}>
             {cri ? (cri === 100 ? "100 CRI" : `≥ ${cri} CRI`) : ""}

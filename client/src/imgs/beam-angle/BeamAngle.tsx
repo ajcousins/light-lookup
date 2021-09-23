@@ -20,7 +20,7 @@ const BeamAngle = ({ value }: { value: number }) => {
       <rect width='100%' height='100%' fill='white' />
       {/* LEFT */}
       <rect
-        fill='#00000022'
+        fill='#00000037'
         width='150'
         height='345'
         style={{
@@ -29,18 +29,9 @@ const BeamAngle = ({ value }: { value: number }) => {
           transition: `transform ${transitionSpeed}s`,
         }}
       />
+
       <rect
-        fill='#00000022'
-        width='150'
-        height='345'
-        style={{
-          transformOrigin: "150px 0px",
-          transform: `rotate(${plusTenPercent}deg)`,
-          transition: `transform ${transitionSpeed}s`,
-        }}
-      />
-      <rect
-        fill='#00000022'
+        fill='#00000037'
         width='150'
         height='345'
         style={{
@@ -53,7 +44,7 @@ const BeamAngle = ({ value }: { value: number }) => {
       {/* RIGHT */}
       <rect
         x='150'
-        fill='#00000022'
+        fill='#00000037'
         width='150'
         height='345'
         style={{
@@ -62,9 +53,21 @@ const BeamAngle = ({ value }: { value: number }) => {
           transition: `transform ${transitionSpeed}s`,
         }}
       />
+
       <rect
         x='150'
-        fill='#00000022'
+        fill='#00000037'
+        width='150'
+        height='345'
+        style={{
+          transformOrigin: "150px 0px",
+          transform: `rotate(${-minusTenPercent}deg)`,
+          transition: `transform ${transitionSpeed}s`,
+        }}
+      />
+      <rect
+        x='150'
+        fill='#00000037'
         width='150'
         height='345'
         style={{
@@ -74,13 +77,12 @@ const BeamAngle = ({ value }: { value: number }) => {
         }}
       />
       <rect
-        x='150'
-        fill='#00000022'
+        fill='#00000037'
         width='150'
         height='345'
         style={{
           transformOrigin: "150px 0px",
-          transform: `rotate(${-minusTenPercent}deg)`,
+          transform: `rotate(${plusTenPercent}deg)`,
           transition: `transform ${transitionSpeed}s`,
         }}
       />

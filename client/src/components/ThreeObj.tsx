@@ -20,7 +20,7 @@ export default function ThreeObj({
     return (
       <mesh>
         <boxBufferGeometry attach='geometry' args={[width, height, length]} />
-        <meshLambertMaterial attach='material' color='lightblue' />
+        <meshLambertMaterial attach='material' color='#aaaaaa' />
       </mesh>
     );
   };
@@ -57,7 +57,7 @@ export default function ThreeObj({
         fov: 50,
       }}
     >
-      <pointLight position={[1000, 3000, 2000]} intensity={1} />
+      <pointLight position={[1000, 3000, 2000]} intensity={0.5} />
       <pointLight
         position={[
           activeFace["width"] ? 1000 : 0,
@@ -65,7 +65,7 @@ export default function ThreeObj({
           activeFace["length"] ? 1000 : 0,
         ]}
         intensity={2}
-        color={"#ff0000"}
+        color={"#ffdd00"}
       />
       <Box />
       <Dolly />

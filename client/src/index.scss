@@ -1,8 +1,16 @@
-$background-grey: #f3f3f3;
+// $background-grey: #f3f3f3;
+// $background-grey: #b2b2c9;
+// $background-grey: #d1d1d1;
+$background-grey: #3a3a3a;
 $thin-border-grey: #9d9d9d;
 $text-grey: #777777;
-$primary: #3f51b5;
-$primary-hover: #303f9f;
+$primary: #ffee71;
+$primary-hover: #eedd5f;
+$text-on-primary: #211f0f;
+$panel-background: #7c7c7c;
+
+$light-text-on-dark: #cdced3;
+$light-text-on-panel: #f5f5f7;
 
 body {
   background-color: $background-grey;
@@ -28,6 +36,7 @@ code {
 
 .header {
   height: 4em;
+  color: $light-text-on-dark;
   & h1 {
     font-weight: 300;
     font-size: 2.25rem;
@@ -56,9 +65,12 @@ code {
 }
 
 .panel {
+  color: $light-text-on-panel;
   & h4 {
-    font-size: 0.75rem;
-    margin-bottom: 0.5em;
+    font-size: 1rem;
+    margin-bottom: 0.8em;
+    font-weight: 400;
+    color: $light-text-on-panel;
   }
   &__full-height {
     grid-row-start: 1;
@@ -73,7 +85,7 @@ code {
     grid-row-end: 3;
   }
   &__mounting-inner {
-    height: 15em;
+    height: 17em;
     width: 25em;
     margin: 0;
     display: grid;
@@ -112,7 +124,7 @@ code {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: calc(100% - 1.5em);
+    height: calc(100% - 2.5em);
   }
   &__ip-rating-box {
     height: 3.2em;
@@ -133,6 +145,7 @@ code {
     align-items: center;
     justify-content: center;
     z-index: 100;
+    color: $text-on-primary;
     font-size: 0.8rem;
     font-weight: 700;
   }
@@ -154,6 +167,10 @@ code {
     height: 3.2em;
     width: 3.2em;
     margin-right: 1em;
+    // border: 1px solid $thin-border-grey;
+    img {
+      border: 1px solid $thin-border-grey;
+    }
   }
   &__dimensions-box {
     height: 6.4em;
@@ -167,6 +184,7 @@ code {
     gap: 0.5em;
   }
   &__tile {
+    color: $light-text-on-panel;
     display: flex;
     align-items: flex-start;
     & img {
@@ -197,7 +215,7 @@ code {
       display: flex;
       align-items: center;
       width: 100%;
-      height: 1em;
+      height: 1.2em;
       & button {
         background-color: $primary;
         margin-right: 0.5em;
@@ -206,8 +224,9 @@ code {
         border-radius: 0.4em;
         cursor: pointer;
         transition: background-color 0.3s;
-        color: white;
-        font-size: 0.5rem;
+        color: $text-on-primary;
+        font-weight: 400;
+        font-size: 0.65rem;
         &:hover {
           background-color: $primary-hover;
         }
@@ -246,7 +265,7 @@ code {
 
   a {
     font-size: 0.75rem;
-    color: $text-grey;
+    color: $light-text-on-panel;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
@@ -254,12 +273,12 @@ code {
   }
   .link-text {
     font-size: 0.75rem;
-    color: $text-grey;
+    color: $light-text-on-panel;
   }
   .label-text {
     // margin-top: 0.2em;
     font-size: 0.7rem;
-    color: $text-grey;
+    color: $light-text-on-panel;
     font-weight: 700;
   }
   .product-info-text {

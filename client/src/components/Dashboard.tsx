@@ -40,7 +40,7 @@ export default function Dashboard() {
         <Panel title='Body Colour' className='short-upper'>
           <BodyColour />
         </Panel>
-        <Panel title='Minimum IP Rating' className='short-lower'>
+        <Panel title='IP Rating' className='short-lower'>
           <IpRating />
         </Panel>
         <Panel title='Light Quality' className='full-height'>

@@ -1,5 +1,5 @@
 export const temperatures = [
-  { value: 0, hex: "#a0a0a0" },
+  { value: 0, hex: "#7c7c7c" },
   { value: 1800, hex: "#f98e00" },
   { value: 2000, hex: "#fa9e00" },
   { value: 2200, hex: "#faad00" },

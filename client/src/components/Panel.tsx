@@ -15,7 +15,7 @@ const Panel: React.FC<IProps> = ({ title, className, children }) => {
           height: "100%",
           width: "100%",
           padding: "0.5em",
-          backgroundColor: "rgba(250, 250, 250)",
+          backgroundColor: "#7c7c7c",
         }}
         elevation={5}
       >

@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { grey, indigo } from "@mui/material/colors";
+import { cyan, grey, indigo, yellow } from "@mui/material/colors";
 // import { Canvas } from "@react-three/fiber";
 
 // apollo client connection
@@ -14,8 +14,11 @@ const client = new ApolloClient({
 // material UI
 const theme = createTheme({
   palette: {
-    primary: indigo,
-    secondary: grey,
+    mode: "dark",
+    primary: {
+      main: "#ffee71",
+    },
+    // secondary: grey,
   },
   typography: {
     htmlFontSize: 16,
@@ -28,10 +31,8 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <ApolloProvider client={client}>
-          <div>
-            <Header />
-            <Dashboard />
-          </div>
+          <Header />
+          <Dashboard />
         </ApolloProvider>
       </ThemeProvider>
     </>

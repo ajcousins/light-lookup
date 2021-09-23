@@ -52,7 +52,9 @@ const ParseIpRatings = ({
 
 export default function ProductTile({ product }: IProps) {
   return (
-    <Paper sx={{ marginBottom: "3em", padding: "1em" }}>
+    <Paper
+      sx={{ marginBottom: "3em", padding: "1em", backgroundColor: "#7c7c7c" }}
+    >
       <div className='product-tile'>
         <div
           className='product-tile__product-img'
