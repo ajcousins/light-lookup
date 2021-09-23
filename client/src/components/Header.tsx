@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 export default function Header() {
   return (
     <div className='header'>
-      <div className='header__inner'>
+      <div className='header__inner body-width'>
         <a href='.'>
           <img src={logo} alt='Light lookup' />
         </a>

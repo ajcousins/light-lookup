@@ -13,6 +13,14 @@ export const PRODUCTS = gql`
   }
 `;
 
+export const MANUFACTURERS = gql`
+  {
+    manufacturers {
+      name
+    }
+  }
+`;
+
 export const SEARCH_PRODUCTS = gql`
   query (
     $type: String
