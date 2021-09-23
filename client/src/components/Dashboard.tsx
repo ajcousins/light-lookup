@@ -33,6 +33,9 @@ export default function Dashboard() {
 
   return (
     <>
+      <div className='sub-header'>
+        Select the desired features of your luminaire.
+      </div>
       <div className='dashboard'>
         <Panel title='Mounting Condition' className='panel-1'>
           <MountingConditions />

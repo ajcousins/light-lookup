@@ -6,7 +6,9 @@ export default function Header() {
     <div className='header'>
       <div className='header__inner'>
         {/* <h1>Light Lookup</h1> */}
-        <img src={logo} />
+        <a href='.'>
+          <img src={logo} alt='Light lookup' />
+        </a>
         <p className='header__inner__end'>Sign In</p>
       </div>
     </div>
