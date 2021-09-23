@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
+import { sliderStyle } from "../panel-details/custom-styles";
 import {
   temperatures,
   valueLabelFormat,
@@ -42,6 +43,7 @@ export default function LightQuality() {
       dispatch(updateBeamAngle(newValue));
     }
   };
+
   return (
     <div className='panel__light-quality-inner'>
       <div className='panel__tile'>
@@ -64,6 +66,7 @@ export default function LightQuality() {
             value={colourTemp}
             onChange={handleColourTempChange}
             size='small'
+            sx={sliderStyle}
           />
           <div className='panel__tile__bottom-bar'>
             <button
@@ -105,6 +108,7 @@ export default function LightQuality() {
             value={cri}
             onChange={handleCriChange}
             size='small'
+            sx={sliderStyle}
           />
           <div className='panel__tile__bottom-bar'>
             <button
@@ -136,6 +140,7 @@ export default function LightQuality() {
             onChange={handleBeamAngleChange}
             size='small'
             disabled={diffuse}
+            sx={sliderStyle}
           />
           <div className='panel__tile__bottom-bar'>
             <button

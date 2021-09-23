@@ -34,19 +34,19 @@ export default function Dashboard() {
   return (
     <>
       <div className='dashboard'>
-        <Panel title='Mounting Condition' className='full-height'>
+        <Panel title='Mounting Condition' className='panel-1'>
           <MountingConditions />
         </Panel>
-        <Panel title='Body Colour' className='short-upper'>
+        <Panel title='Body Colour' className='panel-2'>
           <BodyColour />
         </Panel>
-        <Panel title='IP Rating' className='short-lower'>
+        <Panel title='IP Rating' className='panel-3'>
           <IpRating />
         </Panel>
-        <Panel title='Light Quality' className='full-height'>
+        <Panel title='Light Quality' className='panel-4'>
           <LightQuality />
         </Panel>
-        <Panel title='Dimension Constraints' className='full-height'>
+        <Panel title='Dimension Constraints' className='panel-5'>
           <Dimensions />
         </Panel>
       </div>

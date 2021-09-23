@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
+import { sliderStyle } from "../panel-details/custom-styles";
 import { styled } from "@mui/material/styles";
 import MuiInput from "@mui/material/Input";
 import ThreeObj from "./ThreeObj";
@@ -141,6 +142,7 @@ export default function Dimensions() {
               size='small'
               name='length'
               value={typeof length === "number" ? length : 0}
+              sx={sliderStyle}
             />
             <Input
               value={length}
@@ -173,6 +175,7 @@ export default function Dimensions() {
               size='small'
               name='width'
               value={typeof width === "number" ? width : 0}
+              sx={sliderStyle}
             />
             <Input
               value={width}
@@ -205,6 +208,7 @@ export default function Dimensions() {
               size='small'
               name='height'
               value={typeof height === "number" ? height : 0}
+              sx={sliderStyle}
             />
             <Input
               value={height}
