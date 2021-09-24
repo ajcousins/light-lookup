@@ -14,6 +14,8 @@ import {
 } from "../../panel-details/colour-temp";
 import { cris } from "../../panel-details/cri";
 import { beamFormat, beamValues } from "../../form-checks/beamAngleChecks";
+import { ipFormat, ipValues } from "../../form-checks/ipRatingChecks";
+import { CheckBoxes } from "./CheckBoxes";
 
 interface IState {
   formInput: {
@@ -29,9 +31,11 @@ export default function AddProduct() {
   const [manufacturers, setManufacturers] = useState([]);
   const [formInput, setFormInput] = useState<IState["formInput"]>({
     "beam-angles": "",
+    "ip-ratings": "",
   });
   const [inputErrors, setInputErrors] = useState<IState["inputErrors"]>({
     "beam-angles": "",
+    "ip-ratings": "",
   });
 
   useEffect(() => {
@@ -51,8 +55,11 @@ export default function AddProduct() {
     // console.log(event.target.name);
     let formInputCopy = { ...formInput };
     let inputErrorsCopy = { ...inputErrors };
-    if (event.target.name === "beam-angles") {
-      formInputCopy[event.target.name] = beamFormat(event.target.value);
+    if (event.target.name === "ip-ratings") {
+      formInputCopy["ip-ratings"] = ipFormat(event.target.value);
+      inputErrorsCopy["ip-ratings"] = ipValues(event.target.value);
+    } else if (event.target.name === "beam-angles") {
+      formInputCopy["beam-angles"] = beamFormat(event.target.value);
       inputErrorsCopy["beam-angles"] = beamValues(event.target.value);
     } else formInputCopy[event.target.name] = event.target.value;
 
@@ -60,9 +67,9 @@ export default function AddProduct() {
     setInputErrors(inputErrorsCopy);
   };
 
-  // useEffect(() => {
-  //   console.log("Form Input:", formInput);
-  // }, [formInput]);
+  useEffect(() => {
+    console.log("Form Input:", formInput);
+  }, [formInput]);
 
   return (
     <div className='form-body form-width text-on-background'>
@@ -80,87 +87,73 @@ export default function AddProduct() {
           )}
         />
         <h3 className='form-body__sub-heading'>Physical Attributes</h3>
-        <div className='form-body__label align-top'>Mounting Types:</div>
-        <div>
-          <div className='form-body__explanation-text'>
-            Select all that apply:
-          </div>
-          <div className='form-body__option-grid'>
-            {mountingTypes.map((type) => {
+
+        <CheckBoxes section='Mounting Types'>
+          {mountingTypes.map((type) => {
+            return (
+              <FormControlLabel
+                control={<Checkbox />}
+                label={getFormatted(type.kebab)}
+              />
+            );
+          })}
+        </CheckBoxes>
+
+        <CheckBoxes section='Body Colours'>
+          {bodyColours.map((type) => {
+            if (type.output === "None") return null;
+            else
               return (
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label={getFormatted(type.kebab)}
-                />
+                <FormControlLabel control={<Checkbox />} label={type.output} />
               );
-            })}
-          </div>
-        </div>
-        <div className='form-body__label align-top'>Body Colours:</div>
-        <div>
-          <div className='form-body__explanation-text'>
-            Select all that apply:
-          </div>
-          <div className='form-body__option-grid'>
-            {bodyColours.map((type) => {
-              if (type.output === "None") return null;
-              else
-                return (
-                  <FormControlLabel
-                    control={<Checkbox />}
-                    label={type.output}
-                  />
-                );
-            })}
-          </div>
-        </div>
+          })}
+        </CheckBoxes>
+
         <div className='form-body__label'>IP Ratings:</div>
         <TextField
+          error={inputErrors["ip-ratings"] === "" ? false : true}
+          onChange={handleInput}
           id='filled-search'
           label='IP Ratings'
+          name='ip-ratings'
           type='search'
-          helperText='Separate all available IP Ratings with commas. E.g. "20, 44, 65"'
+          helperText={
+            inputErrors["ip-ratings"]
+              ? inputErrors["ip-ratings"]
+              : 'Separate all available IP Ratings with commas. E.g. "20, 44, 65"'
+          }
+          value={formInput["ip-ratings"]}
         />
         <h3 className='form-body__sub-heading'>Light Quality</h3>
-        <div className='form-body__label align-top'>Colour Temperatures:</div>
-        <div>
-          <div className='form-body__explanation-text'>
-            Select all that apply:
-          </div>
-          <div className='form-body__option-grid'>
-            {temperatures.map((val) => {
-              if (val.value === 0) return null;
-              return (
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label={valueLabelFormat(val.value)}
-                />
-              );
-            })}
-          </div>
-        </div>
-        <div className='form-body__label align-top'>CRIs:</div>
-        <div>
-          <div className='form-body__explanation-text'>
-            Select all that apply:
-          </div>
-          <div className='form-body__option-grid'>
-            {cris.map((val) => {
-              if (val.value === 0) return null;
-              return (
-                <FormControlLabel control={<Checkbox />} label={val.value} />
-              );
-            })}
-          </div>
-        </div>
+        <CheckBoxes section='Colour Temperatures'>
+          {temperatures.map((val) => {
+            if (val.value === 0) return null;
+            return (
+              <FormControlLabel
+                control={<Checkbox />}
+                label={valueLabelFormat(val.value)}
+              />
+            );
+          })}
+        </CheckBoxes>
+
+        <CheckBoxes section='CRIs'>
+          {cris.map((val) => {
+            if (val.value === 0) return null;
+            return (
+              <FormControlLabel control={<Checkbox />} label={val.value} />
+            );
+          })}
+        </CheckBoxes>
+
         <div className='form-body__label'>Beam Angles:</div>
         <TextField
           error={inputErrors["beam-angles"] === "" ? false : true}
           onChange={handleInput}
           id='filled-search'
           label='Beam Angles'
-          type='search'
           name='beam-angles'
+          type='search'
           helperText={
             inputErrors["beam-angles"]
               ? inputErrors["beam-angles"]
