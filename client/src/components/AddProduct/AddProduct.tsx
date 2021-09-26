@@ -17,6 +17,7 @@ import { beamFormat, beamValues } from "../../form-checks/beamAngleChecks";
 import { ipFormat, ipValues } from "../../form-checks/ipRatingChecks";
 import { dimValue } from "../../form-checks/dimensionChecks";
 import { CheckBoxes } from "./CheckBoxes";
+import { DimensionField } from "./DimensionField";
 
 interface IState {
   formInput: {
@@ -24,6 +25,9 @@ interface IState {
   };
   inputErrors: {
     [key: string]: string;
+  };
+  mounting: {
+    [key: string]: boolean;
   };
 }
 
@@ -43,6 +47,20 @@ export default function AddProduct() {
     length: "",
     width: "",
     height: "",
+  });
+  const [mounting, setMounting] = useState<IState["mounting"]>({
+    "ceiling-mounted": false,
+    "ceiling-recessed": false,
+    suspended: false,
+    "wall-mounted": false,
+    "wall-recessed": false,
+    "track-mounted": false,
+    "floor-mounted": false,
+    "floor-recessed": false,
+    freestanding: false,
+    "node-systems": false,
+    "linear-systems": false,
+    "area-systems": false,
   });
 
   // Populate manufacturers list
@@ -82,10 +100,21 @@ export default function AddProduct() {
     setInputErrors(inputErrorsCopy);
   };
 
+  const handleMountingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setMounting({
+      ...mounting,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
   // useEffect(() => {
   //   console.log("Form Input:", formInput);
   //   console.log("Errors:", inputErrors);
   // }, [formInput, inputErrors]);
+
+  useEffect(() => {
+    console.log("Mounting:", mounting);
+  }, [mounting]);
 
   return (
     <div className='form-body form-width text-on-background'>
@@ -108,7 +137,13 @@ export default function AddProduct() {
           {mountingTypes.map((type) => {
             return (
               <FormControlLabel
-                control={<Checkbox />}
+                control={
+                  <Checkbox
+                    checked={mounting[type.kebab]}
+                    onChange={handleMountingChange}
+                    name={type.kebab}
+                  />
+                }
                 label={getFormatted(type.kebab)}
               />
             );
@@ -185,47 +220,23 @@ export default function AddProduct() {
         <div className='form-body__explanation-text'>
           Please enter the maximum/ bounding box dimensions of the luminaire.
         </div>
-        <div className='form-body__label'>Max Length (mm):</div>
-        <TextField
-          error={inputErrors["length"] === "" ? false : true}
-          onChange={handleInput}
-          id='filled-number'
-          label='Max Length'
-          name='length'
-          type='number'
-          InputLabelProps={{
-            shrink: true,
-          }}
-          helperText={inputErrors["length"] ? inputErrors["length"] : ""}
-          value={formInput["length"]}
+        <DimensionField
+          dimLabel='length'
+          handleInput={handleInput}
+          inputErrors={inputErrors}
+          formInput={formInput}
         />
-        <div className='form-body__label'>Max Width (mm):</div>
-        <TextField
-          error={inputErrors["width"] === "" ? false : true}
-          onChange={handleInput}
-          id='filled-number'
-          label='Max width'
-          name='width'
-          type='number'
-          InputLabelProps={{
-            shrink: true,
-          }}
-          helperText={inputErrors["width"] ? inputErrors["width"] : ""}
-          value={formInput["width"]}
+        <DimensionField
+          dimLabel='width'
+          handleInput={handleInput}
+          inputErrors={inputErrors}
+          formInput={formInput}
         />
-        <div className='form-body__label'>Max Height (mm):</div>
-        <TextField
-          error={inputErrors["height"] === "" ? false : true}
-          onChange={handleInput}
-          id='filled-number'
-          label='Max height'
-          name='height'
-          type='number'
-          InputLabelProps={{
-            shrink: true,
-          }}
-          helperText={inputErrors["height"] ? inputErrors["height"] : ""}
-          value={formInput["height"]}
+        <DimensionField
+          dimLabel='height'
+          handleInput={handleInput}
+          inputErrors={inputErrors}
+          formInput={formInput}
         />
       </div>
       <div className='form-body__button'>
