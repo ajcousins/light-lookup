@@ -29,6 +29,9 @@ interface IState {
   mounting: {
     [key: string]: boolean;
   };
+  bodyColour: {
+    [key: string]: boolean;
+  };
 }
 
 export default function AddProduct() {
@@ -61,6 +64,19 @@ export default function AddProduct() {
     "node-systems": false,
     "linear-systems": false,
     "area-systems": false,
+  });
+  const [bodyColour, setBodyColour] = useState<IState["bodyColour"]>({
+    black: false,
+    grey: false,
+    white: false,
+    brown: false,
+    green: false,
+    bronze: false,
+    brass: false,
+    "brushed-steel": false,
+    "polished-steel": false,
+    anthracite: false,
+    custom: false,
   });
 
   // Populate manufacturers list
@@ -107,6 +123,15 @@ export default function AddProduct() {
     });
   };
 
+  const handleBodyColourChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setBodyColour({
+      ...bodyColour,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
   // useEffect(() => {
   //   console.log("Form Input:", formInput);
   //   console.log("Errors:", inputErrors);
@@ -115,6 +140,10 @@ export default function AddProduct() {
   useEffect(() => {
     console.log("Mounting:", mounting);
   }, [mounting]);
+
+  useEffect(() => {
+    console.log("bodyColour:", bodyColour);
+  }, [bodyColour]);
 
   return (
     <div className='form-body form-width text-on-background'>
@@ -155,7 +184,16 @@ export default function AddProduct() {
             if (type.output === "None") return null;
             else
               return (
-                <FormControlLabel control={<Checkbox />} label={type.output} />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={bodyColour[type.value]}
+                      onChange={handleBodyColourChange}
+                      name={type.value}
+                    />
+                  }
+                  label={type.output}
+                />
               );
           })}
         </CheckBoxes>
