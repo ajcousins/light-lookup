@@ -373,7 +373,7 @@ a {
 
   .align-top {
     align-self: start;
-    margin-top: 1.4em;
+    margin-top: 2.2em;
   }
 
   // &__label {
@@ -402,11 +402,14 @@ a {
     grid-column-end: 3;
     font-size: 1.2rem;
     // font-weight: 300;
+    padding-bottom: 1em;
+    border-bottom: 1px solid $thin-border-grey;
   }
 
   &__explanation-text {
     grid-column-start: 1;
     grid-column-end: 3;
+    padding-bottom: 1em;
     font-style: italic;
     font-size: 0.8rem;
   }

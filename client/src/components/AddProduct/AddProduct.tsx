@@ -15,11 +15,12 @@ import {
 import { cris } from "../../panel-details/cri";
 import { beamFormat, beamValues } from "../../form-checks/beamAngleChecks";
 import { ipFormat, ipValues } from "../../form-checks/ipRatingChecks";
+import { dimValue } from "../../form-checks/dimensionChecks";
 import { CheckBoxes } from "./CheckBoxes";
 
 interface IState {
   formInput: {
-    [key: string]: string;
+    [key: string]: string | number;
   };
   inputErrors: {
     [key: string]: string;
@@ -32,12 +33,19 @@ export default function AddProduct() {
   const [formInput, setFormInput] = useState<IState["formInput"]>({
     "beam-angles": "",
     "ip-ratings": "",
+    length: "",
+    width: "",
+    height: "",
   });
   const [inputErrors, setInputErrors] = useState<IState["inputErrors"]>({
     "beam-angles": "",
     "ip-ratings": "",
+    length: "",
+    width: "",
+    height: "",
   });
 
+  // Populate manufacturers list
   useEffect(() => {
     if (data && data.manufacturers) {
       const arr = data.manufacturers
@@ -61,15 +69,23 @@ export default function AddProduct() {
     } else if (event.target.name === "beam-angles") {
       formInputCopy["beam-angles"] = beamFormat(event.target.value);
       inputErrorsCopy["beam-angles"] = beamValues(event.target.value);
+    } else if (
+      event.target.name === "length" ||
+      event.target.name === "width" ||
+      event.target.name === "height"
+    ) {
+      formInputCopy[event.target.name] = event.target.value;
+      inputErrorsCopy[event.target.name] = dimValue(event.target.value);
     } else formInputCopy[event.target.name] = event.target.value;
 
     setFormInput(formInputCopy);
     setInputErrors(inputErrorsCopy);
   };
 
-  useEffect(() => {
-    console.log("Form Input:", formInput);
-  }, [formInput]);
+  // useEffect(() => {
+  //   console.log("Form Input:", formInput);
+  //   console.log("Errors:", inputErrors);
+  // }, [formInput, inputErrors]);
 
   return (
     <div className='form-body form-width text-on-background'>
@@ -109,7 +125,9 @@ export default function AddProduct() {
           })}
         </CheckBoxes>
 
-        <div className='form-body__label'>IP Ratings:</div>
+        <div className='form-body__label' style={{ marginTop: "-1em" }}>
+          IP Ratings:
+        </div>
         <TextField
           error={inputErrors["ip-ratings"] === "" ? false : true}
           onChange={handleInput}
@@ -146,7 +164,9 @@ export default function AddProduct() {
           })}
         </CheckBoxes>
 
-        <div className='form-body__label'>Beam Angles:</div>
+        <div className='form-body__label' style={{ marginTop: "-1em" }}>
+          Beam Angles:
+        </div>
         <TextField
           error={inputErrors["beam-angles"] === "" ? false : true}
           onChange={handleInput}
@@ -167,30 +187,45 @@ export default function AddProduct() {
         </div>
         <div className='form-body__label'>Max Length (mm):</div>
         <TextField
+          error={inputErrors["length"] === "" ? false : true}
+          onChange={handleInput}
           id='filled-number'
           label='Max Length'
+          name='length'
           type='number'
           InputLabelProps={{
             shrink: true,
           }}
+          helperText={inputErrors["length"] ? inputErrors["length"] : ""}
+          value={formInput["length"]}
         />
         <div className='form-body__label'>Max Width (mm):</div>
         <TextField
+          error={inputErrors["width"] === "" ? false : true}
+          onChange={handleInput}
           id='filled-number'
-          label='Max Width'
+          label='Max width'
+          name='width'
           type='number'
           InputLabelProps={{
             shrink: true,
           }}
+          helperText={inputErrors["width"] ? inputErrors["width"] : ""}
+          value={formInput["width"]}
         />
         <div className='form-body__label'>Max Height (mm):</div>
         <TextField
+          error={inputErrors["height"] === "" ? false : true}
+          onChange={handleInput}
           id='filled-number'
-          label='Max Height'
+          label='Max height'
+          name='height'
           type='number'
           InputLabelProps={{
             shrink: true,
           }}
+          helperText={inputErrors["height"] ? inputErrors["height"] : ""}
+          value={formInput["height"]}
         />
       </div>
       <div className='form-body__button'>
