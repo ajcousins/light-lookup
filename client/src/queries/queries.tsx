@@ -17,6 +17,7 @@ export const MANUFACTURERS = gql`
   {
     manufacturers {
       name
+      id
     }
   }
 `;

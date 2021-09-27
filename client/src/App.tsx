@@ -23,7 +23,6 @@ function App() {
               <Header />
               <Route exact path='/' component={Dashboard} />
               <Route exact path='/addproduct' component={AddProduct} />
-              {/* <Dashboard /> */}
             </ApolloProvider>
           </ThemeProvider>
         </Switch>
