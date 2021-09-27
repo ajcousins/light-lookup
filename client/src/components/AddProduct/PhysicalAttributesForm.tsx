@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { mountingTypes, getFormatted } from "../../panel-details/mounting";
 import { bodyColours } from "../../panel-details/bodyColour";
 import Checkbox from "@mui/material/Checkbox";
@@ -6,10 +6,17 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { CheckBoxes } from "./CheckBoxes";
 import TextField from "@mui/material/TextField";
 import { ipFormat, ipValues } from "../../form-checks/ipRatingChecks";
+import { useDispatch } from "react-redux";
+import {
+  updateMounting,
+  updateBodyColour,
+  updateIpParticle,
+  updateIpMoisture,
+} from "../../features/addProduct/addProductSlice";
 
 interface IState {
   formInput: {
-    [key: string]: string | number;
+    [key: string]: string;
   };
   inputErrors: {
     [key: string]: string;
@@ -23,19 +30,12 @@ interface IState {
 }
 
 export default function PhysicalAttributesForm() {
+  const dispatch = useDispatch();
   const [formInput, setFormInput] = useState<IState["formInput"]>({
-    "beam-angles": "",
     "ip-ratings": "",
-    length: "",
-    width: "",
-    height: "",
   });
   const [inputErrors, setInputErrors] = useState<IState["inputErrors"]>({
-    "beam-angles": "",
     "ip-ratings": "",
-    length: "",
-    width: "",
-    height: "",
   });
 
   const [mounting, setMounting] = useState<IState["mounting"]>({
@@ -94,6 +94,36 @@ export default function PhysicalAttributesForm() {
     setFormInput(formInputCopy);
     setInputErrors(inputErrorsCopy);
   };
+
+  // set global state
+  useEffect(() => {
+    const mountingArr = Object.keys(mounting).filter(
+      (condition) => mounting[condition]
+    );
+    // console.log("arr:", mountingArr);
+    dispatch(updateMounting(mountingArr));
+  }, [mounting, dispatch]);
+
+  useEffect(() => {
+    const bodyColourArr = Object.keys(bodyColour).filter(
+      (colour) => bodyColour[colour]
+    );
+    // console.log("arr:", mountingArr);
+    dispatch(updateBodyColour(bodyColourArr));
+  }, [bodyColour, dispatch]);
+
+  useEffect(() => {
+    const ips = formInput["ip-ratings"]
+      .split(" ")
+      .join("")
+      .split(",")
+      .filter((ip) => ip !== "")
+      .filter((ip) => ip.length === 2);
+    const ipParticleArr = ips.map((ip) => Number(ip.charAt(0)));
+    const ipMoistureArr = ips.map((ip) => Number(ip.charAt(1)));
+    dispatch(updateIpParticle(ipParticleArr));
+    dispatch(updateIpMoisture(ipMoistureArr));
+  }, [formInput, dispatch]);
 
   return (
     <>

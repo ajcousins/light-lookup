@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DimensionField } from "./DimensionField";
 import { dimValue } from "../../form-checks/dimensionChecks";
+import { useDispatch } from "react-redux";
+import {
+  updateLength,
+  updateWidth,
+  updateHeight,
+} from "../../features/addProduct/addProductSlice";
 
 interface IState {
   formInput: {
@@ -12,6 +18,7 @@ interface IState {
 }
 
 export default function ConstraintsForm() {
+  const dispatch = useDispatch();
   const [formInput, setFormInput] = useState<IState["formInput"]>({
     length: "",
     width: "",
@@ -38,6 +45,18 @@ export default function ConstraintsForm() {
     setFormInput(formInputCopy);
     setInputErrors(inputErrorsCopy);
   };
+
+  useEffect(() => {
+    if (
+      formInput.length > 500 ||
+      formInput.width > 500 ||
+      formInput.height > 500
+    )
+      return;
+    dispatch(updateLength(Number(formInput.length)));
+    dispatch(updateWidth(Number(formInput.width)));
+    dispatch(updateHeight(Number(formInput.height)));
+  }, [formInput, dispatch]);
 
   return (
     <>

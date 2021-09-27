@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
@@ -9,10 +9,16 @@ import {
 import { cris } from "../../panel-details/cri";
 import { CheckBoxes } from "./CheckBoxes";
 import { beamFormat, beamValues } from "../../form-checks/beamAngleChecks";
+import { useDispatch } from "react-redux";
+import {
+  updateColourTemp,
+  updateCri,
+  updateBeamAngles,
+} from "../../features/addProduct/addProductSlice";
 
 interface IState {
   formInput: {
-    [key: string]: string | number;
+    [key: string]: string;
   };
   inputErrors: {
     [key: string]: string;
@@ -26,13 +32,12 @@ interface IState {
 }
 
 export default function LightQualityForm() {
+  const dispatch = useDispatch();
   const [formInput, setFormInput] = useState<IState["formInput"]>({
     "beam-angles": "",
-    "ip-ratings": "",
   });
   const [inputErrors, setInputErrors] = useState<IState["inputErrors"]>({
     "beam-angles": "",
-    "ip-ratings": "",
   });
 
   const [colourTemp, setColourTemp] = useState<IState["colourTemp"]>({
@@ -73,7 +78,6 @@ export default function LightQualityForm() {
   };
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log(event.target.name);
     let formInputCopy = { ...formInput };
     let inputErrorsCopy = { ...inputErrors };
     if (event.target.name === "beam-angles") {
@@ -84,6 +88,30 @@ export default function LightQualityForm() {
     setFormInput(formInputCopy);
     setInputErrors(inputErrorsCopy);
   };
+
+  useEffect(() => {
+    const colourTempArr = Object.keys(colourTemp)
+      .filter((val) => colourTemp[val])
+      .map((val) => Number(val));
+    dispatch(updateColourTemp(colourTempArr));
+  }, [colourTemp, dispatch]);
+
+  useEffect(() => {
+    const criArr = Object.keys(crisState)
+      .filter((val) => crisState[val])
+      .map((val) => Number(val));
+    dispatch(updateCri(criArr));
+  }, [crisState, dispatch]);
+
+  useEffect(() => {
+    const beamVals = formInput["beam-angles"]
+      .split(" ")
+      .join("")
+      .split(",")
+      .filter((beam) => beam !== "" && Number(beam) <= 120 && Number(beam) > 0);
+    const beamValsArr = beamVals.map((beam) => Number(beam));
+    dispatch(updateBeamAngles(beamValsArr));
+  }, [formInput, dispatch]);
 
   return (
     <>
