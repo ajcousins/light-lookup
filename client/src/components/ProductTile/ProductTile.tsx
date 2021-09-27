@@ -1,5 +1,6 @@
 import React from "react";
 import Paper from "@mui/material/Paper";
+import { ParseIpRatings } from "./ParseIpRatings";
 
 interface IProps {
   product: {
@@ -17,38 +18,6 @@ interface IProps {
     manufacturer: { name: string; country: string; website: string };
   };
 }
-
-const ParseIpRatings = ({
-  particleArr,
-  moistureArr,
-}: {
-  particleArr: number[];
-  moistureArr: number[];
-}) => {
-  const lowestParticle = particleArr.reduce((prev, cur) => {
-    if (cur < prev) return cur;
-    else return prev;
-  }, 6);
-  const highestParticle = particleArr.reduce((prev, cur) => {
-    if (cur > prev) return cur;
-    else return prev;
-  }, 0);
-  const lowestMoisture = moistureArr.reduce((prev, cur) => {
-    if (cur < prev) return cur;
-    else return prev;
-  }, 8);
-  const highestMoisture = moistureArr.reduce((prev, cur) => {
-    if (cur > prev) return cur;
-    else return prev;
-  }, 0);
-
-  if (lowestParticle === highestParticle && lowestMoisture === highestMoisture)
-    return <span>{`IP${highestParticle}${highestMoisture}.`}</span>;
-  else
-    return (
-      <span>{`Lowest: IP${lowestParticle}${lowestMoisture}, Highest: IP${highestParticle}${highestMoisture}.`}</span>
-    );
-};
 
 export default function ProductTile({ product }: IProps) {
   return (
@@ -80,6 +49,7 @@ export default function ProductTile({ product }: IProps) {
         <div className='data'>
           <div className='label-text'>Mounting Conditions:</div>
           <div className='product-info-text'>
+            {product.mounting.length < 1 && <span>-</span>}
             {product.mounting.map((condition, index) => {
               return (
                 <span>
@@ -95,6 +65,7 @@ export default function ProductTile({ product }: IProps) {
 
           <div className='label-text'>Body Colours:</div>
           <div className='product-info-text'>
+            {product.bodyColour.length < 1 && <span>-</span>}
             {product.bodyColour.map((colour, index) => {
               return (
                 <span>
@@ -126,6 +97,7 @@ export default function ProductTile({ product }: IProps) {
 
           <div className='label-text'>CRIs:</div>
           <div className='product-info-text'>
+            {product.cri.length < 1 && <span>-</span>}
             {product.cri.map((val, index) => (
               <span>
                 {val}
@@ -136,6 +108,7 @@ export default function ProductTile({ product }: IProps) {
 
           <div className='label-text'>Beam Angles:</div>
           <div className='product-info-text'>
+            {product.beamAngles.length < 1 && <span>-</span>}
             {product.beamAngles.map((val, index) => (
               <span>
                 {val}

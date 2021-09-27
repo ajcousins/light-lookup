@@ -83,7 +83,6 @@ export default function PhysicalAttributesForm() {
   };
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log(event.target.name);
     let formInputCopy = { ...formInput };
     let inputErrorsCopy = { ...inputErrors };
     if (event.target.name === "ip-ratings") {
@@ -100,7 +99,6 @@ export default function PhysicalAttributesForm() {
     const mountingArr = Object.keys(mounting).filter(
       (condition) => mounting[condition]
     );
-    // console.log("arr:", mountingArr);
     dispatch(updateMounting(mountingArr));
   }, [mounting, dispatch]);
 
@@ -108,7 +106,6 @@ export default function PhysicalAttributesForm() {
     const bodyColourArr = Object.keys(bodyColour).filter(
       (colour) => bodyColour[colour]
     );
-    // console.log("arr:", mountingArr);
     dispatch(updateBodyColour(bodyColourArr));
   }, [bodyColour, dispatch]);
 

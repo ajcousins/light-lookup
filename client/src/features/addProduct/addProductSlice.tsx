@@ -15,10 +15,6 @@ export interface addProductState {
   height: number;
 }
 
-// When mounting options are added and then removed.. it looks like state
-// reverts to "null", rather than an empty array, per intial state.
-// How does GraphQL handle null and []?
-
 const initialState: addProductState = {
   name: "",
   manufacturerId: "",
@@ -38,6 +34,20 @@ export const addProductSlice = createSlice({
   name: "addProduct",
   initialState,
   reducers: {
+    resetForm: (state) => {
+      state.name = "";
+      state.manufacturerId = "";
+      state.mounting = [];
+      state.bodyColour = [];
+      state.ipParticle = [];
+      state.ipMoisture = [];
+      state.colourTemp = [];
+      state.cri = [];
+      state.beamAngles = [];
+      state.length = 0;
+      state.width = 0;
+      state.height = 0;
+    },
     updateName: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
     },
@@ -56,7 +66,6 @@ export const addProductSlice = createSlice({
     updateIpMoisture: (state, action: PayloadAction<number[]>) => {
       state.ipMoisture = action.payload;
     },
-
     updateColourTemp: (state, action: PayloadAction<number[]>) => {
       state.colourTemp = action.payload;
     },
@@ -79,6 +88,7 @@ export const addProductSlice = createSlice({
 });
 
 export const {
+  resetForm,
   updateName,
   updateManufacturerId,
   updateMounting,

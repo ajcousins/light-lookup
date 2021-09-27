@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Panel from "./Panel";
 import LoadingButton from "@mui/lab/LoadingButton";
 import LightQuality from "./LightQuality";
@@ -21,15 +21,11 @@ export default function Dashboard() {
 
   const handleSearch = () => {
     setShowResults(true);
-    console.log("query:", query);
+    // console.log("query:", query);
     setQueryVariables({
       variables: query,
     });
   };
-
-  useEffect(() => {
-    console.log("error:", error);
-  }, [error]);
 
   return (
     <>

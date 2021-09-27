@@ -1,5 +1,5 @@
 import React from "react";
-import ProductTile from "./ProductTile";
+import ProductTile from "./ProductTile/ProductTile";
 
 export default function ResultsBody({
   error,

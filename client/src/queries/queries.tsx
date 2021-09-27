@@ -68,3 +68,52 @@ export const SEARCH_PRODUCTS = gql`
     }
   }
 `;
+
+export const ADD_PRODUCT = gql`
+  mutation addProduct(
+    $name: String!
+    $manufacturerId: ID!
+    $mounting: [String]
+    $bodyColour: [String]
+    $ipParticle: [Int]
+    $ipMoisture: [Int]
+    $colourTemp: [Int]
+    $cri: [Int]
+    $beamAngles: [Int]
+    $length: Int
+    $width: Int
+    $height: Int
+  ) {
+    addProduct(
+      name: $name
+      manufacturerId: $manufacturerId
+      mounting: $mounting
+      bodyColour: $bodyColour
+      ipParticle: $ipParticle
+      ipMoisture: $ipMoisture
+      colourTemp: $colourTemp
+      cri: $cri
+      beamAngles: $beamAngles
+      length: $length
+      width: $width
+      height: $height
+    ) {
+      name
+      mounting
+      bodyColour
+      ipParticle
+      ipMoisture
+      colourTemp
+      cri
+      beamAngles
+      length
+      width
+      height
+      manufacturer {
+        name
+        country
+        website
+      }
+    }
+  }
+`;
