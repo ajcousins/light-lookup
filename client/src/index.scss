@@ -4,10 +4,12 @@ $text-grey: #777777;
 $primary: #ffee71;
 $primary-hover: #eedd5f;
 $text-on-primary: #211f0f;
-$panel-background: #7c7c7c; // specified in-line to Paper component
+$panel-background: #575757; // specified in-line to Paper component
 
 $light-text-on-dark: #cdced3;
 $light-text-on-panel: #f5f5f7;
+
+$btn-grey-on-panel: #b5b5b5;
 
 body {
   background-color: $background-grey;
@@ -252,24 +254,24 @@ a {
       width: 100%;
       height: 1.2em;
       & button {
-        background-color: $primary;
-        margin-right: 0.5em;
+        background-color: $btn-grey-on-panel;
+        margin-right: 0.3em;
         height: 100%;
         border: 1px solid transparent;
-        border-radius: 0.4em;
+        border-radius: 0.2em;
         cursor: pointer;
         transition: background-color 0.3s;
-        color: $text-on-primary;
+        color: $panel-background;
         font-weight: 400;
         font-size: 0.65rem;
         &:hover {
           background-color: $primary-hover;
         }
         &.outline {
-          border: 1px solid $primary;
+          border: 1px solid $btn-grey-on-panel;
           background-color: transparent;
-          color: $primary;
-          font-weight: 700;
+          color: $btn-grey-on-panel;
+          font-weight: 400;
         }
       }
     }

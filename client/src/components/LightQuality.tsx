@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { sliderStyle } from "../panel-details/custom-styles";
@@ -21,10 +21,11 @@ import CircleBeam from "../imgs/colour-temp/ColourTempCirlce";
 export default function LightQuality() {
   const dispatch = useDispatch();
   const [diffuse, setDiffuse] = useState(false);
+  const [beamAngle, setBeamAngle] = useState(0);
 
   const colourTemp = useSelector((state: RootState) => state.query.colourTemp);
   const cri = useSelector((state: RootState) => state.query.cri);
-  const beamAngle = useSelector((state: RootState) => state.query.beamAngle);
+  // const beamAngle = useSelector((state: RootState) => state.query.beamAngle);
 
   const handleColourTempChange = (e: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {
@@ -40,9 +41,16 @@ export default function LightQuality() {
 
   const handleBeamAngleChange = (e: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {
-      dispatch(updateBeamAngle(newValue));
+      setBeamAngle(newValue);
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(updateBeamAngle(beamAngle));
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [beamAngle, dispatch]);
 
   return (
     <div className='panel__light-quality-inner'>
@@ -131,7 +139,7 @@ export default function LightQuality() {
           <p className='label'>Beam Angle</p>
           <Slider
             aria-label='Default'
-            defaultValue={70}
+            // defaultValue={70}
             valueLabelFormat={(val) => `${val}°`}
             valueLabelDisplay='auto'
             min={1}
@@ -146,7 +154,7 @@ export default function LightQuality() {
             <button
               className={!beamAngle ? "outline" : ""}
               onClick={() => {
-                dispatch(updateBeamAngle(0));
+                setBeamAngle(0);
                 setDiffuse(false);
               }}
             >
