@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Dashboard from "./components/Dashboard";
 import AddProduct from "./components/AddProduct/AddProduct";
 import { ThemeProvider } from "@mui/material/styles";
@@ -20,9 +21,14 @@ function App() {
         <Switch>
           <ThemeProvider theme={theme}>
             <ApolloProvider client={client}>
-              <Header />
-              <Route exact path='/' component={Dashboard} />
-              <Route exact path='/addproduct' component={AddProduct} />
+              <div className='structure'>
+                <Header />
+                <div className='structure__body'>
+                  <Route exact path='/' component={Dashboard} />
+                  <Route exact path='/addproduct' component={AddProduct} />
+                </div>
+                <Footer />
+              </div>
             </ApolloProvider>
           </ThemeProvider>
         </Switch>

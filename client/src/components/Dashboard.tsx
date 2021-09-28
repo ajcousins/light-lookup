@@ -66,6 +66,7 @@ export default function Dashboard() {
       {showResults && (
         <ResultsBody error={error} data={data} loading={loading} />
       )}
+      <div className='structure__buffer' />
     </>
   );
 }
