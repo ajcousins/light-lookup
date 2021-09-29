@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ProductNameForm from "./ProductNameForm";
 import PhysicalAttributesForm from "./PhysicalAttributesForm";
@@ -45,12 +46,19 @@ export default function AddProduct() {
     beamAngles: [0],
     manufacturer: { name: "", country: "", website: "" },
   });
+  const [uploadedImg, setUploadedImg] = useState<{
+    selectedFile: string | ArrayBuffer | null;
+  }>({ selectedFile: null });
 
   const [addProductMutation] = useMutation(ADD_PRODUCT, {
     variables: formValues,
 
     onCompleted: (data) => {
       setNewProduct(data.addProduct);
+
+      // Send photo to aws s3
+      // Save
+
       setSubmitSuccess(true);
     },
     onError: (err) => {
@@ -59,8 +67,33 @@ export default function AddProduct() {
   });
 
   const handleSubmit = () => {
+    if (uploadedImg.selectedFile) {
+      // console.log("Here!");
+
+      postImage(uploadedImg.selectedFile, formValues.imgFilename);
+    }
     addProductMutation();
     dispatch(resetForm());
+    setUploadedImg({ selectedFile: null });
+  };
+
+  const postImage = (file: string | ArrayBuffer, filename: string) => {
+    /* 
+    --- TRY THIS ---
+    https://stackoverflow.com/questions/61740953/reactjs-resize-image-before-upload
+
+    UPLOAD IMAGES TO FIREBASE
+    */
+
+    const form = new FormData();
+    console.log("form:", form);
+
+    form.append("photo", String(file));
+    form.append("filename", filename);
+
+    axios.post("http://localhost:4000/images/products", form).then((res) => {
+      console.log("Res:", res);
+    });
   };
 
   const handleAddAnother = () => {
@@ -73,7 +106,10 @@ export default function AddProduct() {
         <div className='form-body form-width text-on-background'>
           <h2 style={{ marginBottom: "1em" }}>Add a Single Product</h2>
           <div className='form-body__grid form-width'>
-            <ProductNameForm />
+            <ProductNameForm
+              uploadedImg={uploadedImg}
+              setUploadedImg={setUploadedImg}
+            />
 
             <PhysicalAttributesForm />
 

@@ -83,6 +83,7 @@ export const ADD_PRODUCT = gql`
     $length: Int
     $width: Int
     $height: Int
+    $imgFilename: String
   ) {
     addProduct(
       name: $name
@@ -97,6 +98,7 @@ export const ADD_PRODUCT = gql`
       length: $length
       width: $width
       height: $height
+      imgFilename: $imgFilename
     ) {
       name
       mounting
@@ -109,6 +111,7 @@ export const ADD_PRODUCT = gql`
       length
       width
       height
+      imgFilename
       manufacturer {
         name
         country

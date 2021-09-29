@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { styled } from "@mui/material/styles";
+import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useQuery } from "@apollo/client";
@@ -7,7 +9,9 @@ import { useDispatch } from "react-redux";
 import {
   updateName,
   updateManufacturerId,
+  updateImgFilename,
 } from "../../features/addProduct/addProductSlice";
+import parseFilename from "../../form-checks/parseFilename";
 
 interface IState {
   manufacturers: {
@@ -16,7 +20,17 @@ interface IState {
   }[];
 }
 
-export default function ProductNameForm() {
+const Input = styled("input")({
+  display: "none",
+});
+
+export default function ProductNameForm({
+  uploadedImg,
+  setUploadedImg,
+}: {
+  uploadedImg: any;
+  setUploadedImg: any;
+}) {
   const dispatch = useDispatch();
   const [productName, setProductName] = useState("");
   const { data } = useQuery(MANUFACTURERS);
@@ -48,6 +62,27 @@ export default function ProductNameForm() {
     dispatch(updateManufacturerId(manufacturers[index].id));
   }, [manufacturers, selected, productName, dispatch]);
 
+  useEffect(() => {
+    if (uploadedImg.selectedFile) {
+      dispatch(updateImgFilename(parseFilename(productName)));
+    }
+  }, [productName, dispatch, uploadedImg]);
+
+  const renderImg = (event: any) => {
+    console.log(event.target.files[0]);
+    let file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = function (e) {
+      // Set image for preview
+      setUploadedImg({ selectedFile: reader.result });
+
+      // Create and set filename
+      dispatch(updateImgFilename(parseFilename(productName)));
+    };
+  };
+
   return (
     <>
       <div className='form-body__label'>Product Name:</div>
@@ -73,6 +108,31 @@ export default function ProductNameForm() {
           <TextField {...params} label='Manufacturers' />
         )}
       />
+      <div className='form-body__label'>Upload Image:</div>
+      <label htmlFor='image-upload' style={{ display: "flex" }}>
+        <Input
+          accept='image/*'
+          id='image-upload'
+          // multiple
+          type='file'
+          onChange={renderImg}
+        />
+        <Button variant='contained' component='span'>
+          Upload
+        </Button>
+      </label>
+      {uploadedImg.selectedFile && (
+        <>
+          <div />
+          <div className='form-body__img-wrapper'>
+            <img
+              width='100%'
+              src={String(uploadedImg.selectedFile)}
+              alt='product'
+            />
+          </div>
+        </>
+      )}
     </>
   );
 }

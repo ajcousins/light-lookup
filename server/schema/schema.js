@@ -43,6 +43,7 @@ const ProductType = new GraphQLObjectType({
     beamAngles: { type: new GraphQLList(GraphQLInt) },
     colourTemp: { type: new GraphQLList(GraphQLInt) },
     cri: { type: new GraphQLList(GraphQLInt) },
+    imgFilename: { type: GraphQLString },
   }),
 });
 
@@ -234,6 +235,7 @@ const Mutation = new GraphQLObjectType({
         beamAngles: { type: new GraphQLList(GraphQLInt) },
         colourTemp: { type: new GraphQLList(GraphQLInt) },
         cri: { type: new GraphQLList(GraphQLInt) },
+        imgFilename: { type: GraphQLString },
       },
       resolve(parent, args) {
         let product = new Product({
@@ -252,6 +254,7 @@ const Mutation = new GraphQLObjectType({
           beamAngles: args.beamAngles,
           colourTemp: args.colourTemp,
           cri: args.cri,
+          imgFilename: args.imgFilename,
         });
         return product.save();
       },

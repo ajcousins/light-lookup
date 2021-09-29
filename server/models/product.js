@@ -17,6 +17,7 @@ const productSchema = new Schema({
   height: Number,
   diameter: Number,
   recessDepth: Number,
+  imgFilename: String,
 });
 
 module.exports = mongoose.model("Product", productSchema);

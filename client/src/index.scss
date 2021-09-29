@@ -483,6 +483,18 @@ a {
     display: flex;
     justify-content: center;
   }
+
+  &__img-wrapper {
+    height: 10em;
+    width: 10em;
+    padding: 0.5em;
+    border: 1pt solid $thin-border-grey;
+    border-radius: 0.4em;
+    display: flex;
+    img {
+      object-fit: cover;
+    }
+  }
 }
 
 @media only screen and (max-width: 1350px) {

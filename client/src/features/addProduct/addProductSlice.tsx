@@ -13,6 +13,7 @@ export interface addProductState {
   length: number;
   width: number;
   height: number;
+  imgFilename: string;
 }
 
 const initialState: addProductState = {
@@ -28,6 +29,7 @@ const initialState: addProductState = {
   length: 0,
   width: 0,
   height: 0,
+  imgFilename: "",
 };
 
 export const addProductSlice = createSlice({
@@ -47,6 +49,7 @@ export const addProductSlice = createSlice({
       state.length = 0;
       state.width = 0;
       state.height = 0;
+      state.imgFilename = "";
     },
     updateName: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
@@ -84,6 +87,9 @@ export const addProductSlice = createSlice({
     updateHeight: (state, action: PayloadAction<number>) => {
       state.height = action.payload;
     },
+    updateImgFilename: (state, action: PayloadAction<string>) => {
+      state.imgFilename = action.payload;
+    },
   },
 });
 
@@ -101,6 +107,7 @@ export const {
   updateLength,
   updateWidth,
   updateHeight,
+  updateImgFilename,
 } = addProductSlice.actions;
 
 export default addProductSlice.reducer;
