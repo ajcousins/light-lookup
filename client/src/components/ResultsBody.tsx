@@ -29,6 +29,7 @@ export default function ResultsBody({
             cri: [number];
             beamAngles: [number];
             manufacturer: { name: string; country: string; website: string };
+            imgFilename?: string;
           }) => {
             return <ProductTile product={product} />;
           }

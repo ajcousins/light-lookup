@@ -60,6 +60,7 @@ export const SEARCH_PRODUCTS = gql`
       length
       width
       height
+      imgFilename
       manufacturer {
         name
         country

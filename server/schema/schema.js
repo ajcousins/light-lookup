@@ -1,6 +1,5 @@
 const graphql = require("graphql");
 const _ = require("lodash");
-const { products, manufacturers } = require("./dummyData");
 const Product = require("../models/product");
 const Manufacturer = require("../models/manufacturer");
 

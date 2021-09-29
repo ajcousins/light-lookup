@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import { ParseIpRatings } from "./ParseIpRatings";
+import productDefault from "../../imgs/defaults/product-default.jpg";
+import { getDownloadURL, ref } from "firebase/storage";
+import { storage } from "../../app/firebase";
 
 interface IProps {
   product: {
@@ -16,10 +19,25 @@ interface IProps {
     cri: [number];
     beamAngles: [number];
     manufacturer: { name: string; country: string; website: string };
+    imgFilename?: string;
   };
 }
 
 export default function ProductTile({ product }: IProps) {
+  const [imgUrl, setImgUrl] = useState("");
+
+  useEffect(() => {
+    if (product.imgFilename) {
+      getDownloadURL(ref(storage, `products/${product.imgFilename}`))
+        .then((url) => {
+          setImgUrl(url);
+        })
+        .catch((err) => {
+          console.log("Error:", err);
+        });
+    }
+  }, [product.imgFilename]);
+
   return (
     <Paper
       sx={{ marginBottom: "3em", padding: "1em", backgroundColor: "#7c7c7c" }}
@@ -32,7 +50,13 @@ export default function ProductTile({ product }: IProps) {
             height: "9.25em",
             width: "9.25em",
           }}
-        />
+        >
+          {imgUrl ? (
+            <img src={imgUrl} alt='Product' />
+          ) : (
+            <img src={productDefault} alt='Product' />
+          )}
+        </div>
         <div className='product-tile__heading'>
           <span>
             <h2>{product.name} </h2>

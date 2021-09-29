@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ProductNameForm from "./ProductNameForm";
 import PhysicalAttributesForm from "./PhysicalAttributesForm";
@@ -11,6 +10,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../app/store";
 import { resetForm } from "../../features/addProduct/addProductSlice";
 import ProductTile from "../ProductTile/ProductTile";
+import { ref, uploadString } from "firebase/storage";
+import { storage } from "../../app/firebase";
 
 interface IState {
   product: {
@@ -26,6 +27,7 @@ interface IState {
     cri: [number];
     beamAngles: [number];
     manufacturer: { name: string; country: string; website: string };
+    imgFilename: string;
   };
 }
 export default function AddProduct() {
@@ -45,6 +47,7 @@ export default function AddProduct() {
     cri: [0],
     beamAngles: [0],
     manufacturer: { name: "", country: "", website: "" },
+    imgFilename: "",
   });
   const [uploadedImg, setUploadedImg] = useState<{
     selectedFile: string | ArrayBuffer | null;
@@ -55,10 +58,6 @@ export default function AddProduct() {
 
     onCompleted: (data) => {
       setNewProduct(data.addProduct);
-
-      // Send photo to aws s3
-      // Save
-
       setSubmitSuccess(true);
     },
     onError: (err) => {
@@ -68,8 +67,6 @@ export default function AddProduct() {
 
   const handleSubmit = () => {
     if (uploadedImg.selectedFile) {
-      // console.log("Here!");
-
       postImage(uploadedImg.selectedFile, formValues.imgFilename);
     }
     addProductMutation();
@@ -78,21 +75,11 @@ export default function AddProduct() {
   };
 
   const postImage = (file: string | ArrayBuffer, filename: string) => {
-    /* 
-    --- TRY THIS ---
-    https://stackoverflow.com/questions/61740953/reactjs-resize-image-before-upload
+    // Firebase storage
+    const imgRef = ref(storage, `products/${filename}`);
 
-    UPLOAD IMAGES TO FIREBASE
-    */
-
-    const form = new FormData();
-    console.log("form:", form);
-
-    form.append("photo", String(file));
-    form.append("filename", filename);
-
-    axios.post("http://localhost:4000/images/products", form).then((res) => {
-      console.log("Res:", res);
+    uploadString(imgRef, String(file), "data_url").then((snapshot) => {
+      // console.log("Uploaded Img");
     });
   };
 

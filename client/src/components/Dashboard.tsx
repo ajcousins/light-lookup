@@ -21,7 +21,6 @@ export default function Dashboard() {
 
   const handleSearch = () => {
     setShowResults(true);
-    // console.log("query:", query);
     setQueryVariables({
       variables: query,
     });
