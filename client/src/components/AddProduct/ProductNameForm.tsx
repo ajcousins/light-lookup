@@ -61,6 +61,7 @@ export default function ProductNameForm({
     dispatch(updateName(productName));
     if (selected === "") return;
     const index = manufacturers.findIndex((val) => val.name === selected);
+    if (index < 0) return;
     dispatch(updateManufacturerId(manufacturers[index].id));
   }, [manufacturers, selected, productName, dispatch]);
 
