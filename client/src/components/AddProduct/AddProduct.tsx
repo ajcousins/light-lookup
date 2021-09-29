@@ -54,6 +54,14 @@ export default function AddProduct() {
   const [uploadedImg, setUploadedImg] = useState<{
     selectedFile: string | ArrayBuffer | null;
   }>({ selectedFile: null });
+  const [inputErrors, setInputErrors] = useState({
+    "ip-ratings": "",
+    "beam-angles": "",
+    length: "",
+    width: "",
+    height: "",
+  });
+  const [errorMsg, setErrorMsg] = useState("");
 
   const [addProductMutation] = useMutation(ADD_PRODUCT, {
     variables: formValues,
@@ -68,12 +76,33 @@ export default function AddProduct() {
   });
 
   const handleSubmit = () => {
+    // Check if required fields are filled.
+    if (!formValues.name || !formValues.manufacturerId) {
+      setErrorMsg("Product Name and Manufacturer fields are required.");
+      return;
+    }
+
+    // Check if there are errors on other fields.
+    if (checkErrors(inputErrors)) {
+      setErrorMsg("Please fix all fields with errors.");
+      return;
+    }
+
+    // Check if there is an image
     if (uploadedImg.selectedFile) {
       postImage(uploadedImg.selectedFile, formValues.imgFilename);
     }
+    // Add product and reset form
     addProductMutation();
     dispatch(resetForm());
+    setErrorMsg("");
     setUploadedImg({ selectedFile: null });
+    window.scrollTo(0, 0);
+  };
+
+  const checkErrors = (errorObj: { [key: string]: string }) => {
+    const keys = Object.keys(errorObj);
+    return keys.some((err) => (errorObj[err] ? true : false));
   };
 
   const postImage = (file: string | ArrayBuffer, filename: string) => {
@@ -98,13 +127,23 @@ export default function AddProduct() {
             <ProductNameForm
               uploadedImg={uploadedImg}
               setUploadedImg={setUploadedImg}
+              errorMsg={errorMsg}
             />
 
-            <PhysicalAttributesForm />
+            <PhysicalAttributesForm
+              inputErrors={inputErrors}
+              setInputErrors={setInputErrors}
+            />
 
-            <LightQualityForm />
+            <LightQualityForm
+              inputErrors={inputErrors}
+              setInputErrors={setInputErrors}
+            />
 
-            <ConstraintsForm />
+            <ConstraintsForm
+              inputErrors={inputErrors}
+              setInputErrors={setInputErrors}
+            />
           </div>
           <div className='form-body__button'>
             <LoadingButton
@@ -120,6 +159,7 @@ export default function AddProduct() {
               Submit
             </LoadingButton>
           </div>
+          {errorMsg && <div className='form-body__error-msg'>{errorMsg}</div>}
         </div>
       ) : (
         <div className='results-body'>

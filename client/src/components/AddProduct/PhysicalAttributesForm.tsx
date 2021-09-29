@@ -29,12 +29,17 @@ interface IState {
   };
 }
 
-export default function PhysicalAttributesForm() {
+export default function PhysicalAttributesForm({
+  inputErrors,
+  setInputErrors,
+}: {
+  inputErrors: {
+    [key: string]: string;
+  };
+  setInputErrors: any;
+}) {
   const dispatch = useDispatch();
   const [formInput, setFormInput] = useState<IState["formInput"]>({
-    "ip-ratings": "",
-  });
-  const [inputErrors, setInputErrors] = useState<IState["inputErrors"]>({
     "ip-ratings": "",
   });
 

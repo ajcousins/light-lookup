@@ -17,14 +17,17 @@ interface IState {
   };
 }
 
-export default function ConstraintsForm() {
+export default function ConstraintsForm({
+  inputErrors,
+  setInputErrors,
+}: {
+  inputErrors: {
+    [key: string]: string;
+  };
+  setInputErrors: any;
+}) {
   const dispatch = useDispatch();
   const [formInput, setFormInput] = useState<IState["formInput"]>({
-    length: "",
-    width: "",
-    height: "",
-  });
-  const [inputErrors, setInputErrors] = useState<IState["inputErrors"]>({
     length: "",
     width: "",
     height: "",

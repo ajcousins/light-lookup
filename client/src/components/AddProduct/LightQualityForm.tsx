@@ -31,14 +31,22 @@ interface IState {
   };
 }
 
-export default function LightQualityForm() {
+export default function LightQualityForm({
+  inputErrors,
+  setInputErrors,
+}: {
+  inputErrors: {
+    [key: string]: string;
+  };
+  setInputErrors: any;
+}) {
   const dispatch = useDispatch();
   const [formInput, setFormInput] = useState<IState["formInput"]>({
     "beam-angles": "",
   });
-  const [inputErrors, setInputErrors] = useState<IState["inputErrors"]>({
-    "beam-angles": "",
-  });
+  // const [inputErrors, setInputErrors] = useState<IState["inputErrors"]>({
+  //   "beam-angles": "",
+  // });
 
   const [colourTemp, setColourTemp] = useState<IState["colourTemp"]>({
     "1800": false,

@@ -5,7 +5,8 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useQuery } from "@apollo/client";
 import { MANUFACTURERS } from "../../queries/queries";
-import { useDispatch } from "react-redux";
+import { RootState } from "../../app/store";
+import { useDispatch, useSelector } from "react-redux";
 import {
   updateName,
   updateManufacturerId,
@@ -28,11 +29,14 @@ const Input = styled("input")({
 export default function ProductNameForm({
   uploadedImg,
   setUploadedImg,
+  errorMsg,
 }: {
   uploadedImg: any;
   setUploadedImg: any;
+  errorMsg: string;
 }) {
   const dispatch = useDispatch();
+  const formValues = useSelector((state: RootState) => state.addProduct);
   const [productName, setProductName] = useState("");
   const { data } = useQuery(MANUFACTURERS);
   const [manufacturers, setManufacturers] = useState<IState["manufacturers"]>(
@@ -102,6 +106,7 @@ export default function ProductNameForm({
         onChange={(event) => {
           setProductName(event.target.value);
         }}
+        error={(errorMsg ? true : false) && (productName === "" ? true : false)}
       />
       <div className='form-body__label'>Manufacturer:</div>
       <Autocomplete
@@ -113,7 +118,14 @@ export default function ProductNameForm({
         }}
         options={manufacturers.map((val) => val.name)}
         renderInput={(params) => (
-          <TextField {...params} label='Manufacturers' />
+          <TextField
+            {...params}
+            label='Manufacturers'
+            error={
+              (errorMsg ? true : false) &&
+              (formValues.manufacturerId === "" ? true : false)
+            }
+          />
         )}
       />
       <div className='form-body__label'>Upload Image:</div>
@@ -147,11 +159,11 @@ export default function ProductNameForm({
         </>
       ) : (
         <>
-          <div className='form-body__label' style={{ paddingLeft: "2em" }}>
+          <div className='form-body__label' style={{ paddingLeft: "1.5em" }}>
             OR
           </div>
           <div />
-          <div className='form-body__label'>Provide Image URL:</div>
+          <div className='form-body__label'>Image URL:</div>
           <TextField
             id='filled-search'
             label='Image URL'
