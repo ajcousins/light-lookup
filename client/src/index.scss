@@ -4,7 +4,8 @@ $text-grey: #777777;
 $primary: #ffee71;
 $primary-hover: #eedd5f;
 $text-on-primary: #211f0f;
-$panel-background: #575757; // specified in-line to Paper component
+$panel-background: #525252;
+$panel-edge: #8a8a8a;
 
 $light-text-on-dark: #cdced3;
 $light-text-on-panel: #f5f5f7;
@@ -156,6 +157,12 @@ a {
 
 .panel {
   color: $light-text-on-panel;
+  background-color: $panel-background;
+  padding: 0.5em;
+  border-radius: 0.2em;
+  // border: 1px solid $panel-edge;
+  box-shadow: 0 3px 1px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.13),
+    0 0 0 1px rgba(0, 0, 0, 0.02);
   & h4 {
     font-size: 1rem;
     margin-bottom: 0.8em;
