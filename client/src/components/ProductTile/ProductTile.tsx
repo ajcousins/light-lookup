@@ -20,6 +20,7 @@ interface IProps {
     beamAngles: [number];
     manufacturer: { name: string; country: string; website: string };
     imgFilename?: string;
+    remoteUrl?: string;
   };
 }
 
@@ -35,8 +36,10 @@ export default function ProductTile({ product }: IProps) {
         .catch((err) => {
           console.log("Error:", err);
         });
+    } else if (product.remoteUrl) {
+      setImgUrl(product.remoteUrl);
     }
-  }, [product.imgFilename]);
+  }, [product.imgFilename, product.remoteUrl]);
 
   return (
     <Paper

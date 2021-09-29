@@ -61,6 +61,7 @@ export const SEARCH_PRODUCTS = gql`
       width
       height
       imgFilename
+      remoteUrl
       manufacturer {
         name
         country
@@ -85,6 +86,7 @@ export const ADD_PRODUCT = gql`
     $width: Int
     $height: Int
     $imgFilename: String
+    $remoteUrl: String
   ) {
     addProduct(
       name: $name
@@ -100,6 +102,7 @@ export const ADD_PRODUCT = gql`
       width: $width
       height: $height
       imgFilename: $imgFilename
+      remoteUrl: $remoteUrl
     ) {
       name
       mounting
@@ -113,6 +116,7 @@ export const ADD_PRODUCT = gql`
       width
       height
       imgFilename
+      remoteUrl
       manufacturer {
         name
         country

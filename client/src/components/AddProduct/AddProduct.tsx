@@ -28,6 +28,7 @@ interface IState {
     beamAngles: [number];
     manufacturer: { name: string; country: string; website: string };
     imgFilename: string;
+    remoteUrl: string;
   };
 }
 export default function AddProduct() {
@@ -48,6 +49,7 @@ export default function AddProduct() {
     beamAngles: [0],
     manufacturer: { name: "", country: "", website: "" },
     imgFilename: "",
+    remoteUrl: "",
   });
   const [uploadedImg, setUploadedImg] = useState<{
     selectedFile: string | ArrayBuffer | null;

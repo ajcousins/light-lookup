@@ -30,6 +30,7 @@ export default function ResultsBody({
             beamAngles: [number];
             manufacturer: { name: string; country: string; website: string };
             imgFilename?: string;
+            remoteUrl?: string;
           }) => {
             return <ProductTile product={product} />;
           }

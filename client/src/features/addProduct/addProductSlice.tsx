@@ -14,6 +14,7 @@ export interface addProductState {
   width: number;
   height: number;
   imgFilename: string;
+  remoteUrl: string;
 }
 
 const initialState: addProductState = {
@@ -30,6 +31,7 @@ const initialState: addProductState = {
   width: 0,
   height: 0,
   imgFilename: "",
+  remoteUrl: "",
 };
 
 export const addProductSlice = createSlice({
@@ -50,6 +52,7 @@ export const addProductSlice = createSlice({
       state.width = 0;
       state.height = 0;
       state.imgFilename = "";
+      state.remoteUrl = "";
     },
     updateName: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
@@ -90,6 +93,9 @@ export const addProductSlice = createSlice({
     updateImgFilename: (state, action: PayloadAction<string>) => {
       state.imgFilename = action.payload;
     },
+    updateRemoteUrl: (state, action: PayloadAction<string>) => {
+      state.remoteUrl = action.payload;
+    },
   },
 });
 
@@ -108,6 +114,7 @@ export const {
   updateWidth,
   updateHeight,
   updateImgFilename,
+  updateRemoteUrl,
 } = addProductSlice.actions;
 
 export default addProductSlice.reducer;

@@ -10,6 +10,7 @@ import {
   updateName,
   updateManufacturerId,
   updateImgFilename,
+  updateRemoteUrl,
 } from "../../features/addProduct/addProductSlice";
 import parseFilename from "../../form-checks/parseFilename";
 
@@ -38,6 +39,7 @@ export default function ProductNameForm({
     []
   );
   const [selected, setSelected] = useState("");
+  const [remoteUrl, setRemoteUrl] = useState("");
 
   // Populate manufacturers list
   useEffect(() => {
@@ -68,8 +70,13 @@ export default function ProductNameForm({
     }
   }, [productName, dispatch, uploadedImg]);
 
+  useEffect(() => {
+    if (remoteUrl) {
+      dispatch(updateRemoteUrl(remoteUrl));
+    }
+  }, [remoteUrl, dispatch]);
+
   const renderImg = (event: any) => {
-    console.log(event.target.files[0]);
     let file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -117,11 +124,16 @@ export default function ProductNameForm({
           type='file'
           onChange={renderImg}
         />
-        <Button variant='contained' component='span'>
+        <Button
+          variant='contained'
+          component='span'
+          disabled={remoteUrl ? true : false}
+        >
           Upload
         </Button>
       </label>
-      {uploadedImg.selectedFile && (
+
+      {uploadedImg.selectedFile ? (
         <>
           <div />
           <div className='form-body__img-wrapper'>
@@ -131,6 +143,24 @@ export default function ProductNameForm({
               alt='product'
             />
           </div>
+        </>
+      ) : (
+        <>
+          <div className='form-body__label' style={{ paddingLeft: "2em" }}>
+            OR
+          </div>
+          <div />
+          <div className='form-body__label'>Provide Image URL:</div>
+          <TextField
+            id='filled-search'
+            label='Image URL'
+            type='search'
+            value={remoteUrl}
+            disabled={uploadedImg.selectedFile ? true : false}
+            onChange={(event) => {
+              setRemoteUrl(event.target.value);
+            }}
+          />
         </>
       )}
     </>
