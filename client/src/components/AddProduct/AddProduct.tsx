@@ -89,9 +89,9 @@ export default function AddProduct() {
       return;
     }
 
-    // Check if there is an image
+    // Check if there is an image for upload
     if (imgForFirebase) {
-      // Setting states below prompts useImgStorage to fire.
+      // Setting states below triggers useImgStorage
       setImgFilename(formValues.imgFilename);
       setImgFolder("products");
     } else {
@@ -105,6 +105,16 @@ export default function AddProduct() {
   const checkErrors = (errorObj: { [key: string]: string }) => {
     const keys = Object.keys(errorObj);
     return keys.some((err) => (errorObj[err] ? true : false));
+  };
+
+  const resetAll = () => {
+    setImgFilename("");
+    setImgFolder("");
+    dispatch(resetForm());
+    setErrorMsg("");
+    setUploadedImg({ selectedFile: null });
+    window.scrollTo(0, 0);
+    setSubmitSuccess(true);
   };
 
   const [imgFilename, setImgFilename] = useState("");
@@ -121,16 +131,6 @@ export default function AddProduct() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [complete]);
-
-  const resetAll = () => {
-    setImgFilename("");
-    setImgFolder("");
-    dispatch(resetForm());
-    setErrorMsg("");
-    setUploadedImg({ selectedFile: null });
-    window.scrollTo(0, 0);
-    setSubmitSuccess(true);
-  };
 
   return (
     <>
