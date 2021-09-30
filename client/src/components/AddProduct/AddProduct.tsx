@@ -119,11 +119,12 @@ export default function AddProduct() {
 
   const [imgFilename, setImgFilename] = useState("");
   const [imgFolder, setImgFolder] = useState("");
-  const { loading, complete } = useImgStorage(
-    imgForFirebase,
-    imgFilename,
-    imgFolder
-  );
+  const { loading, complete } = useImgStorage({
+    file: imgForFirebase,
+    filename: imgFilename,
+    folder: imgFolder,
+    maxDimension: 300,
+  });
 
   useEffect(() => {
     if (complete) {
