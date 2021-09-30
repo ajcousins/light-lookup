@@ -29,10 +29,12 @@ const Input = styled("input")({
 export default function ProductNameForm({
   uploadedImg,
   setUploadedImg,
+  setImgForFirebase,
   errorMsg,
 }: {
   uploadedImg: any;
   setUploadedImg: any;
+  setImgForFirebase: any;
   errorMsg: string;
 }) {
   const dispatch = useDispatch();
@@ -60,7 +62,7 @@ export default function ProductNameForm({
     }
   }, [data]);
 
-  // Set global states
+  // Set global states from local
   useEffect(() => {
     dispatch(updateName(productName));
     if (selected === "") return;
@@ -81,16 +83,20 @@ export default function ProductNameForm({
     }
   }, [remoteUrl, dispatch]);
 
+  // Render preview of uploaded image and reference file for submission to Firebase.
   const renderImg = (event: any) => {
     let file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
     reader.onloadend = function (e) {
-      // Set image for preview
+      // Set image (data_URL) for preview
       setUploadedImg({ selectedFile: reader.result });
 
-      // Create and set filename
+      // Set image (blob) for firebase upload
+      setImgForFirebase(file);
+
+      // Create and set filename, for upload later.
       dispatch(updateImgFilename(parseFilename(productName)));
     };
   };

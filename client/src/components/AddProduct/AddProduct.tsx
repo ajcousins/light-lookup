@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../app/store";
 import { resetForm } from "../../features/addProduct/addProductSlice";
 import ProductTile from "../ProductTile/ProductTile";
-import { ref, uploadString } from "firebase/storage";
+import { ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../app/firebase";
 
 interface IState {
@@ -54,6 +54,7 @@ export default function AddProduct() {
   const [uploadedImg, setUploadedImg] = useState<{
     selectedFile: string | ArrayBuffer | null;
   }>({ selectedFile: null });
+  const [imgForFirebase, setImgForFirebase] = useState<null | Blob>(null);
   const [inputErrors, setInputErrors] = useState({
     "ip-ratings": "",
     "beam-angles": "",
@@ -62,13 +63,14 @@ export default function AddProduct() {
     height: "",
   });
   const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [addProductMutation] = useMutation(ADD_PRODUCT, {
     variables: formValues,
 
     onCompleted: (data) => {
       setNewProduct(data.addProduct);
-      setSubmitSuccess(true);
+      // setSubmitSuccess(true);
     },
     onError: (err) => {
       console.log(err);
@@ -89,15 +91,14 @@ export default function AddProduct() {
     }
 
     // Check if there is an image
-    if (uploadedImg.selectedFile) {
-      postImage(uploadedImg.selectedFile, formValues.imgFilename);
+    if (imgForFirebase) {
+      postImage(imgForFirebase, formValues.imgFilename);
+      // resetForm called after image upload is complete.
+    } else {
+      resetAll();
     }
-    // Add product and reset form
+    // Add product.
     addProductMutation();
-    dispatch(resetForm());
-    setErrorMsg("");
-    setUploadedImg({ selectedFile: null });
-    window.scrollTo(0, 0);
   };
 
   const checkErrors = (errorObj: { [key: string]: string }) => {
@@ -105,13 +106,34 @@ export default function AddProduct() {
     return keys.some((err) => (errorObj[err] ? true : false));
   };
 
-  const postImage = (file: string | ArrayBuffer, filename: string) => {
+  const postImage = (file: Blob, filename: string) => {
     // Firebase storage
     const imgRef = ref(storage, `products/${filename}`);
 
-    uploadString(imgRef, String(file), "data_url").then((snapshot) => {
-      // console.log("Uploaded Img");
-    });
+    const uploadTask = uploadBytesResumable(imgRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        if (snapshot.state === "running") setLoading(true);
+      },
+      (error) => {
+        console.log("Error:", error);
+      },
+      () => {
+        // Upload completed successfully.
+        resetAll();
+      }
+    );
+  };
+
+  const resetAll = () => {
+    setLoading(false);
+    dispatch(resetForm());
+    setErrorMsg("");
+    setUploadedImg({ selectedFile: null });
+    window.scrollTo(0, 0);
+    setSubmitSuccess(true);
   };
 
   const handleAddAnother = () => {
@@ -127,6 +149,7 @@ export default function AddProduct() {
             <ProductNameForm
               uploadedImg={uploadedImg}
               setUploadedImg={setUploadedImg}
+              setImgForFirebase={setImgForFirebase}
               errorMsg={errorMsg}
             />
 
@@ -147,7 +170,7 @@ export default function AddProduct() {
           </div>
           <div className='form-body__button'>
             <LoadingButton
-              //   loading={loading}
+              loading={loading}
               variant='contained'
               size='large'
               onClick={handleSubmit}
@@ -166,7 +189,7 @@ export default function AddProduct() {
           <ProductTile product={newProduct} />
           <div className='form-body__button'>
             <LoadingButton
-              //   loading={loading}
+              // loading={loading}
               variant='contained'
               size='large'
               onClick={handleAddAnother}
