@@ -15,7 +15,7 @@ const BeamAngle = ({ value }: { value: number }) => {
       width='inherit'
       height='inherit'
       viewBox={`0 0 300 300`}
-      enable-background={`new 0 0 300 300`}
+      enableBackground={`new 0 0 300 300`}
     >
       <rect width='100%' height='100%' fill='white' />
       {/* LEFT */}

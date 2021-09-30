@@ -64,7 +64,9 @@ export default function IpRating() {
             size='small'
           >
             {bodyRating.map((val: { value: number; img: any }) => (
-              <MenuItem value={val.value}>{val.value}</MenuItem>
+              <MenuItem value={val.value} key={val.value}>
+                {val.value}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -80,7 +82,9 @@ export default function IpRating() {
             size='small'
           >
             {moistureRating.map((val: { value: number; img: any }) => (
-              <MenuItem value={val.value}>{val.value}</MenuItem>
+              <MenuItem value={val.value} key={val.value}>
+                {val.value}{" "}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>

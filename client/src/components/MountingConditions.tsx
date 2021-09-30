@@ -78,6 +78,7 @@ export default function MountingConditions() {
             onClick={(event: React.MouseEvent<HTMLDivElement>) =>
               handleClick(event, type)
             }
+            key={type.kebab}
           >
             <img
               className={

@@ -37,7 +37,9 @@ export default function BodyColour() {
           size='small'
         >
           {bodyColours.map((colour) => (
-            <MenuItem value={colour.value}>{colour.output}</MenuItem>
+            <MenuItem value={colour.value} key={colour.value}>
+              {colour.output}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

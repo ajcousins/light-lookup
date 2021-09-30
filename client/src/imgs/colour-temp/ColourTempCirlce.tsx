@@ -10,7 +10,7 @@ export default function ColourTempCirlce({ colour }: { colour: string }) {
       width='inherit'
       height='inherit'
       viewBox='0 0 300 300'
-      enable-background='new 0 0 300 300'
+      enableBackground='new 0 0 300 300'
     >
       <g id='Layer_3'>
         <rect fill={colour} width='300' height='300' />
