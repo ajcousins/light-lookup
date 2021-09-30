@@ -10,7 +10,6 @@ const Input = styled("input")({
 export default function AddProduct() {
   return (
     <>
-      (
       <div className='form-body form-width text-on-background'>
         <h2 style={{ marginBottom: "1em" }}>Manufacturer Registration</h2>
         <div className='form-body__grid form-width'>
@@ -92,7 +91,6 @@ export default function AddProduct() {
         </div>
         {/* {errorMsg && <div className='form-body__error-msg'>{errorMsg}</div>} */}
       </div>
-      )
     </>
   );
 }
