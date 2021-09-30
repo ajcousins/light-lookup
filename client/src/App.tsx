@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Dashboard from "./components/Dashboard";
 import AddProduct from "./components/AddProduct/AddProduct";
+import AddManufacturer from "./components/AddManufacturer/AddManufacturer";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./app/customTheme";
 
@@ -26,6 +27,11 @@ function App() {
                 <div className='structure__body'>
                   <Route exact path='/' component={Dashboard} />
                   <Route exact path='/addproduct' component={AddProduct} />
+                  <Route
+                    exact
+                    path='/addmanufacturer'
+                    component={AddManufacturer}
+                  />
                 </div>
                 <Footer />
               </div>
