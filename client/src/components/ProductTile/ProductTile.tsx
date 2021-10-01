@@ -23,6 +23,8 @@ export default function ProductTile({ product }: ProductType) {
         });
     } else if (product.remoteUrl) {
       setImgUrl(product.remoteUrl);
+    } else {
+      setImgUrl("");
     }
   }, [product.imgFilename, product.remoteUrl]);
 
@@ -38,6 +40,8 @@ export default function ProductTile({ product }: ProductType) {
         .catch((err) => {
           console.log("Error:", err);
         });
+    } else {
+      setManuImgUrl("");
     }
   }, [product.manufacturer.imgFilename, product.remoteUrl]);
 

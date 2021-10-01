@@ -22,7 +22,7 @@ export const MANUFACTURERS = gql`
   }
 `;
 
-export const SEARCH_PRODUCTS = gql`
+export const SEARCH_PRODUCTS_FOR_COUNT = gql`
   query (
     $type: String
     $mounting: String
@@ -37,6 +37,40 @@ export const SEARCH_PRODUCTS = gql`
     $beamAngle: Int
   ) {
     multiple(
+      type: $type
+      mounting: $mounting
+      ipParticle: $ipParticle
+      ipMoisture: $ipMoisture
+      bodyColour: $bodyColour
+      maxLength: $maxLength
+      maxWidth: $maxWidth
+      maxHeight: $maxHeight
+      colourTemp: $colourTemp
+      cri: $cri
+      beamAngle: $beamAngle
+    ) {
+      name
+    }
+  }
+`;
+
+export const SEARCH_PRODUCTS = gql`
+  query (
+    $page: Int
+    $type: String
+    $mounting: String
+    $ipParticle: Int
+    $ipMoisture: Int
+    $bodyColour: String
+    $maxLength: Int
+    $maxWidth: Int
+    $maxHeight: Int
+    $colourTemp: Int
+    $cri: Int
+    $beamAngle: Int
+  ) {
+    multiple(
+      page: $page
       type: $type
       mounting: $mounting
       ipParticle: $ipParticle

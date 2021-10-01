@@ -102,6 +102,7 @@ const RootQuery = new GraphQLObjectType({
     multiple: {
       type: new GraphQLList(ProductType),
       args: {
+        page: { type: GraphQLInt },
         type: { type: GraphQLString },
         mounting: { type: GraphQLString },
         ipParticle: { type: GraphQLInt },
@@ -192,8 +193,23 @@ const RootQuery = new GraphQLObjectType({
           delete queryObj["maxHeight"];
         }
 
+        let page;
+        let limit;
+        let skip;
+
+        // Pagination
+        if (args.page) {
+          page = args.page;
+          limit = 10; // 10 products per page
+          skip = (page - 1) * limit;
+          delete queryObj["page"];
+        } else {
+          limit = 10000;
+          skip = 0;
+        }
+
         console.log("queryObj:", queryObj);
-        return Product.find(queryObj);
+        return Product.find(queryObj).skip(skip).limit(limit);
       },
     },
   },
