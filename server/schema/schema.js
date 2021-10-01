@@ -55,6 +55,7 @@ const ManufacturerType = new GraphQLObjectType({
     name: { type: GraphQLString },
     country: { type: GraphQLString },
     website: { type: GraphQLString },
+    imgFilename: { type: GraphQLString },
     products: {
       type: new GraphQLList(ProductType),
       resolve(parent, args) {
@@ -207,12 +208,14 @@ const Mutation = new GraphQLObjectType({
         name: { type: new GraphQLNonNull(GraphQLString) },
         country: { type: GraphQLString },
         website: { type: GraphQLString },
+        imgFilename: { type: GraphQLString },
       },
       resolve(parent, args) {
         let manufacturer = new Manufacturer({
           name: args.name,
           country: args.country,
           website: args.website,
+          imgFilename: args.imgFilename,
         });
         return manufacturer.save();
       },

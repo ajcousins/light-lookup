@@ -125,3 +125,24 @@ export const ADD_PRODUCT = gql`
     }
   }
 `;
+
+export const ADD_MANUFACTURER = gql`
+  mutation addManufacturer(
+    $name: String!
+    $country: String!
+    $website: String
+    $imgFilename: String
+  ) {
+    addManufacturer(
+      name: $name
+      country: $country
+      website: $website
+      imgFilename: $imgFilename
+    ) {
+      name
+      country
+      website
+      imgFilename
+    }
+  }
+`;

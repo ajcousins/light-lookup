@@ -510,6 +510,18 @@ a {
     }
   }
 
+  &__manu-img-wrapper {
+    height: 4.75em;
+    width: 14em;
+    padding: 0.5em;
+    border: 1pt solid $thin-border-grey;
+    border-radius: 0.4em;
+    display: flex;
+    img {
+      object-fit: cover;
+    }
+  }
+
   &__error-msg {
     margin-top: 2em;
     color: $error-text;
