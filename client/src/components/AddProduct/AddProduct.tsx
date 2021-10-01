@@ -11,31 +11,13 @@ import { RootState } from "../../app/store";
 import { resetForm } from "../../features/addProduct/addProductSlice";
 import ProductTile from "../ProductTile/ProductTile";
 import useImgStorage from "../../hooks/useImgStorage";
+import { ProductType } from "../../types";
 
-interface IState {
-  product: {
-    name: string;
-    mounting: [string];
-    bodyColour: [string];
-    ipParticle: [number];
-    ipMoisture: [number];
-    maxLength: number;
-    maxWidth: number;
-    maxHeight: number;
-    colourTemp: [number];
-    cri: [number];
-    beamAngles: [number];
-    manufacturer: { name: string; country: string; website: string };
-    imgFilename: string;
-    remoteUrl: string;
-  };
-  inputErrors: {};
-}
 export default function AddProduct() {
   const dispatch = useDispatch();
   const formValues = useSelector((state: RootState) => state.addProduct);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [newProduct, setNewProduct] = useState<IState["product"]>({
+  const [newProduct, setNewProduct] = useState<ProductType["product"]>({
     name: "",
     mounting: [""],
     bodyColour: [""],
@@ -47,7 +29,7 @@ export default function AddProduct() {
     colourTemp: [0],
     cri: [0],
     beamAngles: [0],
-    manufacturer: { name: "", country: "", website: "" },
+    manufacturer: { name: "", country: "", website: "", imgFilename: "" },
     imgFilename: "",
     remoteUrl: "",
   });

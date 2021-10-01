@@ -66,6 +66,7 @@ export const SEARCH_PRODUCTS = gql`
         name
         country
         website
+        imgFilename
       }
     }
   }
@@ -121,6 +122,7 @@ export const ADD_PRODUCT = gql`
         name
         country
         website
+        imgFilename
       }
     }
   }
