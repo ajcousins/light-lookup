@@ -4,6 +4,7 @@ import productDefault from "../../imgs/defaults/product-default.jpg";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../app/firebase";
 import { ProductType } from "../../types";
+import ProductTileDetail from "./ProductTileDetail";
 
 export default function ProductTile({ product }: ProductType) {
   const [imgUrl, setImgUrl] = useState("");
@@ -70,75 +71,73 @@ export default function ProductTile({ product }: ProductType) {
       </div>
 
       <div className='data'>
-        <div className='label-text'>Mounting Conditions:</div>
-        <div className='product-info-text'>
-          {product.mounting.length < 1 && <span>-</span>}
-          {product.mounting.map((condition, index) => {
-            return (
-              <span>
-                {condition
-                  .split("-")
-                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                  .join(" ")}
-                {index === product.mounting.length - 1 ? "." : ", "}
-              </span>
-            );
-          })}
-        </div>
+        <ProductTileDetail
+          label='Mounting Conditions'
+          array={product.mounting}
+          mapCb={(condition: string, index: number, arr: any[]) => (
+            <span>
+              {condition
+                .split("-")
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(" ")}
+              {index === arr.length - 1 ? "." : ", "}
+            </span>
+          )}
+        />
 
-        <div className='label-text'>Body Colours:</div>
-        <div className='product-info-text'>
-          {product.bodyColour.length < 1 && <span>-</span>}
-          {product.bodyColour.map((colour, index) => {
-            return (
-              <span>
-                {colour.charAt(0).toUpperCase() + colour.slice(1)}
-                {index === product.bodyColour.length - 1 ? "." : ", "}
-              </span>
-            );
-          })}
-        </div>
+        <ProductTileDetail
+          label='Body Colours'
+          array={product.bodyColour}
+          mapCb={(colour: string, index: number, arr: any[]) => (
+            <span>
+              {colour
+                .split("-")
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(" ")}
+              {index === arr.length - 1 ? "." : ", "}
+            </span>
+          )}
+        />
 
-        <div className='label-text'>IP Ratings:</div>
-        <div className='product-info-text'>
+        <ProductTileDetail label='IP Ratings'>
           <ParseIpRatings
             particleArr={product.ipParticle}
             moistureArr={product.ipMoisture}
           />
-        </div>
+        </ProductTileDetail>
 
-        <div className='label-text'>Colour Temperatures:</div>
-        <div className='product-info-text'>
-          {product.colourTemp.length < 1 && <span>-</span>}
-          {product.colourTemp.map((temperature, index) => (
+        <ProductTileDetail
+          label='Colour Temperatures'
+          array={product.colourTemp}
+          mapCb={(temperature: number, index: number) => (
             <span>
               {temperature}K
               {index === product.colourTemp.length - 1 ? "." : ", "}
             </span>
-          ))}
-        </div>
+          )}
+        />
 
-        <div className='label-text'>CRIs:</div>
-        <div className='product-info-text'>
-          {product.cri.length < 1 && <span>-</span>}
-          {product.cri.map((val, index) => (
+        <ProductTileDetail
+          label='CRIs'
+          array={product.cri}
+          mapCb={(val: number, index: number) => (
             <span>
               {val}
               {index === product.cri.length - 1 ? "." : ", "}
             </span>
-          ))}
-        </div>
+          )}
+        />
 
-        <div className='label-text'>Beam Angles:</div>
-        <div className='product-info-text'>
-          {product.beamAngles.length < 1 && <span>-</span>}
-          {product.beamAngles.map((val, index) => (
+        <ProductTileDetail
+          label='Beam Angles'
+          array={product.beamAngles}
+          mapCb={(val: number, index: number) => (
             <span>
               {val}
               {index === product.beamAngles.length - 1 ? "." : ", "}
             </span>
-          ))}
-        </div>
+          )}
+        />
       </div>
       <div className='manufacturer-section'>
         <div className='label-text' style={{ marginBottom: "0.5em" }}>
