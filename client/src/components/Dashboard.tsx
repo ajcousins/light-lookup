@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Panel from "./Panel";
 import LoadingButton from "@mui/lab/LoadingButton";
 import LightQuality from "./LightQuality";
@@ -11,6 +11,12 @@ import { useSelector } from "react-redux";
 import { useQuery } from "@apollo/client";
 import { SEARCH_PRODUCTS, SEARCH_PRODUCTS_FOR_COUNT } from "../queries/queries";
 import ResultsBody from "./ResultsBody";
+import PageControls from "./PageControls";
+
+interface Pages {
+  current: number;
+  last: number;
+}
 
 export default function Dashboard() {
   const query = useSelector((state: RootState) => state.query);
@@ -18,7 +24,8 @@ export default function Dashboard() {
     useState<any>(null);
   const [queryVariables, setQueryVariables] = useState<any>(null);
   const [showResults, setShowResults] = useState(false);
-  const [page, setPage] = useState(1);
+  const [pages, setPages] = useState<Pages>({ current: 1, last: 1 });
+  const resultsTop = useRef<null | HTMLDivElement>(null);
 
   // Count number of items/ data.length
   const { data: allData } = useQuery(
@@ -30,7 +37,7 @@ export default function Dashboard() {
 
   const handleSearch = () => {
     // Reset page if search button is pressed
-    setPage(1);
+    setPages({ current: 1, last: 1 });
 
     // Query (with no page limit) for result count.
     setQueryVariablesForCount({
@@ -39,7 +46,7 @@ export default function Dashboard() {
 
     // Query again with limit
     setQueryVariables({
-      variables: { ...query, page: page },
+      variables: { ...query, page: pages.current },
     });
 
     // Render results
@@ -48,12 +55,35 @@ export default function Dashboard() {
 
   // Set the number of available pages
   useEffect(() => {
+    let resultsPerPage = 10;
     console.log("allData:", allData);
     console.log(
       "number of pages:",
-      `${allData ? Math.ceil(allData.multiple.length / 10) : ""}`
+      `${allData ? Math.ceil(allData.multiple.length / resultsPerPage) : ""}`
     );
+    const lastPage = () => {
+      if (allData) {
+        return Math.ceil(allData.multiple.length / resultsPerPage);
+      } else return 1;
+    };
+
+    const pagesCopy = { ...pages };
+    pagesCopy.last = lastPage();
+    setPages(pagesCopy);
   }, [allData]);
+
+  // Render current page, when page state updates
+  useEffect(() => {
+    // Query with limit
+    setQueryVariables({
+      variables: { ...query, page: pages.current },
+    });
+  }, [pages, query]);
+
+  const executeScroll = () => {
+    if (resultsTop.current === null) return;
+    resultsTop.current.scrollIntoView({ inline: "start" });
+  };
 
   return (
     <>
@@ -77,6 +107,7 @@ export default function Dashboard() {
           <Dimensions />
         </Panel>
       </div>
+      <div ref={resultsTop} style={{ height: "1em" }} />
       <div className='search-bar'>
         <LoadingButton
           loading={loading}
@@ -93,18 +124,23 @@ export default function Dashboard() {
       </div>
       {showResults && (
         <>
-          {[1, 2, 3, 4, 5].map((page) => {
-            return (
-              <button
-                onClick={() => {
-                  setPage(page);
-                }}
-              >
-                {page}
-              </button>
-            );
-          })}
+          {pages.last === 1 ? null : (
+            <PageControls
+              pages={pages}
+              setPages={setPages}
+              executeScroll={executeScroll}
+            />
+          )}
+
           <ResultsBody error={error} data={data} loading={loading} />
+
+          {pages.last === 1 ? null : (
+            <PageControls
+              pages={pages}
+              setPages={setPages}
+              executeScroll={executeScroll}
+            />
+          )}
         </>
       )}
       <div className='structure__buffer' />

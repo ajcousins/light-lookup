@@ -25,7 +25,7 @@ export default function Footer() {
           <li className='title'>Contact</li>
           <li>alvincousins.com</li>
           <li>alvin.cousins.tech@gmail.com</li>
-          <li>https://github.com/ajcousins</li>
+          <li>github.com/ajcousins</li>
         </ul>
         <div className='structure__footer__inner__bottom'>
           Copyright © 2021 Alvin Cousins. All rights reserved.

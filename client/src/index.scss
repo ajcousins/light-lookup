@@ -450,6 +450,42 @@ a {
   }
 }
 
+.page-controls {
+  // background-color: red;
+  display: flex;
+  justify-content: flex-end;
+  &__btn {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2em;
+    width: 2em;
+    margin-left: 0.4em;
+    border: none;
+    border-radius: 0.7em;
+    font-size: 1rem;
+    background-color: $btn-grey-on-panel;
+    transition: background-color 0.2s;
+    box-shadow: 0 3px 1px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.13),
+      0 0 0 1px rgba(0, 0, 0, 0.02);
+    &:hover {
+      background-color: white;
+    }
+  }
+
+  // &__num {
+  // }
+
+  .btn--disabled {
+    cursor: inherit;
+    background-color: $panel-background;
+  }
+  .btn--current {
+    background-color: $primary;
+  }
+}
+
 // --- ADD PRODUCT PAGE --- //
 
 .form-body {
