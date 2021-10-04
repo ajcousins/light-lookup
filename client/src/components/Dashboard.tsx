@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { useQuery } from "@apollo/client";
 import { SEARCH_PRODUCTS, SEARCH_PRODUCTS_FOR_COUNT } from "../queries/queries";
 import ResultsBody from "./ResultsBody";
-import PageControls from "./PageControls";
+import PageControls from "./PageControls/PageControls";
 
 interface Pages {
   current: number;
@@ -56,20 +56,15 @@ export default function Dashboard() {
   // Set the number of available pages
   useEffect(() => {
     let resultsPerPage = 10;
-    console.log("allData:", allData);
-    console.log(
-      "number of pages:",
-      `${allData ? Math.ceil(allData.multiple.length / resultsPerPage) : ""}`
-    );
     const lastPage = () => {
       if (allData) {
         return Math.ceil(allData.multiple.length / resultsPerPage);
       } else return 1;
     };
-
     const pagesCopy = { ...pages };
     pagesCopy.last = lastPage();
     setPages(pagesCopy);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allData]);
 
   // Render current page, when page state updates

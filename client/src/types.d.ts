@@ -21,3 +21,8 @@ export interface ProductType {
     remoteUrl?: string;
   };
 }
+
+export interface Pages {
+  current: number;
+  last: number;
+}
