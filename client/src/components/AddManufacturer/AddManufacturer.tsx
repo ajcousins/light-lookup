@@ -44,7 +44,7 @@ export default function AddProduct() {
     if (
       !formValues.name ||
       !formValues.country ||
-      !formValues.imgFilename ||
+      !uploadedImg.selectedFile ||
       !formValues.website
     ) {
       setErrorMsg("All fields are required!");
