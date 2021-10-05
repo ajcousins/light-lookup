@@ -9,7 +9,11 @@ import {
   updateCountry,
 } from "../../features/addManufacturer/addManufacturerSlice";
 
-export default function ManuNameForm() {
+export default function ManuNameForm({
+  isSubmitPressed,
+}: {
+  isSubmitPressed: boolean;
+}) {
   const dispatch = useDispatch();
   const [manuName, setManuName] = useState("");
   const [country, setCountry] = useState("");
@@ -37,13 +41,14 @@ export default function ManuNameForm() {
         type='search'
         value={manuName}
         onChange={(event) => setManuName(event.target.value)}
-        // error={(errorMsg ? true : false) && (productName === "" ? true : false)}
+        error={isSubmitPressed && !manuName}
       />
 
       <div className='form-body__label'>Country:</div>
       <Autocomplete
         // value={country as CountryType}
         // onChange={(event: any, newValue: string | null) => setCountry(newValue)}
+
         inputValue={country}
         onInputChange={(event, newInputValue) => {
           setCountry(newInputValue);
@@ -76,6 +81,7 @@ export default function ManuNameForm() {
               ...params.inputProps,
               autoComplete: "new-password", // disable autocomplete and autofill
             }}
+            error={isSubmitPressed && !country}
           />
         )}
       />
