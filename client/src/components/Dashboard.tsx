@@ -73,7 +73,8 @@ export default function Dashboard() {
     setQueryVariables({
       variables: { ...query, page: pages.current },
     });
-  }, [pages, query]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pages]);
 
   const executeScroll = () => {
     if (resultsTop.current === null) return;
