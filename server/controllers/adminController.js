@@ -24,3 +24,18 @@ exports.populate = async (req, res, next) => {
       });
     });
 };
+
+exports.clearProducts = async (req, res, next) => {
+  Product.deleteMany({})
+    .then(() => {
+      res.status(200).json({
+        status: "OK",
+      });
+    })
+    .catch((err) => {
+      res.status(200).json({
+        status: "Error",
+        error: err,
+      });
+    });
+};
