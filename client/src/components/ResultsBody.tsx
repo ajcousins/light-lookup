@@ -23,7 +23,7 @@ export default function ResultsBody({
           {!loading && error
             ? "Error loading results."
             : !loading &&
-              "Looks like there are no results. Try broadening your search?"}
+              "Looks like there are no results. Try broadening your search or resetting some fields."}
         </div>
       )}
     </div>

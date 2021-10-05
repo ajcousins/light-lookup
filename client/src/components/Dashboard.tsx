@@ -76,6 +76,12 @@ export default function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pages]);
 
+  // // TESTING
+  // useEffect(() => {
+  //   console.log("Data:", data);
+  //   console.log("Pages:", pages);
+  // }, [data, pages]);
+
   const executeScroll = () => {
     if (resultsTop.current === null) return;
     resultsTop.current.scrollIntoView({ inline: "start" });
@@ -120,7 +126,7 @@ export default function Dashboard() {
       </div>
       {showResults && (
         <>
-          {pages.last === 1 ? null : (
+          {pages.last < 2 ? null : (
             <PageControls
               pages={pages}
               setPages={setPages}
@@ -130,7 +136,7 @@ export default function Dashboard() {
 
           <ResultsBody error={error} data={data} loading={loading} />
 
-          {pages.last === 1 ? null : (
+          {pages.last < 2 ? null : (
             <PageControls
               pages={pages}
               setPages={setPages}
