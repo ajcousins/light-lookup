@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watchAll"
   },
   "author": "Alvin Cousins",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.996.0",
     "cors": "^2.8.5",
+    "csv-parser": "^3.0.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
@@ -23,6 +24,7 @@
     "sharp": "^0.29.1"
   },
   "devDependencies": {
-    "csv-parser": "^3.0.0"
+    "@rauschma/stringio": "^1.4.0",
+    "jest": "^27.2.4"
   }
 }
