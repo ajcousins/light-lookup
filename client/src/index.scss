@@ -21,9 +21,6 @@ body {
     "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  // height: 100%;
-  // min-height: 100%;
-  // background-color: red;
 }
 
 code {
@@ -57,7 +54,6 @@ a.header-link {
   &__buffer {
     height: 15em;
     width: 100%;
-    // background-color: red;
   }
 
   &__footer {
@@ -76,7 +72,6 @@ a.header-link {
       }
     }
     &__inner {
-      // background-color: red;
       height: 100%;
       margin-top: 2em;
       display: grid;
@@ -101,12 +96,10 @@ a.header-link {
         grid-column-start: 1;
         grid-column-end: 5;
         margin-top: 2em;
-        // background-color: red;
         border-top: 1px solid $thin-border-grey;
         width: 100%;
         display: flex;
         align-items: center;
-        // justify-content: flex-end;
         font-size: 0.75rem;
       }
     }
@@ -129,14 +122,11 @@ a.header-link {
     font-size: 2.25rem;
   }
   &__inner {
-    // background-color: red;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    // margin: auto;
     &__menu {
-      // background-color: cyan;
       display: flex;
     }
     &__item {
@@ -169,7 +159,6 @@ a.header-link {
   background-color: $panel-background;
   padding: 0.5em;
   border-radius: 0.2em;
-  // border: 1px solid $panel-edge;
   box-shadow: 0 3px 1px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.13),
     0 0 0 1px rgba(0, 0, 0, 0.02);
   & h4 {
@@ -390,14 +379,9 @@ a.header-link {
     color: $light-text-on-panel;
     text-decoration: none;
     &:hover {
-      // text-decoration: underline;
       color: $primary;
     }
   }
-  // .link-text {
-  //   font-size: 0.75rem;
-  //   color: $light-text-on-panel;
-  // }
   .label-text {
     font-size: 0.7rem;
     color: $label-text-on-panel;
@@ -439,7 +423,6 @@ a.header-link {
   &__product-img {
     grid-row-start: 1;
     grid-row-end: 3;
-    // display: flex;
     img {
       height: 100%;
       width: 100%;
@@ -450,7 +433,6 @@ a.header-link {
   &__heading {
     grid-column-start: 2;
     grid-column-end: 4;
-    // background-color: red;
     a {
       color: inherit;
       text-decoration: inherit;
@@ -459,7 +441,6 @@ a.header-link {
       display: flex;
     }
     .hover-group {
-      // background-color: red;
       display: flex;
       flex-direction: column;
       width: inherit;
@@ -520,7 +501,6 @@ a.header-link {
 // --- ADD PRODUCT PAGE --- //
 
 .form-body {
-  // background-color: red;
   width: 31em;
   margin: auto;
   margin-bottom: 10em;
@@ -537,10 +517,6 @@ a.header-link {
     margin-top: 2.2em;
   }
 
-  // &__label {
-  //   margin-top: 1em;
-  // }
-
   &__grid {
     margin: auto;
     display: grid;
@@ -550,9 +526,6 @@ a.header-link {
   }
 
   &__option-grid {
-    // background-color: red;
-    // width: 100%;
-    // height: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
@@ -562,7 +535,6 @@ a.header-link {
     grid-column-start: 1;
     grid-column-end: 3;
     font-size: 1.2rem;
-    // font-weight: 300;
     padding-bottom: 1em;
     border-bottom: 1px solid $thin-border-grey;
   }
@@ -576,7 +548,6 @@ a.header-link {
   }
 
   &__button {
-    // background-color: red;
     margin-top: 5em;
     display: flex;
     justify-content: center;
@@ -610,7 +581,6 @@ a.header-link {
     margin-top: 2em;
     color: $error-text;
     text-align: center;
-    // font-weight: 700;
   }
 }
 
@@ -668,10 +638,6 @@ a.header-link {
 }
 
 @media only screen and (max-width: 920px) {
-  // body {
-  //   background-color: red;
-  // }
-
   .body-width {
     width: 45em;
   }
@@ -686,10 +652,6 @@ a.header-link {
 }
 
 @media only screen and (max-width: 750px) {
-  // body {
-  //   background-color: red;
-  // }
-
   .body-width {
     width: 28em;
   }
