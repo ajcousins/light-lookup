@@ -63,9 +63,9 @@ export default function ConstraintsForm({
 
   return (
     <>
-      <h3 className='form-body__sub-heading'>Constriants</h3>
+      <h3 className='form-body__sub-heading'>Constraints</h3>
       <div className='form-body__explanation-text'>
-        Please enter the maximum/ bounding box dimensions of the luminaire.
+        Please enter the maximum (bounding box) dimensions of the luminaire.
       </div>
       <DimensionField
         dimLabel='length'

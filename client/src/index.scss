@@ -36,7 +36,7 @@ code {
   box-sizing: border-box;
 }
 
-a {
+a.header-link {
   text-decoration: none;
   color: $light-text-on-dark;
   :hover {
@@ -378,18 +378,19 @@ a {
 
   color: $light-text-on-panel;
 
-  a {
+  a.manu-link {
     font-size: 0.75rem;
     color: $light-text-on-panel;
     text-decoration: none;
     &:hover {
-      text-decoration: underline;
+      // text-decoration: underline;
+      color: $primary;
     }
   }
-  .link-text {
-    font-size: 0.75rem;
-    color: $light-text-on-panel;
-  }
+  // .link-text {
+  //   font-size: 0.75rem;
+  //   color: $light-text-on-panel;
+  // }
   .label-text {
     font-size: 0.7rem;
     color: $label-text-on-panel;
@@ -442,6 +443,33 @@ a {
   &__heading {
     grid-column-start: 2;
     grid-column-end: 4;
+    // background-color: red;
+    a {
+      color: inherit;
+      text-decoration: inherit;
+    }
+    .hover-group-wrapper {
+      display: flex;
+    }
+    .hover-group {
+      // background-color: red;
+      display: flex;
+      flex-direction: column;
+      width: inherit;
+      &__url {
+        margin-top: 0.25em;
+        font-size: 0.75rem;
+        color: $label-text-on-panel;
+      }
+      &:hover {
+        cursor: pointer;
+        color: $primary;
+      }
+      &:hover .hover-group__url {
+        cursor: pointer;
+        color: $primary;
+      }
+    }
   }
 
   .manufacturer-section {

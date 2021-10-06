@@ -10,10 +10,10 @@ export default function Header() {
           <img src={logo} alt='Light lookup' />
         </a>
         <div className='header__inner__menu'>
-          <NavLink to='/addmanufacturer' exact>
+          <NavLink className='header-link' to='/addmanufacturer' exact>
             <p className='header__inner__item'>Manufacturer</p>
           </NavLink>
-          <NavLink to='/addproduct' exact>
+          <NavLink className='header-link' to='/addproduct' exact>
             <p className='header__inner__item'>Add Product</p>
           </NavLink>
           <p className='header__inner__item'>Sign In</p>

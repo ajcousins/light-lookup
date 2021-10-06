@@ -16,7 +16,7 @@ export default function ResultsBody({
       {data && data.multiple.length > 0 ? (
         data &&
         data.multiple.map((product: ProductType["product"]) => {
-          return <ProductTile product={product} />;
+          return <ProductTile key={product.imgFilename} product={product} />;
         })
       ) : (
         <div className='error-message'>
