@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface addProductState {
   name: string;
   manufacturerId: string;
+  link: string;
   mounting: string[] | null;
   bodyColour: string[] | null;
   ipParticle: number[] | null;
@@ -20,6 +21,7 @@ export interface addProductState {
 const initialState: addProductState = {
   name: "",
   manufacturerId: "",
+  link: "",
   mounting: [],
   bodyColour: [],
   ipParticle: [],
@@ -41,6 +43,7 @@ export const addProductSlice = createSlice({
     resetForm: (state) => {
       state.name = "";
       state.manufacturerId = "";
+      state.link = "";
       state.mounting = [];
       state.bodyColour = [];
       state.ipParticle = [];
@@ -59,6 +62,9 @@ export const addProductSlice = createSlice({
     },
     updateManufacturerId: (state, action: PayloadAction<string>) => {
       state.manufacturerId = action.payload;
+    },
+    updateLink: (state, action: PayloadAction<string>) => {
+      state.link = action.payload;
     },
     updateMounting: (state, action: PayloadAction<string[]>) => {
       state.mounting = action.payload;
@@ -103,6 +109,7 @@ export const {
   resetForm,
   updateName,
   updateManufacturerId,
+  updateLink,
   updateMounting,
   updateBodyColour,
   updateIpParticle,

@@ -1,6 +1,5 @@
 const addIds = (manuArr, productsArr) => {
   const errorList = [];
-  // console.log("manuArr:", manuArr, "productsArr:", productsArr);
   const arr = productsArr.map((product, i) => {
     const index = manuArr.findIndex(
       (manu) => manu.name === product.manufacturer

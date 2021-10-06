@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const productSchema = new Schema({
   name: { type: String, required: true },
   manufacturerId: { type: String, required: true },
-  type: [String],
+  link: { type: String, required: true },
   mounting: [String],
   ipParticle: [Number],
   ipMoisture: [Number],

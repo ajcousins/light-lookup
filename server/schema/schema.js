@@ -29,7 +29,7 @@ const ProductType = new GraphQLObjectType({
       },
     },
     name: { type: GraphQLString },
-    type: { type: new GraphQLList(GraphQLString) },
+    link: { type: GraphQLString },
     mounting: { type: new GraphQLList(GraphQLString) },
     ipParticle: { type: new GraphQLList(GraphQLInt) },
     ipMoisture: { type: new GraphQLList(GraphQLInt) },
@@ -103,7 +103,6 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(ProductType),
       args: {
         page: { type: GraphQLInt },
-        type: { type: GraphQLString },
         mounting: { type: GraphQLString },
         ipParticle: { type: GraphQLInt },
         ipMoisture: { type: GraphQLInt },
@@ -241,7 +240,7 @@ const Mutation = new GraphQLObjectType({
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
         manufacturerId: { type: new GraphQLNonNull(GraphQLID) },
-        type: { type: new GraphQLList(GraphQLString) },
+        link: { type: new GraphQLNonNull(GraphQLString) },
         mounting: { type: new GraphQLList(GraphQLString) },
         ipParticle: { type: new GraphQLList(GraphQLInt) },
         ipMoisture: { type: new GraphQLList(GraphQLInt) },
@@ -261,7 +260,7 @@ const Mutation = new GraphQLObjectType({
         let product = new Product({
           name: args.name,
           manufacturerId: args.manufacturerId,
-          type: args.type,
+          link: args.link,
           mounting: args.mounting,
           ipParticle: args.ipParticle,
           ipMoisture: args.ipMoisture,

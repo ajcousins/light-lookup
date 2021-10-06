@@ -2,6 +2,7 @@
 const sanitise = (arr) => {
   const sanitised = arr.map((product) => {
     let obj = { ...product };
+    console.log("obj", obj);
 
     obj.mounting = stringlistToArray(obj.mounting);
 

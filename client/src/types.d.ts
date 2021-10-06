@@ -1,6 +1,7 @@
 export interface ProductType {
   product: {
     name: string;
+    link: string;
     mounting: [string];
     bodyColour: [string];
     ipParticle: [number];

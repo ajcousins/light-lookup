@@ -24,7 +24,6 @@ export const MANUFACTURERS = gql`
 
 export const SEARCH_PRODUCTS_FOR_COUNT = gql`
   query (
-    $type: String
     $mounting: String
     $ipParticle: Int
     $ipMoisture: Int
@@ -37,7 +36,6 @@ export const SEARCH_PRODUCTS_FOR_COUNT = gql`
     $beamAngle: Int
   ) {
     multiple(
-      type: $type
       mounting: $mounting
       ipParticle: $ipParticle
       ipMoisture: $ipMoisture
@@ -57,7 +55,6 @@ export const SEARCH_PRODUCTS_FOR_COUNT = gql`
 export const SEARCH_PRODUCTS = gql`
   query (
     $page: Int
-    $type: String
     $mounting: String
     $ipParticle: Int
     $ipMoisture: Int
@@ -71,7 +68,6 @@ export const SEARCH_PRODUCTS = gql`
   ) {
     multiple(
       page: $page
-      type: $type
       mounting: $mounting
       ipParticle: $ipParticle
       ipMoisture: $ipMoisture
@@ -85,6 +81,7 @@ export const SEARCH_PRODUCTS = gql`
     ) {
       name
       mounting
+      link
       bodyColour
       ipParticle
       ipMoisture
@@ -110,6 +107,7 @@ export const ADD_PRODUCT = gql`
   mutation addProduct(
     $name: String!
     $manufacturerId: ID!
+    $link: String!
     $mounting: [String]
     $bodyColour: [String]
     $ipParticle: [Int]
@@ -126,6 +124,7 @@ export const ADD_PRODUCT = gql`
     addProduct(
       name: $name
       manufacturerId: $manufacturerId
+      link: $link
       mounting: $mounting
       bodyColour: $bodyColour
       ipParticle: $ipParticle
@@ -141,6 +140,7 @@ export const ADD_PRODUCT = gql`
     ) {
       name
       mounting
+      link
       bodyColour
       ipParticle
       ipMoisture

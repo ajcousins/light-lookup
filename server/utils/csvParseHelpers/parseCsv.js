@@ -3,7 +3,6 @@ const fs = require("fs");
 const sanitise = require("./sanitise");
 
 const parseCsv = (file) => {
-  console.log("file type:", file);
   return new Promise((resolve, reject) => {
     // Parse CSV
     const results = [];
@@ -12,6 +11,7 @@ const parseCsv = (file) => {
       .on("data", (product) => results.push(product))
       .on("end", () => {
         fs.unlinkSync(file);
+        // console.log("sanitise(results):", sanitise(results));
         resolve(sanitise(results));
       });
   });

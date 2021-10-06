@@ -19,6 +19,7 @@ export default function AddProduct() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [newProduct, setNewProduct] = useState<ProductType["product"]>({
     name: "",
+    link: "",
     mounting: [""],
     bodyColour: [""],
     ipParticle: [0],
@@ -60,8 +61,10 @@ export default function AddProduct() {
 
   const handleSubmit = () => {
     // Check if required fields are filled.
-    if (!formValues.name || !formValues.manufacturerId) {
-      setErrorMsg("Product Name and Manufacturer fields are required.");
+    if (!formValues.name || !formValues.manufacturerId || !formValues.link) {
+      setErrorMsg(
+        "Product Name, Manufacturer and Product URL fields are required."
+      );
       return;
     }
 

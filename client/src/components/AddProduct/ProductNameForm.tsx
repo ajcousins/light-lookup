@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   updateName,
   updateManufacturerId,
+  updateLink,
   updateImgFilename,
   updateRemoteUrl,
 } from "../../features/addProduct/addProductSlice";
@@ -40,6 +41,7 @@ export default function ProductNameForm({
   const dispatch = useDispatch();
   const formValues = useSelector((state: RootState) => state.addProduct);
   const [productName, setProductName] = useState("");
+  const [productLink, setProductLink] = useState("");
   const { data } = useQuery(MANUFACTURERS);
   const [manufacturers, setManufacturers] = useState<IState["manufacturers"]>(
     []
@@ -64,7 +66,20 @@ export default function ProductNameForm({
 
   // Set global states from local
   useEffect(() => {
-    dispatch(updateName(productName));
+    const timer = setTimeout(() => {
+      dispatch(updateName(productName));
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [productName, dispatch]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(updateLink(productLink));
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [productLink, dispatch]);
+
+  useEffect(() => {
     if (selected === "") return;
     const index = manufacturers.findIndex((val) => val.name === selected);
     if (index < 0) return;
@@ -133,6 +148,17 @@ export default function ProductNameForm({
             }
           />
         )}
+      />
+      <div className='form-body__label'>Product URL:</div>
+      <TextField
+        id='filled-search'
+        label='Product URL'
+        type='search'
+        value={productLink}
+        onChange={(event) => {
+          setProductLink(event.target.value);
+        }}
+        error={(errorMsg ? true : false) && (productLink === "" ? true : false)}
       />
       <div className='form-body__label'>Upload Image:</div>
       <label htmlFor='image-upload' style={{ display: "flex" }}>
