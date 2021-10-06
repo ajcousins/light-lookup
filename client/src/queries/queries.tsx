@@ -93,6 +93,7 @@ export const SEARCH_PRODUCTS = gql`
       height
       imgFilename
       remoteUrl
+      id
       manufacturer {
         name
         country
@@ -152,6 +153,7 @@ export const ADD_PRODUCT = gql`
       height
       imgFilename
       remoteUrl
+      id
       manufacturer {
         name
         country

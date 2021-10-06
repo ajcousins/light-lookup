@@ -33,6 +33,7 @@ export default function AddProduct() {
     manufacturer: { name: "", country: "", website: "", imgFilename: "" },
     imgFilename: "",
     remoteUrl: "",
+    id: "",
   });
   const [uploadedImg, setUploadedImg] = useState<{
     selectedFile: string | null;

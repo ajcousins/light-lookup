@@ -1,5 +1,6 @@
 import React from "react";
 import { ProductType } from "../../types";
+import limitLink from "./limitLink";
 
 export default function ProductHeading({ product }: ProductType) {
   return (
@@ -16,7 +17,7 @@ export default function ProductHeading({ product }: ProductType) {
               </span>
             </span>
 
-            <span className='hover-group__url'>{product.link}</span>
+            <span className='hover-group__url'>{limitLink(product.link)}</span>
           </span>
         </div>
       </a>

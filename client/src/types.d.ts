@@ -20,6 +20,7 @@ export interface ProductType {
     };
     imgFilename?: string;
     remoteUrl?: string;
+    id: string;
   };
 }
 
