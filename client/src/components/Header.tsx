@@ -16,7 +16,9 @@ export default function Header() {
           <NavLink className='header-link' to='/addproduct' exact>
             <p className='header__inner__item'>Add Product</p>
           </NavLink>
-          <p className='header__inner__item'>Sign In</p>
+          <NavLink className='header-link' to='/comingsoon' exact>
+            <p className='header__inner__item'>Sign In</p>
+          </NavLink>
         </div>
       </div>
     </div>

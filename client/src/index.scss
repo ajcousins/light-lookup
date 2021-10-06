@@ -68,6 +68,13 @@ a.header-link {
     background-color: $footer-background;
     box-shadow: 0 3px 1px rgba(0, 0, 0, 0.1) inset,
       0 4px 8px rgba(0, 0, 0, 0.13) inset, 0 0 0 1px rgba(0, 0, 0, 0.02) inset;
+    &__link {
+      color: $light-text-on-panel;
+      text-decoration: none;
+      &:hover {
+        color: $primary;
+      }
+    }
     &__inner {
       // background-color: red;
       height: 100%;
