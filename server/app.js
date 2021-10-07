@@ -13,12 +13,18 @@ const app = express();
 // app.use(express.urlencoded());
 // app.use(multer());
 
-app.use(
-  cors({
-    origin: "https://light-lookup.pages.dev",
-    methods: ["GET", "POST"],
-  })
-);
+const whitelist = ["https://light-lookup.pages.dev", "http://localhost:3000"];
+const corOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+app.use(cors(corOptions));
 
 mongoose.connect(process.env.DB_CONNECTION_STRING);
 mongoose.connection.once("open", () => {
