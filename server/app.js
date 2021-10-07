@@ -15,7 +15,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://light-lookup.pages.dev/",
+    origin: "https://light-lookup.pages.dev",
     methods: ["GET", "POST"],
   })
 );
