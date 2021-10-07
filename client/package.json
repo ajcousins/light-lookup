@@ -1,5 +1,6 @@
 {
   "name": "client",
+  "proxy": "https://fierce-mesa-20497.herokuapp.com/graphql",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
