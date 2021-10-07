@@ -87,6 +87,10 @@ export default function Dashboard() {
     resultsTop.current.scrollIntoView({ inline: "start" });
   };
 
+  useEffect(() => {
+    console.log("Error:", error);
+  }, [error]);
+
   return (
     <>
       <div className='sub-header'>
@@ -123,6 +127,7 @@ export default function Dashboard() {
         >
           Search
         </LoadingButton>
+        {error && error.message}
       </div>
       {showResults && (
         <>
