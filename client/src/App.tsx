@@ -10,7 +10,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./app/customTheme";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri: process.env.REACT_APP_API_ENDPOINT,
   cache: new InMemoryCache(),
 });
 
