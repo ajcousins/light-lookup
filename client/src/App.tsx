@@ -10,7 +10,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./app/customTheme";
 
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_API_ENDPOINT,
+  uri: "https://fierce-mesa-20497.herokuapp.com/graphql",
   cache: new InMemoryCache(),
 });
 

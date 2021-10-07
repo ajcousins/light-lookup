@@ -13,7 +13,12 @@ const app = express();
 // app.use(express.urlencoded());
 // app.use(multer());
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://light-lookup.pages.dev/",
+    methods: ["GET", "POST"],
+  })
+);
 
 mongoose.connect(process.env.DB_CONNECTION_STRING);
 mongoose.connection.once("open", () => {
