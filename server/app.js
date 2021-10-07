@@ -9,10 +9,6 @@ const adminRouter = require("./routes/adminRouter");
 
 const app = express();
 
-// app.use(bodyParser.json());
-// app.use(express.urlencoded());
-// app.use(multer());
-
 const whitelist = ["https://light-lookup.pages.dev", "http://localhost:3000"];
 const corOptions = {
   origin: function (origin, callback) {
