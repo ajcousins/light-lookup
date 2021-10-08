@@ -76,19 +76,13 @@ export default function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pages]);
 
-  // // TESTING
-  // useEffect(() => {
-  //   console.log("Data:", data);
-  //   console.log("Pages:", pages);
-  // }, [data, pages]);
-
   const executeScroll = () => {
     if (resultsTop.current === null) return;
     resultsTop.current.scrollIntoView({ inline: "start" });
   };
 
   useEffect(() => {
-    console.log("Error:", error);
+    if (error) console.log("Error:", error);
   }, [error]);
 
   return (
@@ -127,7 +121,6 @@ export default function Dashboard() {
         >
           Search
         </LoadingButton>
-        {error && error.message}
       </div>
       {showResults && (
         <>
