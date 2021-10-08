@@ -43,7 +43,10 @@ export default function Footer() {
         </ul>
         <ul>
           <li className='title'>About</li>
-          <FooterLink link='/comingsoon/' text='Summary' />
+          <FooterExternalLink
+            link='https://alvincousins.com/project/light-lookup'
+            text='Summary'
+          />
           <FooterLink link='/comingsoon/' text='Lighting Glossary' />
           <FooterLink link='/comingsoon/' text='FAQ' />
         </ul>
