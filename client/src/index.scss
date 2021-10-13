@@ -3,6 +3,7 @@ $thin-border-grey: #9d9d9d;
 $text-grey: #777777;
 $primary: #ffee71;
 $primary-hover: #eedd5f;
+$secondary: #4a58a0;
 $text-on-primary: #211f0f;
 $panel-background: #525252;
 $panel-edge: #8a8a8a;
@@ -280,6 +281,7 @@ a.header-link {
     width: 6.4em;
     border: 1px solid $thin-border-grey;
     margin-right: 1em;
+    background-color: $secondary;
   }
   &__dimension-tile {
     display: grid;

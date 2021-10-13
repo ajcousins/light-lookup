@@ -93,7 +93,7 @@ export default function LightQuality() {
           ) : (
             <div
               style={{
-                backgroundColor: "#7c7c7c",
+                // backgroundColor: "#7c7c7c",
                 height: "inherit",
                 border: "1px solid #9d9d9d",
               }}

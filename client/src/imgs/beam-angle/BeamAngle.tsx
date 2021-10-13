@@ -20,7 +20,7 @@ const BeamAngle = ({ value }: { value: number }) => {
       <rect width='100%' height='100%' fill='white' />
       {/* LEFT */}
       <rect
-        fill='#00000037'
+        fill='#00000050'
         width='150'
         height='345'
         style={{
@@ -31,7 +31,7 @@ const BeamAngle = ({ value }: { value: number }) => {
       />
 
       <rect
-        fill='#00000037'
+        fill='#00000050'
         width='150'
         height='345'
         style={{
@@ -44,7 +44,7 @@ const BeamAngle = ({ value }: { value: number }) => {
       {/* RIGHT */}
       <rect
         x='150'
-        fill='#00000037'
+        fill='#00000050'
         width='150'
         height='345'
         style={{
@@ -56,7 +56,7 @@ const BeamAngle = ({ value }: { value: number }) => {
 
       <rect
         x='150'
-        fill='#00000037'
+        fill='#00000050'
         width='150'
         height='345'
         style={{
@@ -67,7 +67,7 @@ const BeamAngle = ({ value }: { value: number }) => {
       />
       <rect
         x='150'
-        fill='#00000037'
+        fill='#00000050'
         width='150'
         height='345'
         style={{
@@ -77,7 +77,7 @@ const BeamAngle = ({ value }: { value: number }) => {
         }}
       />
       <rect
-        fill='#00000037'
+        fill='#00000050'
         width='150'
         height='345'
         style={{
