@@ -1,15 +1,15 @@
-import ceilingMounted from "../imgs/mounting-icons/ceiling-mounted.png";
-import ceilingRecessed from "../imgs/mounting-icons/ceiling-recessed.png";
-import suspended from "../imgs/mounting-icons/suspended.png";
-import wallMounted from "../imgs/mounting-icons/wall-mounted.png";
-import wallRecessed from "../imgs/mounting-icons/wall-recessed.png";
-import trackMounted from "../imgs/mounting-icons/track-mounted.png";
-import floorMounted from "../imgs/mounting-icons/floor-mounted.png";
-import floorRecessed from "../imgs/mounting-icons/floor-recessed.png";
-import freestanding from "../imgs/mounting-icons/freestanding.png";
-import nodeSystems from "../imgs/mounting-icons/node-systems.png";
-import linearSystems from "../imgs/mounting-icons/linear-systems.png";
-import areaSystems from "../imgs/mounting-icons/area-systems.png";
+import ceilingMounted from "../imgs/mounting-icons/ceiling-mounted.svg";
+import ceilingRecessed from "../imgs/mounting-icons/ceiling-recessed.svg";
+import suspended from "../imgs/mounting-icons/suspended.svg";
+import wallMounted from "../imgs/mounting-icons/wall-mounted.svg";
+import wallRecessed from "../imgs/mounting-icons/wall-recessed.svg";
+import trackMounted from "../imgs/mounting-icons/track-mounted.svg";
+import floorMounted from "../imgs/mounting-icons/floor-mounted.svg";
+import floorRecessed from "../imgs/mounting-icons/floor-recessed.svg";
+import freestanding from "../imgs/mounting-icons/freestanding.svg";
+import nodeSystems from "../imgs/mounting-icons/node-systems.svg";
+import linearSystems from "../imgs/mounting-icons/linear-systems.svg";
+import areaSystems from "../imgs/mounting-icons/area-systems.svg";
 
 export const mountingTypes = [
   { img: ceilingMounted, kebab: "ceiling-mounted" },
