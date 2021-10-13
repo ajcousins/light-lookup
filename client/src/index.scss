@@ -232,14 +232,15 @@ a.header-link {
     height: calc(100% - 2.5em);
   }
   &__ip-rating-box {
+    background-color: white;
     height: 3.2em;
     width: 3.2em;
-    border: 1px solid $thin-border-grey;
     margin-bottom: 0.5em;
 
     & img {
       position: absolute;
       height: inherit;
+      border: 1px solid $thin-border-grey;
     }
   }
   &__ip-rating-text {
@@ -256,7 +257,7 @@ a.header-link {
   }
   &__icon-status-text {
     position: absolute;
-    left: 0;
+    left: 0.2em;
     bottom: 0;
     font-size: 0.65rem;
   }
@@ -264,8 +265,10 @@ a.header-link {
     position: relative;
     height: 3.2em;
     width: 3.2em;
-    border: 1px solid $thin-border-grey;
     margin-right: 1em;
+    img {
+      border: 1px solid $thin-border-grey;
+    }
   }
   &__cri-box {
     position: relative;
@@ -275,6 +278,13 @@ a.header-link {
     img {
       border: 1px solid $thin-border-grey;
     }
+  }
+  &__beam-angle-box {
+    position: relative;
+    height: 3.2em;
+    width: 3.2em;
+    margin-right: 1em;
+    border: 1px solid $thin-border-grey;
   }
   &__dimensions-box {
     height: 6.4em;
@@ -343,6 +353,28 @@ a.header-link {
         }
       }
     }
+  }
+}
+
+.message-box {
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 50%;
+    margin: 2em auto;
+  }
+  ul {
+    margin-top: 1em;
+    text-align: left;
+  }
+  li {
+    margin-bottom: 1em;
+  }
+  h1 {
+    margin-bottom: 2em;
+    font-weight: 300;
+    text-align: left;
   }
 }
 

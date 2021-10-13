@@ -1,6 +1,7 @@
 import React from "react";
 import ProductTile from "./ProductTile/ProductTile";
 import { ProductType } from "../types";
+import Hints from "./Hints";
 
 export default function ResultsBody({
   error,
@@ -20,10 +21,7 @@ export default function ResultsBody({
         })
       ) : (
         <div className='error-message'>
-          {!loading && error
-            ? "Error loading results."
-            : !loading &&
-              "Looks like there are no results. Try broadening your search or resetting some fields."}
+          {!loading && error ? "Error loading results." : !loading && <Hints />}
         </div>
       )}
     </div>

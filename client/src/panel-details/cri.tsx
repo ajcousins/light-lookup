@@ -6,7 +6,6 @@ import cri95 from "../imgs/cri-icons/triangle-pattern_cri-095.jpg";
 import cri100 from "../imgs/cri-icons/triangle-pattern_cri-100.jpg";
 
 export const cris = [
-  { value: 0, img: cri60 },
   { value: 60, img: cri60 },
   { value: 70, img: cri70 },
   { value: 80, img: cri80 },

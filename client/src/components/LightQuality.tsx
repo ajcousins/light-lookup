@@ -5,7 +5,7 @@ import { sliderStyle } from "../panel-details/custom-styles";
 import {
   temperatures,
   valueLabelFormat,
-  hexColour,
+  cttImg,
 } from "../panel-details/colour-temp";
 import { cris, criImg, criLabelFormat } from "../panel-details/cri";
 import BeamAngle from "../imgs/beam-angle/BeamAngle";
@@ -16,7 +16,7 @@ import {
   updateCri,
   updateBeamAngle,
 } from "../features/query/querySlice";
-import CircleBeam from "../imgs/colour-temp/ColourTempCirlce";
+import beamAngleTextColour from "../panel-details/beam-angle";
 
 export default function LightQuality() {
   const dispatch = useDispatch();
@@ -25,7 +25,6 @@ export default function LightQuality() {
 
   const colourTemp = useSelector((state: RootState) => state.query.colourTemp);
   const cri = useSelector((state: RootState) => state.query.cri);
-  // const beamAngle = useSelector((state: RootState) => state.query.beamAngle);
 
   const handleColourTempChange = (e: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {
@@ -56,9 +55,18 @@ export default function LightQuality() {
     <div className='panel__light-quality-inner'>
       <div className='panel__tile'>
         <div className='panel__colour-temp-box'>
-          <CircleBeam colour={hexColour(colourTemp)} />
-          <div className='panel__icon-status-text'>
-            {colourTemp ? `${colourTemp}K` : ""}
+          {colourTemp ? (
+            <img src={cttImg(colourTemp)} alt='CTT' />
+          ) : (
+            <div
+              style={{
+                height: "inherit",
+                border: "1px solid #9d9d9d",
+              }}
+            />
+          )}
+          <div className='panel__icon-status-text' style={{ color: "white" }}>
+            {colourTemp ? `${colourTemp} K` : ""}
           </div>
         </div>
         <Box sx={{ width: 250 }}>
@@ -93,7 +101,6 @@ export default function LightQuality() {
           ) : (
             <div
               style={{
-                // backgroundColor: "#7c7c7c",
                 height: "inherit",
                 border: "1px solid #9d9d9d",
               }}
@@ -129,9 +136,12 @@ export default function LightQuality() {
         </Box>
       </div>
       <div className='panel__tile'>
-        <div className='panel__colour-temp-box'>
+        <div className='panel__beam-angle-box'>
           <BeamAngle value={diffuse ? 200 : beamAngle} />
-          <div className='panel__icon-status-text'>
+          <div
+            className='panel__icon-status-text'
+            style={{ color: beamAngleTextColour(beamAngle) }}
+          >
             {diffuse ? "DIFFUSE" : beamAngle ? `${beamAngle}°` : ""}
           </div>
         </div>
@@ -139,7 +149,6 @@ export default function LightQuality() {
           <p className='label'>Beam Angle</p>
           <Slider
             aria-label='Default'
-            // defaultValue={70}
             valueLabelFormat={(val) => `${val}°`}
             valueLabelDisplay='auto'
             min={1}
