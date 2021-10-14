@@ -2,6 +2,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import IntroPage from "./components/IntroPage/IntroPage";
 import Dashboard from "./components/Dashboard";
 import AddProduct from "./components/AddProduct/AddProduct";
 import ComingSoon from "./components/ComingSoon";
@@ -28,7 +29,8 @@ function App() {
               <div className='structure'>
                 <Header />
                 <div className='structure__body'>
-                  <Route exact path='/' component={Dashboard} />
+                  <Route exact path='/' component={IntroPage} />
+                  <Route exact path='/dashboard' component={Dashboard} />
                   <Route exact path='/addproduct' component={AddProduct} />
                   <Route exact path='/comingsoon' component={ComingSoon} />
                   <Route
