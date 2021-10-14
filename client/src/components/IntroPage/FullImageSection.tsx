@@ -1,6 +1,6 @@
 import React from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function FullImageSection({
   src,
