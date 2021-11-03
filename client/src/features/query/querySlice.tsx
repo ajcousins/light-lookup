@@ -11,6 +11,7 @@ export interface QueryState {
   maxLength: number;
   maxWidth: number;
   maxHeight: number;
+  lumenOutput: number;
 }
 
 const initialState: QueryState = {
@@ -24,6 +25,7 @@ const initialState: QueryState = {
   maxLength: 250,
   maxWidth: 250,
   maxHeight: 250,
+  lumenOutput: 0,
 };
 
 export const querySlice = createSlice({

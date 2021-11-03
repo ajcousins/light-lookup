@@ -15,6 +15,7 @@ import {
   updateColourTemp,
   updateCri,
   updateBeamAngle,
+  // updateLumenOutput //<----- TO DO
 } from "../features/query/querySlice";
 import beamAngleTextColour from "../panel-details/beam-angle";
 
@@ -22,6 +23,7 @@ export default function LightQuality() {
   const dispatch = useDispatch();
   const [diffuse, setDiffuse] = useState(false);
   const [beamAngle, setBeamAngle] = useState(0);
+  const [lumenOutput, setLumenOutput] = useState(0);
 
   const colourTemp = useSelector((state: RootState) => state.query.colourTemp);
   const cri = useSelector((state: RootState) => state.query.cri);
@@ -44,12 +46,19 @@ export default function LightQuality() {
     }
   };
 
+  const handleLumenOutputChange = (e: Event, newValue: number | number[]) => {
+    if (typeof newValue === "number") {
+      setLumenOutput(newValue);
+    }
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(updateBeamAngle(beamAngle));
+      // dispatch(updateLumenOutput(lumenOutput)); //<---- TO DO
     }, 1000);
     return () => clearTimeout(timer);
-  }, [beamAngle, dispatch]);
+  }, [beamAngle, lumenOutput, dispatch]);
 
   return (
     <div className='panel__light-quality-inner'>
@@ -155,6 +164,51 @@ export default function LightQuality() {
             max={120}
             value={beamAngle}
             onChange={handleBeamAngleChange}
+            size='small'
+            disabled={diffuse}
+            sx={sliderStyle}
+          />
+          <div className='panel__tile__bottom-bar'>
+            <button
+              className={!beamAngle ? "outline" : ""}
+              onClick={() => {
+                setBeamAngle(0);
+                setDiffuse(false);
+              }}
+            >
+              RESET
+            </button>
+            <button
+              onClick={() => {
+                setDiffuse(!diffuse);
+              }}
+              className={diffuse ? "outline" : ""}
+            >
+              DIFFUSE
+            </button>
+          </div>
+        </Box>
+      </div>
+      <div className='panel__tile'>
+        <div className='panel__beam-angle-box'>
+          <BeamAngle value={diffuse ? 200 : beamAngle} />
+          <div
+            className='panel__icon-status-text'
+            style={{ color: beamAngleTextColour(beamAngle) }}
+          >
+            {diffuse ? "DIFFUSE" : beamAngle ? `${beamAngle}°` : ""}
+          </div>
+        </div>
+        <Box sx={{ width: 250 }}>
+          <p className='label'>Lumen Output</p>
+          <Slider
+            aria-label='Default'
+            // valueLabelFormat={(val) => `${val}°`}
+            valueLabelDisplay='auto'
+            min={1}
+            max={3000}
+            value={lumenOutput}
+            onChange={handleLumenOutputChange}
             size='small'
             disabled={diffuse}
             sx={sliderStyle}

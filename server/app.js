@@ -9,7 +9,7 @@ const adminRouter = require("./routes/adminRouter");
 
 const app = express();
 
-const whitelist = ["https://light-lookup.pages.dev", "http://localhost:3000"];
+const whitelist = ["https://light-lookup.pages.dev", "http://localhost:4000"];
 const corOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -20,7 +20,7 @@ const corOptions = {
   },
 };
 
-app.use(cors(corOptions));
+app.use(cors());
 
 mongoose.connect(process.env.DB_CONNECTION_STRING);
 mongoose.connection.once("open", () => {

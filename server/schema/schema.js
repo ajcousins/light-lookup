@@ -44,6 +44,7 @@ const ProductType = new GraphQLObjectType({
     cri: { type: new GraphQLList(GraphQLInt) },
     imgFilename: { type: GraphQLString },
     remoteUrl: { type: GraphQLString },
+    lumenOutput: { type: new GraphQLList(GraphQLInt) },
   }),
 });
 
@@ -113,6 +114,7 @@ const RootQuery = new GraphQLObjectType({
         maxLength: { type: GraphQLInt },
         maxWidth: { type: GraphQLInt },
         maxHeight: { type: GraphQLInt },
+        lumenOutput: { type: GraphQLInt },
       },
       resolve(parent, args) {
         console.log(args);
@@ -168,6 +170,16 @@ const RootQuery = new GraphQLObjectType({
             };
           }
         });
+
+        // keys.forEach((key) => {
+        //   if (key === "lumenOutput") {
+        //     queryObj.lumenOutputs = {
+        //       $gte: args.lumenOutput * 0.9,
+        //       $lte: args.lumenOutput * 1.1,
+        //     };
+        //     delete queryObj[key];
+        //   }
+        // });
 
         // Check if the queryObj has length AND width. If so, length should be the longer of the two.
         if (keys.includes("maxLength") && keys.includes("maxWidth")) {
